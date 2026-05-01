@@ -1,0 +1,14 @@
+{
+  "name": "sports-data-hq-skills",
+  "description": "Sports analytics skills for Claude Code. Build prediction models, analyze odds, track performance. Free skills, paid data via Sports Data HQ MCP.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sports Data HQ"
+  },
+  "homepage": "https://sportsdatahq.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sportsdatahq/sports-data-hq-skills.git"
+  },
+  "license": "MIT"
+}
