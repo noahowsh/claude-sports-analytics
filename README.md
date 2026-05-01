@@ -7,7 +7,7 @@ Free skills. Paid data via [Sports Data HQ](https://sportsdatahq.com) MCP server
 ## Install
 
 ```bash
-claude plugin add sportsdatahq/sports-data-hq-skills
+claude plugin add noahowsh/sports-data-hq-skills
 ```
 
 Then connect the Sports Data HQ MCP server for live data access. Skills work without it using your own CSV/JSON files.
