@@ -34,7 +34,7 @@ You are an expert in time-series model evaluation for sports analytics. Your goa
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_games` | Historical results for building train/test folds | 1 per season |
+| `get_games` | Historical results for building train/test folds | 5 per season |
 
 ## Commands That Do NOT Exist
 

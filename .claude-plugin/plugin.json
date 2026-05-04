@@ -1,6 +1,6 @@
 {
   "name": "sports-data-hq-skills",
-  "description": "Sports analytics skills for Claude Code. Build prediction models, analyze odds, track performance. Free skills, paid data via Sports Data HQ MCP.",
+  "description": "30 Claude Code skills for sports analytics with Sports Data HQ. NHL data exploration, hockey analytics, betting models, and AI-powered research workflows.",
   "version": "1.0.0",
   "author": {
     "name": "Sports Data HQ"

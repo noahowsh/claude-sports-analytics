@@ -6,13 +6,13 @@ Free skills. Paid data via [Sports Data HQ](https://sportsdatahq.com) MCP server
 
 ## Install
 
-Clone this repo and add it as a skill source in Claude Code:
+Clone this repo:
 
 ```bash
 git clone https://github.com/noahowsh/claude-sports-analytics.git
 ```
 
-Then in your project, reference skills from this directory. To connect to the Sports Data HQ MCP server for live data:
+Connect the Sports Data HQ MCP server for live data:
 
 ```bash
 claude mcp add sportsdatahq https://mcp.sportsdatahq.com/mcp --header "Authorization: Bearer YOUR_API_KEY"
@@ -21,6 +21,23 @@ claude mcp add sportsdatahq https://mcp.sportsdatahq.com/mcp --header "Authoriza
 Get your free API key at [sportsdatahq.com/signup](https://sportsdatahq.com/signup).
 
 Skills work without the MCP server using your own CSV/JSON files.
+
+## How Skills Work
+
+Skills are markdown files that Claude reads as context -- they are not executable code. There is nothing to install, compile, or run. The skills teach Claude how to use the 12 Sports Data HQ tools effectively, providing domain knowledge, methodology, anti-patterns, and code templates.
+
+1. **Clone the repo** (above). That gives you the skill files on disk.
+2. **Add the MCP server** with `claude mcp add` (above). This connects Claude to the Sports Data HQ data endpoints.
+3. **Reference a skill by name.** Ask Claude to "load the dispatch skill" or mention any skill (e.g., "use the team-analysis skill"). Claude reads the skill file and gains the domain expertise it contains.
+4. **The dispatch skill routes automatically.** If you describe what you want without naming a skill, dispatch picks the right 2-3 skills for your request.
+
+## Quick Start
+
+Once installed, try these first prompts:
+
+- "Load the dispatch skill and show me tonight's NHL games with odds"
+- "Help me build an expected goals model using the xg-model-building skill"
+- "Analyze the Maple Leafs' season using the team-analysis skill"
 
 ## What's In Here
 
