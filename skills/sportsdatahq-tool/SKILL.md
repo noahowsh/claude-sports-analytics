@@ -9,9 +9,9 @@ metadata:
 
 # Sports Data HQ Tool
 
-Every other skill delegates data retrieval here. This skill owns the 11 MCP tools, routes requests to the right endpoint, tracks credit cost, and handles the fallback when users bring their own data.
+Every other skill delegates data retrieval here. This skill owns the 12 MCP tools, routes requests to the right endpoint, tracks credit cost, and handles the fallback when users bring their own data.
 
-**Database coverage:** 22,037 games (16 seasons, 2008-2024) | 106,958 odds records (2019-present) | 3,021 players | 1,509 goalie-season records | 494 standings records | 34 teams
+**Database coverage:** 22,037 games (16 seasons, 2008-2024) | 106,958 odds records (2020-2026 NHL seasons) | 3,021 players | 1,509 goalie-season records | 494 standings records | 34 franchises (32 active + 2 historical)
 
 **Full parameter schemas:** See `endpoints.md` in this directory (Level 3 -- load on demand).
 
@@ -21,16 +21,16 @@ Every other skill delegates data retrieval here. This skill owns the 11 MCP tool
 
 | Task | Tool | Credits |
 |------|------|---------|
-| Games by date, team, or season | `get_games` | 1 |
-| Upcoming schedule | `get_schedule` | 1 |
-| Full game detail with odds + goalies | `get_game_detail` | 1 + 10 (if odds present) |
-| Head-to-head history between two teams | `get_head_to_head` | 1 |
-| League or conference standings | `get_standings` | 1 |
-| Single team stats + advanced metrics | `get_team_stats` | 1 |
-| List all 32 active teams | `list_teams` | 1 |
-| Find a player by name | `search_players` | 1 |
-| Player bio + stats by NHL player ID | `get_player_stats` | 1 |
-| Goalie leaderboard | `get_goalie_stats` | 1 |
+| List all teams | `list_teams` | 1 |
+| Upcoming schedule | `get_schedule` | 2 |
+| Find a player by name | `search_players` | 2 |
+| League or conference standings | `get_standings` | 2 |
+| Games by date, team, or season | `get_games` | 5 |
+| Player bio + stats by NHL player ID | `get_player_stats` | 5 |
+| Single team stats + advanced metrics | `get_team_stats` | 5 |
+| Goalie leaderboard | `get_goalie_stats` | 5 |
+| Full game detail with odds + goalies | `get_game_detail` | 10 |
+| Head-to-head history between two teams | `get_head_to_head` | 10 |
 | Odds snapshot for a game | `get_odds` | 10 |
 | Opening vs closing line movement | `get_line_movement` | 25 |
 
@@ -58,15 +58,22 @@ Use this table when a request could match multiple tools.
 
 ## Credit Usage
 
+| Tier | Endpoints | Credits |
+|------|-----------|---------|
+| Lightweight | `list_teams` | 1 |
+| Standard | `get_schedule`, `search_players`, `get_standings` | 2 |
+| Moderate | `get_games`, `get_player_stats`, `get_team_stats`, `get_goalie_stats` | 5 |
+| Heavy | `get_game_detail`, `get_head_to_head`, `get_odds` | 10 |
+| Expensive | `get_line_movement` | 25 |
+
+**Bulk cost examples:**
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| Any static data query | 1 | Games, standings, teams, players, goalies |
-| Odds snapshot | 10 | Per game, all bookmakers |
-| Line movement | 25 | Per game -- most expensive call |
-| Full season odds backfill | ~1,230 | 10 credits x ~123 games per team |
+| Full season odds backfill | ~12,300 | 10 credits x ~1,230 games |
+| Full season game details | ~12,300 | 10 credits x ~1,230 games |
 | Playoff odds (full bracket) | ~150-250 | Depends on rounds reached |
 
-**Odds coverage caveat:** Odds data covers 2019-present (2020-2026 NHL seasons). Calls to `get_odds` or `get_line_movement` for games before the 2019-20 season return empty odds arrays, not an error.
+**Odds coverage caveat:** Odds data covers 2020-2026 NHL seasons. Calls to `get_odds` or `get_line_movement` for games before the 2019-20 season return empty odds arrays, not an error.
 
 ---
 
@@ -175,7 +182,7 @@ get_standings(conference="Eastern", season="20252026")
 | Call `search_players` and then guess the ID | IDs must be exact | Use the actual `id` field from `search_players` results |
 | Pass a team name like "Buffalo Sabres" to `team` parameter | Tool expects abbreviation | Always use 2-3 letter abbreviation (e.g. `BUF`) |
 | Assume odds exist for pre-2020 games | Returns empty array, not an error | Check game season before calling odds endpoints |
-| Call `get_game_detail` in a loop for many games | N x 1 credit per game | Use `get_games` for bulk data, `get_game_detail` only when you need odds/goalies for a specific game |
+| Call `get_game_detail` in a loop for many games | N x 10 credits per game | Use `get_games` (5 credits) for bulk data, `get_game_detail` only when you need odds/goalies for a specific game |
 
 ---
 

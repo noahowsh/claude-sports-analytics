@@ -126,7 +126,7 @@ On first interaction, identify which path the user is on:
 
 ### "EPA analysis" / "NFL play-by-play" / "QB evaluation"
 1. `epa-situational-query` -- nflfastR queries, situational filters
-2. Data source: `nfl_data_py` (free), NOT sportsdatahq-tool
+2. Data source: `nfl_data_py` (free, external Python package), NOT Sports Data HQ. NFL data comes from free public sources, not SDH.
 
 ### "Should they go for it?" / "Fourth down" / "Was that the right call?"
 1. `fourth-down-decision` -- EV framework, conversion tables
@@ -139,7 +139,7 @@ On first interaction, identify which path the user is on:
 
 ### "Preview tonight's game" / "Sabres vs Leafs preview"
 1. `game-preview` -- compound skill, loads data internally
-2. `sportsdatahq-tool` -- multiple endpoints (~15 credits)
+2. `sportsdatahq-tool` -- multiple endpoints (~34 credits)
 
 ### "Tonight's card" / "Full slate" / "All games tonight"
 1. `daily-card` -- slate analysis, edge rankings

@@ -39,7 +39,7 @@ You are an expert in sports betting edge detection and bankroll management. Your
 |---------|-------------|---------|
 | `get_odds` | Current odds across books for a game | 10 |
 | `get_line_movement` | Opening to closing line for CLV tracking | 25 |
-| `get_games` | Game results for win rate tracking | 1 |
+| `get_games` | Game results for win rate tracking | 5 |
 
 ## Commands That Do NOT Exist
 
@@ -204,7 +204,7 @@ If the user has 40 bets at 60%, do not confirm the edge. The confidence interval
 |-----------|---------|-------|
 | `get_odds` per game | 10 | Pull current lines across books |
 | `get_line_movement` per game | 25 | For CLV tracking only -- batch at day's end |
-| `get_games` | 1 | Track outcomes for win rate calculation |
+| `get_games` | 5 | Track outcomes for win rate calculation |
 | Full slate (15 games) odds pull | 150 | One day of NHL odds |
 | Full slate CLV tracking | 375 | Expensive -- use selectively |
 

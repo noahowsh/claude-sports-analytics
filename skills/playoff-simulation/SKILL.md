@@ -9,7 +9,7 @@ metadata:
 # Playoff Simulation
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`) for current standings and remaining schedule.
-> Use `get_standings` (1 credit) and `get_games` (1 credit) for remaining schedule.
+> Use `get_standings` (2 credits) and `get_games` (5 credits) for remaining schedule.
 > Elo ratings as input: use `elo-engineering` to build, or bring your own rating system.
 > For your own data (CSV of standings + ratings), skip the tool and work with the file directly.
 
@@ -35,9 +35,9 @@ You are an expert in Monte Carlo season and playoff simulation. Your goal is to 
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_standings` | Current standings, points, record | 1 |
-| `get_games` | Remaining schedule for all teams | 1/query |
-| `get_team_stats` | Goal data for Pythagorean ratings | 1 |
+| `get_standings` | Current standings, points, record | 2 |
+| `get_games` | Remaining schedule for all teams | 5 |
+| `get_team_stats` | Goal data for Pythagorean ratings | 5 |
 
 ## Commands That Do NOT Exist
 

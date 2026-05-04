@@ -6,11 +6,21 @@ Free skills. Paid data via [Sports Data HQ](https://sportsdatahq.com) MCP server
 
 ## Install
 
+Clone this repo and add it as a skill source in Claude Code:
+
 ```bash
-claude plugin add noahowsh/claude-sports-analytics
+git clone https://github.com/noahowsh/claude-sports-analytics.git
 ```
 
-Then connect the Sports Data HQ MCP server for live data access. Skills work without it using your own CSV/JSON files.
+Then in your project, reference skills from this directory. To connect to the Sports Data HQ MCP server for live data:
+
+```bash
+claude mcp add sportsdatahq https://mcp.sportsdatahq.com/mcp --header "Authorization: Bearer YOUR_API_KEY"
+```
+
+Get your free API key at [sportsdatahq.com/signup](https://sportsdatahq.com/signup).
+
+Skills work without the MCP server using your own CSV/JSON files.
 
 ## What's In Here
 
@@ -74,11 +84,11 @@ Then connect the Sports Data HQ MCP server for live data access. Skills work wit
 ### Infrastructure (1 skill)
 | Skill | What It Does |
 |-------|-------------|
-| `sportsdatahq-tool` | MCP tool router. 11 endpoints, credit tracking, BYOD support. |
+| `sportsdatahq-tool` | MCP tool router. 12 endpoints, credit tracking, BYOD support. |
 
 ## Data Sources
 
-**Sports Data HQ MCP** (default): 22,000+ NHL games (2008-present), 107,000+ odds records (2019-present), 3,000+ players, all 32 teams. Pay-as-you-go credits.
+**Sports Data HQ MCP** (default): 22,000+ NHL games (2008-present), 107,000+ odds records (2020-2026 NHL seasons), 3,000+ players, 34 franchises (32 active + 2 historical). Pay-as-you-go credits.
 
 **nflfastR** (NFL): Free Python package. 372 pre-computed columns including EPA, CPOE, win probability. Back to 1999.
 
@@ -88,14 +98,13 @@ Then connect the Sports Data HQ MCP server for live data access. Skills work wit
 
 | Endpoint | Credits |
 |----------|---------|
-| Games, schedule, standings, teams | 1 |
-| Player stats, goalie stats | 1 |
-| Game detail | 1 |
-| Head-to-head | 1 |
-| Odds snapshot | 10 |
+| List teams | 1 |
+| Schedule, search players, standings | 2 |
+| Games, player stats, goalie stats, team stats | 5 |
+| Game detail, head-to-head, odds snapshot | 10 |
 | Line movement | 25 |
 
-A full game preview costs ~15 credits. A full season backtest with odds can cost 12,000+. Skills warn you before expensive operations.
+A full game preview costs ~34 credits. A full season backtest with odds can cost 12,000+. Skills warn you before expensive operations.
 
 ## Docs
 

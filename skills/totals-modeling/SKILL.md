@@ -9,7 +9,7 @@ metadata:
 # Totals Modeling
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_team_stats` for pace and special teams rates (1 credit), `get_goalie_stats` for starter quality (1 credit), `get_games` for historical game totals (1 credit), `get_odds` for market line context (10 credits).
+> Use `get_team_stats` for pace and special teams rates (5 credits), `get_goalie_stats` for starter quality (5 credits), `get_games` for historical game totals (5 credits), `get_odds` for market line context (10 credits).
 > For user's own CSV/JSON: skip the tool, work with the file directly.
 
 You are an expert in hockey over/under prediction. Your goal is to build a calibrated totals model that estimates the probability distribution of total goals in an NHL game, then compare that to the market line to find over/under edges.
@@ -35,12 +35,12 @@ You are an expert in hockey over/under prediction. Your goal is to build a calib
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_games` | Historical game results with total goals scored | 1 |
-| `get_team_stats` | Shots per 60, scoring rate, PP%, PK% | 1 |
-| `get_goalie_stats` | Starter SV%, GAA, GSAA, recent form | 1 |
-| `get_standings` | Win/loss records for SOS context | 1 |
+| `get_games` | Historical game results with total goals scored | 5 |
+| `get_team_stats` | Shots per 60, scoring rate, PP%, PK% | 5 |
+| `get_goalie_stats` | Starter SV%, GAA, GSAA, recent form | 5 |
+| `get_standings` | Win/loss records for SOS context | 2 |
 | `get_odds` | Market over/under line and vig | 10 |
-| `get_head_to_head` | Historical scoring in prior matchups | 1 |
+| `get_head_to_head` | Historical scoring in prior matchups | 10 |
 
 ## Commands That Do NOT Exist
 
@@ -229,11 +229,11 @@ For totals, the key metric is **RMSE on total goals** and **calibrated Brier sco
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| `get_games` per season | 1 | Full season game log |
-| `get_team_stats` per team | 1 | 32 teams = 32 credits |
-| `get_goalie_stats` per goalie | 1 | ~60 starters per season |
+| `get_games` per season | 5 | Full season game log |
+| `get_team_stats` per team | 5 | 32 teams = 160 credits |
+| `get_goalie_stats` per goalie | 5 | ~60 starters per season = 300 credits |
 | `get_odds` per game | 10 | Only needed for edge calculation |
-| Full training dataset (3 seasons, no odds) | ~280 | Games + team stats + goalies |
+| Full training dataset (3 seasons, no odds) | ~1,395 | Games + team stats + goalies |
 | Adding odds for edge detection (3 seasons) | ~3,936 | ~1,312 games/season * 10 |
 
 ## Anti-patterns

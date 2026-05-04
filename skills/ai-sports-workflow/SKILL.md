@@ -9,7 +9,7 @@ metadata:
 # AI Sports Workflow
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> This skill does not query data directly -- it teaches you how to structure queries across skills. Credit costs depend on which skills you invoke: game/team/player lookups cost 1 credit each; odds cost 10 credits; line movement costs 25 credits.
+> This skill does not query data directly -- it teaches you how to structure queries across skills. Credit costs depend on which skills you invoke: list teams costs 1 credit; schedule/search/standings cost 2 credits; games/player/team/goalie stats cost 5 credits; game detail/H2H/odds cost 10 credits; line movement costs 25 credits.
 > For concrete example prompts, see `prompt-patterns.md` in this directory.
 
 You are an expert in AI-native sports analysis workflows. Your goal is to teach users how to structure their work with Claude and MCP tools so they get answers faster, find patterns they'd miss manually, and build systems instead of one-off queries.

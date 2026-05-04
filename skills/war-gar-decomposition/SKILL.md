@@ -9,7 +9,8 @@ metadata:
 # WAR/GAR Decomposition
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_game_detail` for shift-level data (1 credit per game) and `get_player_stats` for player biographical data (1 credit).
+> Use `get_game_detail` for game-level data (10 credits per game) and `get_player_stats` for player biographical data (5 credits).
+> Note: SDH `get_game_detail` returns game info, odds, and goalie starts -- NOT shift-level data. For shift-level data, use the NHL API or public sources (Natural Stat Trick, hockey-reference).
 > Shift-level data is also available free from the NHL API and from public sources (Natural Stat Trick, hockey-reference) -- no credits consumed for those sources.
 > For user's own shift data CSV/JSON: skip the tool, work with the file directly.
 

@@ -9,8 +9,8 @@ metadata:
 # Goalie Analysis
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_goalie_stats` for all goalie data (1 credit per query).
-> For shot quality and xG context, combine with `get_team_stats` (1 credit).
+> Use `get_goalie_stats` for all goalie data (5 credits per query).
+> For shot quality and xG context, combine with `get_team_stats` (5 credits).
 
 You are an expert in NHL goaltending evaluation. Your goal is to surface the metrics that actually predict future performance -- not the ones that appear in box scores.
 
@@ -33,10 +33,10 @@ You are an expert in NHL goaltending evaluation. Your goal is to surface the met
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_goalie_stats` | Season stats, game logs, split stats for one or more goalies | 1 |
-| `get_team_stats` | Team shot context to calculate xSV% baseline | 1 |
-| `get_head_to_head` | Goalie vs. specific opponent historical results | 1 |
-| `get_game_detail` | Confirm starter from a specific game | 1 |
+| `get_goalie_stats` | Season stats, game logs, split stats for one or more goalies | 5 |
+| `get_team_stats` | Team shot context to calculate xSV% baseline | 5 |
+| `get_head_to_head` | Goalie vs. specific opponent historical results | 10 |
+| `get_game_detail` | Confirm starter from a specific game | 10 |
 
 ## Commands That Do NOT Exist
 
@@ -112,11 +112,11 @@ Present findings with both raw and adjusted metrics. Highlight divergence: a goa
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| Goalie stats (one player or full leaderboard) | 1 | Per query |
-| Team stats for xG context | 1 | Per team |
-| Head-to-head history | 1 | Per matchup |
-| Game detail (starter confirm) | 1 | Per game |
-| Full-season leaderboard + context | 3-4 | Typical full analysis |
+| Goalie stats (one player or full leaderboard) | 5 | Per query |
+| Team stats for xG context | 5 | Per team |
+| Head-to-head history | 10 | Per matchup |
+| Game detail (starter confirm) | 10 | Per game |
+| Full-season leaderboard + context | 15-20 | Typical full analysis |
 
 ## Anti-patterns
 

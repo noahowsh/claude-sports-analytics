@@ -2,16 +2,19 @@
 name: xg-model-building
 description: "Builds expected goals (xG) models from NHL play-by-play shot event data using XGBoost or LightGBM. Use when user asks about expected goals, xG model, shot quality, building an xG model, xGF%, xGA, rebound detection, rush shot detection, or shot probability. Do not use for applying pre-built xG values to team or game analysis -- see team-analysis or hockey-analytics. Do not use for general game prediction models -- see model-building. Do not use for goalie evaluation using xGA -- see goalie-analysis."
 metadata:
-  version: 1.0.0
+  version: 1.1.0
   author: Sports Data HQ
 ---
 
 # xG Model Building
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_game_detail` for play-by-play shot events (1 credit per game).
-> NHL play-by-play is also available free from the NHL Stats API (`api.nhle.com`) -- no credits consumed for that source.
-> For user's own shot data CSV/JSON: skip the tool, work with the file directly.
+> **Important: Sports Data HQ does NOT have play-by-play data.** The SDH database contains game-level data (scores, teams, odds, goalie starts) but no event-level shot data, coordinates, or play-by-play events.
+>
+> **Primary data source for xG:** The NHL Stats API at `api-web.nhle.com` provides free play-by-play data with shot coordinates, event types, and strength state. No API key or credits required.
+>
+> **Sports Data HQ is useful for:** Validating your xG model output against team-level stats (`get_team_stats`, 5 credits) and goalie stats (`get_goalie_stats`, 5 credits).
+>
+> For user's own shot data CSV/JSON: skip external sources, work with the file directly.
 
 You are an expert in hockey expected goals modeling. Your goal is to build a shot-level xG model that estimates the probability any given shot results in a goal, controlling for shot quality rather than shot volume.
 
@@ -31,40 +34,60 @@ You are an expert in hockey expected goals modeling. Your goal is to build a sho
 - Evaluating goalie quality using xGA -- see `goalie-analysis`
 - General feature engineering for non-xG features -- see `feature-engineering`
 
-## Commands Available
+## Data Sources
+
+### NHL Stats API (primary, free)
+
+The NHL Stats API provides play-by-play event data for every game:
+
+```
+https://api-web.nhle.com/v1/gamecenter/{gameId}/play-by-play
+```
+
+Each play-by-play response includes shot events with:
+- Event type (SHOT, GOAL, MISS, BLOCK)
+- x/y coordinates (NHL coordinate system, feet, center ice = 0,0)
+- Shot type (wrist, slap, snap, backhand, tip, deflection, wrap-around)
+- Strength state (5v5, PP, SH, EN)
+- Period and game time
+- Shooter and goalie IDs
+
+This is the same data that MoneyPuck and Evolving Hockey use. No credits consumed.
+
+### Sports Data HQ (validation only)
+
+SDH endpoints useful for validating your xG model output:
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_game_detail` | Play-by-play events for a single game, including shot coordinates | 1 |
-| `get_games` | Game list to iterate over for bulk play-by-play pulls | 1 |
-| `get_team_stats` | Team-level shot and goal summaries (for validation) | 1 |
-| `get_goalie_stats` | Goalie save totals (for xGA validation) | 1 |
+| `get_team_stats` | Team-level shot and goal summaries (compare your xGF% to team performance) | 5 |
+| `get_goalie_stats` | Goalie save totals (for xGA validation) | 5 |
+| `get_games` | Game list to get game IDs for NHL API play-by-play pulls | 5 |
 
-## Commands That Do NOT Exist
+SDH does NOT provide: play-by-play events, shot coordinates, event types, shot-level data.
 
-| Not Available | Use Instead |
-|--------------|-------------|
-| `get_play_by_play` | Use `get_game_detail` -- play-by-play is embedded in game detail |
-| `get_shot_events` | Use `get_game_detail` and filter for event types: SHOT, GOAL, MISS, BLOCK |
-| `get_xg_values` | No pre-computed xG endpoint. Build the model, then apply it to shots |
-| `get_shot_coordinates_bulk` | Pull `get_game_detail` per game and aggregate |
+### Your Own Data
 
-## Data Source
-
-**Sports Data HQ (default):** Pull `get_game_detail` for each game in the date range. Filter events to shot types: SHOT, GOAL, MISS, BLOCK. Each event carries coordinates (x, y), event type, shooter, goalie, strength state, period, and time.
-
-**NHL Stats API (free alternative):** `https://api.nhle.com/stats/rest/en/game/{gameId}/plays` -- no credits consumed. Same event structure. Use this source for historical volume (multiple seasons) where credit cost would be prohibitive.
-
-**Your own data:** If user provides CSV/JSON:
+If user provides CSV/JSON:
 1. Verify required columns: `x_coord`, `y_coord`, `shot_type`, `strength_state`, `period`, `game_seconds`, `event_type` (SHOT/GOAL/MISS/BLOCK), `shooter_id`, `goalie_id`
 2. Verify coordinate system is consistent (NHL uses feet, center ice = 0,0)
 3. Flag missing coordinates -- do not silently drop
-4. Note: credits are not consumed
+4. No credits consumed
+
+## Commands That Do NOT Exist (in Sports Data HQ)
+
+| Not Available in SDH | Where to Get It |
+|---------------------|-----------------|
+| Play-by-play events | NHL Stats API (`api-web.nhle.com`) -- free |
+| Shot coordinates | NHL Stats API -- free |
+| Shot event types | NHL Stats API -- free |
+| Pre-computed xG values | Build the model yourself, or reference MoneyPuck/Evolving Hockey |
+| Bulk shot coordinate export | Pull NHL API per game and aggregate |
 
 ## Initial Assessment
 
 Before building, establish:
-1. What is the data source? (Sports Data HQ, NHL API free, or user's own data)
+1. What is the data source? (NHL Stats API free, or user's own data)
 2. How many seasons? (1 season minimum; 3+ seasons produces more stable coefficients)
 3. What is the end use? (team-level xGF%, player-level scoring, goalie evaluation -- determines how to aggregate shot-level predictions)
 
@@ -72,7 +95,7 @@ Before building, establish:
 
 ### Step 1: Collect Shot Events
 
-Pull play-by-play and filter to shot events:
+Pull play-by-play from the NHL Stats API and filter to shot events:
 - `SHOT` (on goal, saved)
 - `GOAL`
 - `MISS` (missed net)
@@ -167,6 +190,8 @@ team_xg = df.groupby(['game_id', 'team'])['xg'].sum()
 
 Compare `xGF/xGA` per team against public values from MoneyPuck or Evolving Hockey. Correlation should exceed 0.85.
 
+You can also validate against SDH team stats: pull `get_team_stats` (5 credits) to compare your team-level xG aggregates against the xG values in the standings data.
+
 ### Step 6: Aggregate to Team Level
 
 ```python
@@ -189,10 +214,11 @@ team_xgf_pct = xg_5v5 / (xg_5v5.groupby('game_id').transform('sum'))
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| `get_game_detail` per game | 1 | Pull play-by-play for one game |
-| Full NHL regular season | ~1,312 | 82 games * 32 teams / 2 (each game = 1 call) |
-| One team's home games | ~41 | 41 home games per team per season |
-| Free NHL API alternative | 0 | Use for historical bulk pulls |
+| NHL Stats API play-by-play | 0 | Free -- no credits consumed |
+| Full NHL regular season PBP | 0 | ~1,312 game API calls, all free |
+| `get_team_stats` (validation) | 5 | Compare your xGF% to SDH team stats |
+| `get_goalie_stats` (validation) | 5 | Compare your xGA to SDH goalie stats |
+| `get_games` (get game IDs) | 5 | Pull game list, then use IDs for NHL API |
 
 ## Anti-patterns
 
@@ -204,6 +230,7 @@ team_xgf_pct = xg_5v5 / (xg_5v5.groupby('game_id').transform('sum'))
 | "Blocked shots should be included the same as saved shots" | Blocked shots are a different event with different outcome distribution; mixing them without a flag distorts calibration | Either exclude blocks or include a `is_blocked` indicator |
 | "I'll validate against total goals only" | Total goals validation misses calibration problems at the shot level | Validate Brier score at shot level AND team-level xGF% correlation |
 | "Screen/traffic data isn't available so skip it" | Acknowledging the gap is correct -- just document it as a known model limitation | Note it as a known gap; NHL EDGE tracking may expose it in future data |
+| "I'll use Sports Data HQ get_game_detail for shot data" | SDH has game-level data only (scores, odds, goalies) -- no play-by-play or shot coordinates | Use the NHL Stats API for play-by-play data (free) |
 
 ## Output Format
 

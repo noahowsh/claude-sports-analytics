@@ -128,7 +128,7 @@ Full details for one game: team info, all available odds, and goalie starts.
 | `awayGoalie` | Away starting goalie name |
 | (additional fields vary by data availability) |
 
-**Credit note:** Calling `get_game_detail` costs 1 credit. If the game has odds records, those are included at no additional credit cost (the 10-credit charge is for `get_odds` directly, not for odds returned via `get_game_detail`).
+**Credit note:** Calling `get_game_detail` costs 10 credits (flat, regardless of whether odds data is present). This is the same cost as `get_odds` -- the difference is `get_game_detail` also returns team info and goalie starts in a single call.
 
 ---
 
@@ -445,7 +445,7 @@ Odds snapshots for a game ordered chronologically by bookmaker, showing how line
 - Snapshots ordered ascending by `capturedAt` within each bookmaker
 - Fields per snapshot: `bookmaker` `snapshotType` `mlHome` `mlAway` `spreadHome` `total` `capturedAt`
 - Does not include probability fields (use `get_odds` for implied probabilities)
-- Same coverage restriction as `get_odds` (2019-present)
+- Same coverage restriction as `get_odds` (2020-2026 NHL seasons)
 
 ---
 

@@ -9,7 +9,7 @@ metadata:
 # Feature Engineering
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_games` for game results (1 credit), `get_team_stats` for team-level stats (1 credit), `get_goalie_stats` for goalie data (1 credit).
+> Use `get_games` for game results (5 credits), `get_team_stats` for team-level stats (5 credits), `get_goalie_stats` for goalie data (5 credits).
 > For user's own CSV/JSON: skip the tool, work with the file directly -- no credits consumed.
 
 You are an expert in sports feature engineering. Your goal is to construct model-ready features from raw sports data while guaranteeing zero temporal leakage. This is where 80% of beginners fail.
@@ -35,10 +35,10 @@ You are an expert in sports feature engineering. Your goal is to construct model
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_games` | Historical game results for rolling calculations | 1 |
-| `get_team_stats` | Season and split team stats | 1 |
-| `get_goalie_stats` | Starter SV%, GSAA, recent starts | 1 |
-| `get_head_to_head` | Head-to-head history for matchup features | 1 |
+| `get_games` | Historical game results for rolling calculations | 5 |
+| `get_team_stats` | Season and split team stats | 5 |
+| `get_goalie_stats` | Starter SV%, GSAA, recent starts | 5 |
+| `get_head_to_head` | Head-to-head history for matchup features | 10 |
 
 ## Commands That Do NOT Exist
 
@@ -185,10 +185,10 @@ See `feature-catalog.md` for the full recommended feature list with leakage risk
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| `get_games` per season | 1 | Pull full season game log |
-| `get_team_stats` | 1 | Season splits per team |
-| `get_goalie_stats` | 1 | Per goalie per season |
-| Full NHL season feature build | ~35 | 30 teams * 1 + goalie calls |
+| `get_games` per season | 5 | Pull full season game log |
+| `get_team_stats` | 5 | Season splits per team |
+| `get_goalie_stats` | 5 | Per goalie per season |
+| Full NHL season feature build | ~475 | 32 teams * 5 (stats) + 32 * 5 (goalies) + games |
 
 ## Anti-patterns
 

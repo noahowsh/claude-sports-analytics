@@ -9,7 +9,7 @@ metadata:
 # Team Analysis
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_standings` for current standings and playoff positioning (1 credit), `get_team_stats` for offensive/defensive metrics (1 credit), `list_teams` to resolve team names and IDs (1 credit).
+> Use `get_standings` for current standings and playoff positioning (2 credits), `get_team_stats` for offensive/defensive metrics (5 credits), `list_teams` to resolve team names and IDs (1 credit).
 > For user's own team data CSV, skip the tool and work with the file directly.
 
 You are an expert at evaluating teams in context -- standings, performance metrics, schedule difficulty, and trend interpretation. Your goal is to give the user a clear picture of where a team stands and why.
@@ -36,8 +36,8 @@ You are an expert at evaluating teams in context -- standings, performance metri
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_standings` | Current standings by division and conference, includes points, record, ROW | 1 |
-| `get_team_stats` | Team-level offensive and defensive stats for a season | 1 |
+| `get_standings` | Current standings by division and conference, includes points, record, ROW | 2 |
+| `get_team_stats` | Team-level offensive and defensive stats for a season | 5 |
 | `list_teams` | All teams with IDs, cities, names -- use to resolve team identity | 1 |
 
 ## Commands That Do NOT Exist
@@ -72,7 +72,7 @@ Before querying, understand:
 
 ### Step 1: Resolve the team(s)
 
-If the team name is ambiguous (e.g., "the Leafs" vs. "Toronto"), use `list_teams` to confirm ID before pulling stats. This costs 1 credit and prevents silent wrong results.
+If the team name is ambiguous (e.g., "the Leafs" vs. "Toronto"), use `list_teams` to confirm ID before pulling stats. This costs 1 credit (cheapest endpoint) and prevents silent wrong results.
 
 ### Step 2: Choose the right query
 
@@ -122,13 +122,13 @@ For trend questions ("they've been hot lately"), pull `get_team_stats` for two w
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| Full standings (one call) | 1 | All teams, all divisions |
-| Team stats (one team, one season) | 1 | Per query |
+| Full standings (one call) | 2 | All teams, all divisions |
+| Team stats (one team, one season) | 5 | Per query |
 | Team list / ID resolution | 1 | One-time cost per session |
-| Two-team comparison | 2 | One `get_team_stats` call per team |
-| Full division comparison (8 teams) | 8 | One call per team for stats |
+| Two-team comparison | 10 | One `get_team_stats` call per team |
+| Full division comparison (8 teams) | 40 | One call per team for stats |
 
-**Cost note:** Standings are 1 credit for the full league snapshot. Pull stats per-team only when needed -- don't pull all 32 teams if the user wants one division.
+**Cost note:** Standings are 2 credits for the full league snapshot. Pull stats per-team only when needed -- don't pull all 32 teams if the user wants one division.
 
 ## Anti-patterns
 

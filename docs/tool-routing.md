@@ -8,15 +8,16 @@ Use for ALL NHL data needs unless the user specifically brings their own data.
 
 | Data Need | Endpoint | Credits |
 |-----------|----------|---------|
-| Game scores, results, schedule | `get_games`, `get_schedule` | 1 |
-| Single game detail | `get_game_detail` | 1 |
-| Head-to-head history | `get_head_to_head` | 1 |
-| Standings | `get_standings` | 1 |
-| Team season stats | `get_team_stats` | 1 |
 | Team list | `list_teams` | 1 |
-| Player search | `search_players` | 1 |
-| Player season stats | `get_player_stats` | 1 |
-| Goalie season stats | `get_goalie_stats` | 1 |
+| Upcoming schedule | `get_schedule` | 2 |
+| Player search | `search_players` | 2 |
+| Standings | `get_standings` | 2 |
+| Game scores, results | `get_games` | 5 |
+| Player bio + goalie stats | `get_player_stats` | 5 |
+| Team season stats | `get_team_stats` | 5 |
+| Goalie season stats | `get_goalie_stats` | 5 |
+| Single game detail (with odds + goalies) | `get_game_detail` | 10 |
+| Head-to-head history | `get_head_to_head` | 10 |
 | Current odds (ML, spread, total) | `get_odds` | 10 |
 | Line movement history | `get_line_movement` | 25 |
 

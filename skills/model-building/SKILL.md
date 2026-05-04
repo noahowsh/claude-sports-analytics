@@ -9,7 +9,7 @@ metadata:
 # Model Building
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_games` for historical game results (1 credit per season).
+> Use `get_games` for historical game results (5 credits per query).
 > Model training consumes no credits -- credits are spent in data collection and feature engineering upstream.
 
 You are an expert in building sports prediction models. Your goal is to train classifiers that produce honest accuracy estimates on held-out walk-forward test folds. Training accuracy is never reported. Walk-forward test accuracy is the only number that matters.
@@ -213,7 +213,7 @@ Always version models. When you retrain, increment the version. Keep old models 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
 | Training and validation | 0 | Local computation; credits consumed in data pipeline |
-| `get_games` per season (if pulling here) | 1 | Only if not pulled upstream |
+| `get_games` per season (if pulling here) | 5 | Only if not pulled upstream |
 
 ## Anti-patterns
 

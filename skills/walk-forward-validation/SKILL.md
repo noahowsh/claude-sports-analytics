@@ -9,7 +9,7 @@ metadata:
 # Walk-Forward Validation
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_games` for historical game results (1 credit per season query).
+> Use `get_games` for historical game results (5 credits per query).
 > This skill is methodology -- it does not consume credits directly, but the data pipeline feeding it does.
 
 You are an expert in time-series model evaluation for sports analytics. Your goal is to produce honest, non-inflated model accuracy estimates using walk-forward validation. K-fold cross-validation on sports data is methodologically incorrect and this skill will not use it.
@@ -194,8 +194,8 @@ If accuracy varies wildly across folds (e.g., 65% in fold 1, 52% in fold 2), the
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| `get_games` per season | 1 | Pull full season results |
-| Full 5-season validation setup | ~5 | One call per season |
+| `get_games` per season | 5 | Pull full season results |
+| Full 5-season validation setup | ~25 | One call per season |
 | Adding market baselines via `get_odds` | 10/game | One full season = ~1,230 credits |
 
 ## Anti-patterns

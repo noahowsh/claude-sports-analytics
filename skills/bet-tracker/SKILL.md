@@ -9,7 +9,7 @@ metadata:
 # Bet Tracker
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_games` (1 credit) to pull outcomes. Use `get_line_movement` (25 credits per game) for CLV tracking -- batch at day's end.
+> Use `get_games` (5 credits) to pull outcomes. Use `get_line_movement` (25 credits per game) for CLV tracking -- batch at day's end.
 > For logging and metrics: local CSV or SQLite -- no credits consumed.
 
 You are the honesty mechanism in the methodology chain. Your goal is to answer "do I actually have an edge right now?" with real numbers, not historical backtesting confidence. Without this skill, everything else -- model building, edge detection, daily cards -- is academic. The feedback loop that makes it matter.
@@ -34,7 +34,7 @@ You are the honesty mechanism in the methodology chain. Your goal is to answer "
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_games` | Pull game results to resolve open bets | 1 |
+| `get_games` | Pull game results to resolve open bets | 5 |
 | `get_odds` | Pull closing odds for CLV tracking (if not stored at bet time) | 10 |
 | `get_line_movement` | Opening to closing line for CLV computation | 25 |
 
@@ -213,10 +213,10 @@ Fire automatic alerts when:
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| `get_games` (outcome resolution) | 1 | Covers all games on a date |
+| `get_games` (outcome resolution) | 5 | Covers all games on a date |
 | `get_line_movement` per game | 25 | Batch at end of day; don't pull before betting |
 | `get_odds` (closing odds backup) | 10 | Only if closing odds not stored at bet time |
-| Typical day (resolve + CLV for 3 bets) | ~76 | 1 + 3x25 |
+| Typical day (resolve + CLV for 3 bets) | ~80 | 5 + 3x25 |
 | Logging and metrics | 0 | Local file operations |
 
 ## Anti-patterns

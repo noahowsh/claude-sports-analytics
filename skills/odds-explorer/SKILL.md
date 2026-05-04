@@ -81,7 +81,7 @@ Before starting, understand:
 
 **Step 1: Confirm game identity**
 
-If the user asks about a team or matchup without a specific game ID, call `get_schedule` (1 credit) to get the game ID first. This prevents pulling odds for the wrong game.
+If the user asks about a team or matchup without a specific game ID, call `get_schedule` (2 credits) to get the game ID first. This prevents pulling odds for the wrong game.
 
 **Step 2: Pull current odds**
 
@@ -146,9 +146,9 @@ When a user appears unfamiliar with American odds format:
 | Line movement (one game) | 25 | Full open-to-close history |
 | Odds for full tonight's slate | 10 x N games | 15-game NHL night = 150 credits |
 | Line movement for full slate | 25 x N games | Use selectively; most expensive call |
-| Schedule lookup (game ID) | 1 | Do this first if no game ID |
+| Schedule lookup (game ID) | 2 | Do this first if no game ID |
 
-**Credit guidance:** For a single-game best-price lookup, total cost is 10-11 credits. For a sharp-money analysis with movement, 26 credits. Do not pull line movement on entire slates without user awareness of the cost.
+**Credit guidance:** For a single-game best-price lookup, total cost is 10-12 credits. For a sharp-money analysis with movement, 35 credits. Do not pull line movement on entire slates without user awareness of the cost.
 
 ## Anti-patterns
 

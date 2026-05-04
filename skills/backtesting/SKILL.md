@@ -9,7 +9,7 @@ metadata:
 # Backtesting
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_odds` for historical odds (10 credits per game), `get_games` for results (1 credit per query).
+> Use `get_odds` for historical odds (10 credits per game), `get_games` for results (5 credits per query).
 > **Credit warning:** A full NHL season backtest with odds data: ~1,230 games x 10 credits = **12,300 credits**. Plan accordingly. For initial testing, sample 1-2 months before running a full season.
 > For user's own historical data: skip the tool, no credits consumed.
 
@@ -37,9 +37,9 @@ You are an expert in walk-forward backtesting for sports betting strategies. You
 | Command | What It Does | Credits |
 |---------|-------------|---------|
 | `get_odds` | Historical odds for a game | 10 |
-| `get_games` | Historical game results | 1 |
-| `get_team_stats` | Season stats for context | 1 |
-| `get_standings` | Historical standings for SOS context | 1 |
+| `get_games` | Historical game results | 5 |
+| `get_team_stats` | Season stats for context | 5 |
+| `get_standings` | Historical standings for SOS context | 2 |
 
 ## Commands That Do NOT Exist
 
@@ -56,7 +56,7 @@ You are an expert in walk-forward backtesting for sports betting strategies. You
 
 **Credit planning before starting:**
 ```
-Estimated cost = num_games * 10 (odds) + num_queries * 1 (results)
+Estimated cost = num_games * 10 (odds) + num_queries * 5 (results)
 One NHL season: ~1,230 games = ~12,300 credits
 One month sample: ~100 games = ~1,000 credits
 ```
@@ -266,7 +266,7 @@ A model with Brier score above the naive baseline has negative value.
 | Operation | Credits | Notes |
 |-----------|---------|-------|
 | `get_odds` per game | 10 | Historical odds -- most expensive operation |
-| `get_games` per query | 1 | Historical results |
+| `get_games` per query | 5 | Historical results |
 | One month backtest (NHL) | ~1,000 | ~100 games x 10 credits |
 | Half-season backtest (NHL) | ~6,150 | ~615 games x 10 credits |
 | Full-season backtest (NHL) | ~12,300 | ~1,230 games x 10 credits |

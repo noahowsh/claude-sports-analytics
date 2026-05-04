@@ -9,8 +9,8 @@ metadata:
 # Daily Card
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Uses `get_games` (1 credit) to pull tonight's slate, then `get_odds` (10 credits per game) for odds.
-> Credit cost: ~10-15 credits per game. A 7-game NHL night = 71-106 credits. A 15-game night = 151-226 credits.
+> Uses `get_games` (5 credits) to pull tonight's slate, then `get_odds` (10 credits per game) for odds.
+> Credit cost: ~15 credits per game. A 7-game NHL night = ~75 credits. A 15-game night = ~155 credits.
 > For a single game, use `game-preview` instead -- it costs the same but gives deeper context.
 
 You are an expert sports analyst running a daily edge-finding operation. Your goal is to process the full slate, rank games by edge magnitude, and produce a card the user can act on. This is the daily retention loop -- one command, every game day.
@@ -34,10 +34,10 @@ You are an expert sports analyst running a daily edge-finding operation. Your go
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_games` | Tonight's slate with game IDs, teams, times | 1 |
+| `get_games` | Tonight's slate with game IDs, teams, times | 5 |
 | `get_odds` | Moneyline, puck line, total across books per game | 10 |
-| `get_standings` | Current records for context on any game | 1 |
-| `get_team_stats` | Quick stats snapshot for flagging notable matchups | 1 |
+| `get_standings` | Current records for context on any game | 2 |
+| `get_team_stats` | Quick stats snapshot for flagging notable matchups | 5 |
 
 ## Commands That Do NOT Exist
 
@@ -129,12 +129,12 @@ Total edges found, total recommended exposure, highest single exposure, key unce
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| `get_games` (full slate) | 1 | One call covers all games |
+| `get_games` (full slate) | 5 | One call covers all games |
 | `get_odds` per game | 10 | The main cost driver |
-| 5-game slate | ~51 | get_games + 5x get_odds |
-| 7-game NHL night | ~71 | Typical NHL Tuesday |
-| 15-game NHL night | ~151 | Heavy weekend slate |
-| `get_standings` (context) | 1 | Optional; skip for speed |
+| 5-game slate | ~55 | get_games + 5x get_odds |
+| 7-game NHL night | ~75 | Typical NHL Tuesday |
+| 15-game NHL night | ~155 | Heavy weekend slate |
+| `get_standings` (context) | 2 | Optional; skip for speed |
 | `get_line_movement` per game | 25 | Only pull on request -- expensive |
 
 **Credit warning:** For slates over 10 games, confirm with user before pulling all odds. A 15-game night at 10 credits per game = 150 credits from odds alone.

@@ -9,7 +9,7 @@ metadata:
 # Game Lookup
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_games` for schedule and results (1 credit), `get_schedule` for a team's full calendar (1 credit), `get_game_detail` for box score and play-by-play (1 credit), `get_head_to_head` for matchup history (1 credit).
+> Use `get_games` for schedule and results (5 credits), `get_schedule` for a team's full calendar (2 credits), `get_game_detail` for full game info with odds and goalies (10 credits), `get_head_to_head` for matchup history (10 credits).
 > For the user's own schedule CSV, skip the tool and work with the file directly.
 
 You are an expert at finding and surfacing game data. Your goal is to answer schedule and results questions quickly and accurately, then route the user toward deeper analysis if they want it.
@@ -35,10 +35,10 @@ You are an expert at finding and surfacing game data. Your goal is to answer sch
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_games` | Games by date range and/or team, returns scores and status | 1 |
-| `get_schedule` | Full season schedule for a team | 1 |
-| `get_game_detail` | Box score, period scores, play-by-play for a specific game | 1 |
-| `get_head_to_head` | Historical matchup record between two teams | 1 |
+| `get_games` | Games by date range and/or team, returns scores and status | 5 |
+| `get_schedule` | Full season schedule for a team | 2 |
+| `get_game_detail` | Full game info with odds and goalie starts | 10 |
+| `get_head_to_head` | Historical matchup record between two teams | 10 |
 
 ## Commands That Do NOT Exist
 
@@ -114,19 +114,19 @@ Present results in the output format below. Offer routing to deeper skills only 
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| Single date game lookup | 1 | Returns all games that day |
-| Team schedule | 1 | Full season calendar |
-| Game detail (box score) | 1 | One game |
-| Head-to-head history | 1 | All historical matchups, two teams |
-| Full-week slate | 1 | One `get_games` call with date range |
+| Single date game lookup | 5 | Returns all games that day via `get_games` |
+| Team schedule | 2 | Full season calendar via `get_schedule` |
+| Game detail (full info + odds + goalies) | 10 | One game via `get_game_detail` |
+| Head-to-head history | 10 | All historical matchups, two teams |
+| Full-week slate | 5 | One `get_games` call with date range |
 
-**Cost note:** All game-lookup operations cost 1 credit each. This is the cheapest skill to run -- use it freely to orient before pulling odds (10 credits) or line movement (25 credits).
+**Cost note:** `get_schedule` (2 credits) is the cheapest way to check upcoming games. Use `get_games` (5 credits) for broader lookups. Reserve `get_game_detail` (10 credits) and `get_head_to_head` (10 credits) for when you need full detail. Odds (10 credits) and line movement (25 credits) are the most expensive.
 
 ## Anti-patterns
 
 | Rationalization | Why It's Wrong | Do This Instead |
 |----------------|---------------|-----------------|
-| "I'll use `get_game_detail` for every result to get more data" | Box scores cost the same but are unnecessary for a simple score query | Use `get_games` for results; only escalate to `get_game_detail` if the user wants period scores or play-by-play |
+| "I'll use `get_game_detail` for every result to get more data" | `get_game_detail` costs 10 credits vs 5 for `get_games` and is unnecessary for a simple score query | Use `get_games` for results; only escalate to `get_game_detail` if the user wants odds or goalie start info for a specific game |
 | "I'll pull the full schedule and filter locally" | Wastes the user's time; API filters are faster and cheaper | Filter at the query level using team and date parameters |
 | "The team name looks close enough, I'll proceed" | Partial matches cause silent wrong results | Verify exact team name with `list_teams` if unsure |
 | "No results probably means no games" | Could be a wrong date, wrong team, or off-season | Explicitly state what was queried and suggest alternate interpretations |

@@ -9,8 +9,8 @@ metadata:
 # Elo Engineering
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_games` (1 credit) for historical game results to build and update ratings.
-> Use `get_team_stats` (1 credit) for goal/score data needed for Component Elo.
+> Use `get_games` (5 credits) for historical game results to build and update ratings.
+> Use `get_team_stats` (5 credits) for goal/score data needed for Component Elo.
 > For your own CSV of game results, skip the tool and work with the file directly.
 
 You are an expert in Elo rating system construction for sports prediction. Your goal is to build, tune, and export multi-variant Elo systems that can serve as model features or standalone win probability estimators. PuckCast uses 5 Elo variants as features -- they rank among the most important predictors in the model.

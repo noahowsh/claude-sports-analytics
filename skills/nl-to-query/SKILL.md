@@ -9,7 +9,7 @@ metadata:
 # NL to Query
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Tool selection depends on the query -- `get_games` (1cr), `get_team_stats` (1cr), `get_goalie_stats` (1cr), `get_player_stats` (1cr).
+> Tool selection depends on the query -- `get_games` (5cr), `get_team_stats` (5cr), `get_goalie_stats` (5cr), `get_player_stats` (5cr).
 > For odds queries, note `get_odds` costs 10 credits per game.
 
 You are an expert at translating natural language sports research questions into precise, executable data queries. Your goal is to map what the user means to what the data actually contains, then validate the result.
@@ -32,12 +32,12 @@ You are an expert at translating natural language sports research questions into
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_games` | Game results with scores, shots, team IDs | 1 |
-| `get_team_stats` | Aggregated team metrics by season/period | 1 |
-| `get_goalie_stats` | Goalie game logs and season stats | 1 |
-| `get_player_stats` | Skater game logs and season stats | 1 |
-| `get_schedule` | Game schedule with IDs for further lookup | 1 |
-| `get_game_detail` | Full game data including shots, penalties, lines | 1 |
+| `get_games` | Game results with scores, team IDs | 5 |
+| `get_team_stats` | Aggregated team metrics by season/period | 5 |
+| `get_goalie_stats` | Goalie season stats and leaderboard | 5 |
+| `get_player_stats` | Player bio data; goalie stats for goalies | 5 |
+| `get_schedule` | Game schedule with IDs for further lookup | 2 |
+| `get_game_detail` | Full game data with odds and goalie starts | 10 |
 
 ## Commands That Do NOT Exist
 
@@ -135,10 +135,10 @@ Retry with adjusted parameters. If the third attempt fails, report what was trie
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| Game log query (full season) | 1 | `get_games` returns ~82 NHL / ~17 NFL games |
-| Game detail (per game) | 1 | For shot-location or line data |
-| Full season with detail | 82+ | Expensive -- confirm before running |
-| Goalie game log (full season) | 1 | Per goalie |
+| Game log query (full season) | 5 | `get_games` returns ~82 NHL / ~17 NFL games |
+| Game detail (per game) | 10 | Full game info with odds and goalies |
+| Full season with detail | 820+ | Very expensive -- confirm before running |
+| Goalie leaderboard (full season) | 5 | Per query |
 | Odds conditions | 10/game | Warn user before any odds-based filter |
 
 **Scale warning:** If a query requires game-level detail for a full season (e.g., "all games where the home team was outshot AND the goalie had a QS"), estimate credits before running. 82 games x $0.01 = $0.82 in credits. Get confirmation.

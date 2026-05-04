@@ -9,7 +9,7 @@ metadata:
 # Probability Calibration
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_games` (1 credit) to retrieve historical results for calibration analysis.
+> Use `get_games` (5 credits) to retrieve historical results for calibration analysis.
 > Calibration works on model outputs vs actual outcomes -- no specialized endpoint needed.
 > Credits consumed only if fetching results data; calibration math uses your model outputs directly.
 

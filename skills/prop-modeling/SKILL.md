@@ -2,14 +2,18 @@
 name: prop-modeling
 description: "Builds player prop prediction models for NHL player stats -- points, shots on goal, saves, blocked shots, and power play points. Use when user asks about prop modeling, player prop predictions, anytime goal scorer odds, shots on goal props, save props, DFS player projections, or player stat projections. Do not use for team-level game prediction -- see model-building. Do not use for player comparison or scouting without modeling -- see player-scouting. Do not use for exploring current prop lines -- see odds-explorer."
 metadata:
-  version: 1.0.0
+  version: 1.1.0
   author: Sports Data HQ
 ---
 
 # Prop Modeling
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_player_stats` for skater stats and TOI (1 credit), `get_goalie_stats` for save and start data (1 credit), `get_team_stats` for team-level rates that drive player usage (1 credit), `get_odds` for prop line context (10 credits).
+>
+> **Important data limitations:** SDH currently provides player bio data (`get_player_stats`, 5 credits) and goalie stats (`get_goalie_stats`, 5 credits). SDH does NOT have skater season stats (goals, assists, points, shots, TOI). For skater game logs, use the NHL Stats API (`api-web.nhle.com`) -- free, no credits.
+>
+> **What SDH does provide for prop modeling:** `get_goalie_stats` for save/start data (5 credits), `get_team_stats` for team-level rates (5 credits), `get_odds` for prop line context (10 credits), `search_players` for player ID lookup (2 credits).
+>
 > For user's own CSV/JSON: skip the tool, work with the file directly.
 
 You are an expert in NHL player prop modeling. Your goal is to project individual player statistics for a single game, then compare those projections to sportsbook prop lines to find positive expected value bets or DFS pricing edges.
@@ -32,37 +36,53 @@ You are an expert in NHL player prop modeling. Your goal is to project individua
 - Goalie quality evaluation over a season -- see `goalie-analysis`
 - Game total (over/under) prediction -- see `totals-modeling`
 
-## Commands Available
+## Data Sources
 
-| Command | What It Does | Credits |
-|---------|-------------|---------|
-| `get_player_stats` | Per-game stats: goals, assists, points, shots, TOI, PP time | 1 |
-| `get_goalie_stats` | Saves, shots against, SV%, starts, TOI | 1 |
-| `search_players` | Find player_id by name for API calls | 1 |
-| `get_team_stats` | Team shots per 60, PP%, scoring rate (drives player usage context) | 1 |
-| `get_standings` | Win/loss, playoff position (affects lineup decisions late season) | 1 |
-| `get_odds` | Current prop lines (points, shots, saves) | 10 |
-| `get_game_detail` | Shift-level data if available -- for TOI and line context | 1 |
+### Sports Data HQ
+
+| Command | What It Does | Credits | Notes |
+|---------|-------------|---------|-------|
+| `search_players` | Find player_id by name | 2 | Use for ID lookup before NHL API calls |
+| `get_goalie_stats` | Saves, shots against, SV%, starts | 5 | Full goalie performance data available |
+| `get_team_stats` | Team shots per 60, PP%, scoring rate | 5 | Drives player usage context |
+| `get_standings` | Win/loss, playoff position | 2 | Affects lineup decisions late season |
+| `get_player_stats` | Player bio info (name, team, position, birth info) | 5 | Bio only -- no skater season stats |
+| `get_odds` | Current prop lines (points, shots, saves) | 10 | Market context |
+
+**SDH does NOT provide:** skater season stats (goals, assists, points, shots on goal, TOI, PP time), player game logs, or shift-level data. The `get_player_stats` endpoint returns biographical information and goalie stats (for goalies only).
+
+### NHL Stats API (free, for skater stats)
+
+For skater game logs, season stats, and TOI data, use the NHL Stats API:
+
+```
+# Player season stats
+https://api-web.nhle.com/v1/player/{playerId}/landing
+
+# Player game log
+https://api-web.nhle.com/v1/player/{playerId}/game-log/{season}/{gameType}
+```
+
+These endpoints return goals, assists, points, shots, TOI, PP time, and other counting stats. No credits consumed.
+
+### Your Own Data
+
+If user provides CSV/JSON:
+1. Verify required columns: `player_id`, `game_date`, `toi_seconds` (or `toi_minutes`), `goals`, `assists`, `points`, `shots_on_goal`, `pp_toi_seconds`, `team`, `opponent`
+2. Verify ISO 8601 date format
+3. Flag missing TOI -- TOI is the foundational input; missing it collapses the model
+4. Note: credits are not consumed
 
 ## Commands That Do NOT Exist
 
 | Not Available | Use Instead |
 |--------------|-------------|
-| `get_player_toi_projection` | Compute TOI model from `get_player_stats` historical TOI data |
+| `get_player_toi_projection` | Compute TOI model from NHL API historical TOI data |
 | `get_lineup_data` | Not available via API; scrape from Daily Faceoff or team sources separately |
-| `get_pp_unit_assignments` | Not available via API; infer from historical PP time in `get_player_stats` |
-| `get_player_matchup_stats` | Use `get_head_to_head` for team matchup, then filter to player stats manually |
-| `get_dfs_projections` | Build projections from `get_player_stats` + model |
-
-## Data Source
-
-**Sports Data HQ (default):** Pull `get_player_stats` for each player being projected. Each call returns season and per-game stat history. Pull `get_goalie_stats` for opposing goalie data.
-
-**Your own data:** If user provides CSV/JSON:
-1. Verify required columns: `player_id`, `game_date`, `toi_seconds` (or `toi_minutes`), `goals`, `assists`, `points`, `shots_on_goal`, `pp_toi_seconds`, `team`, `opponent`
-2. Verify ISO 8601 date format
-3. Flag missing TOI -- TOI is the foundational input; missing it collapses the model
-4. Note: credits are not consumed
+| `get_pp_unit_assignments` | Not available via API; infer from historical PP time in NHL API game logs |
+| `get_player_matchup_stats` | Use `get_head_to_head` (10 credits) for team matchup, then cross-reference with player game logs from NHL API |
+| `get_dfs_projections` | Build projections from NHL API player stats + model |
+| `get_skater_season_stats` | Not available in SDH; use NHL Stats API (free) |
 
 ## Initial Assessment
 
@@ -87,6 +107,8 @@ This means:
 Ice time projection is the foundational layer. You cannot project shots, points, or blocks without first knowing expected ice time.
 
 **Step 1: Build a TOI model per player role.**
+
+Pull player game logs from the NHL Stats API to get historical TOI data:
 
 ```python
 # TOI drivers (in order of importance)
@@ -130,7 +152,7 @@ Per-60 rates normalize for TOI variation. A player with 12 minutes of TOI who ge
 
 **Opponent defensive quality:**
 ```python
-# Pull opponent goals allowed and shots allowed per game (lagged)
+# Pull opponent goals allowed and shots allowed per game from SDH (5 credits)
 opponent_ga_per_game = get_team_stats(opponent_team)['goals_against_roll10']
 league_avg_ga = 3.0  # approximate NHL average
 
@@ -145,7 +167,7 @@ adjusted_projected_points = projected_points * matchup_multiplier
 
 ```python
 league_avg_sv = 0.908
-goalie_sv = get_goalie_stats(opponent_starter)['sv_pct_roll10']
+goalie_sv = get_goalie_stats(opponent_starter)['sv_pct_roll10']  # SDH, 5 credits
 goalie_multiplier = (1 - goalie_sv) / (1 - league_avg_sv)
 adjusted_projected_goals = projected_goals * goalie_multiplier
 ```
@@ -155,7 +177,7 @@ adjusted_projected_goals = projected_goals * goalie_multiplier
 PP unit assignment is the single most impactful categorical feature for high-usage power play players. PP1 players get 2-4x more PP time than PP2 players.
 
 ```python
-# Infer PP unit from historical PP TOI distribution
+# Infer PP unit from historical PP TOI distribution (NHL API game logs)
 player_pp_toi_pct = player['pp_toi_seconds_season'] / player['toi_seconds_season']
 is_pp1_player = player_pp_toi_pct > 0.10  # heuristic: >10% of TOI on PP = PP1 candidate
 ```
@@ -171,7 +193,7 @@ A player's point production is correlated with linemate quality. Being moved to 
 
 ```python
 # Detect linemate quality proxy: team goals per game when player is on ice
-# Not directly available from API -- approximate from rolling team GF in games player appeared
+# Approximate from rolling team GF in games player appeared (NHL API game logs)
 # Flag if player changed teams (trade deadline) -- reset rolling windows
 df['is_post_trade'] = (df['team'] != df['team'].shift(1)).astype(int)
 # When is_post_trade == 1, reset rolling windows to 0 and use team averages
@@ -179,13 +201,13 @@ df['is_post_trade'] = (df['team'] != df['team'].shift(1)).astype(int)
 
 ### Step 6: Goalie Save Prop (Separate Model)
 
-Save projections require a distinct approach:
+Save projections require a distinct approach. SDH goalie data is well-suited for this:
 
 ```python
 # Saves = shots_against * SV%
 # Project shots_against from opponent offensive pace
-opponent_shots_for_per_game = get_team_stats(opponent)['shots_roll10']
-goalie_sv_rate = get_goalie_stats(starter)['sv_pct_roll10']
+opponent_shots_for_per_game = get_team_stats(opponent)['shots_roll10']  # SDH, 5 credits
+goalie_sv_rate = get_goalie_stats(starter)['sv_pct_roll10']  # SDH, 5 credits
 
 projected_shots_against = opponent_shots_for_per_game  # proxy for shots on goalie
 projected_saves = projected_shots_against * goalie_sv_rate
@@ -246,12 +268,13 @@ joint_rate = historical_df[(historical_df['team_won'] == 1) &
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| `get_player_stats` per player | 1 | Full game log for one player |
-| `get_goalie_stats` per goalie | 1 | For opposing goalie matchup |
-| `search_players` | 1 | Name to player_id lookup |
-| `get_team_stats` per team | 1 | Context for matchup adjustment |
+| NHL Stats API (skater game logs, TOI) | 0 | Free -- primary source for skater stats |
+| `search_players` per player | 2 | Name to player_id lookup |
+| `get_goalie_stats` per goalie | 5 | For opposing goalie matchup and save props |
+| `get_player_stats` per player | 5 | Bio info only -- no skater season stats |
+| `get_team_stats` per team | 5 | Context for matchup adjustment |
 | `get_odds` per game | 10 | Prop lines from sportsbook |
-| Full slate (12 games, 3 props each) | ~156 | 36 players + 24 goalies + 12 games odds |
+| Full slate (12 games, 3 props each) | ~190 | 36 player lookups + goalie/team stats + odds |
 
 ## Anti-patterns
 
@@ -263,6 +286,7 @@ joint_rate = historical_df[(historical_df['team_won'] == 1) &
 | "Same-game parlay: multiply probabilities" | Player and team outcomes are positively correlated; independent multiplication underestimates the joint probability | Model joint probability directly from historical co-occurrence |
 | "Saves prop: project even if starter unconfirmed" | A wrong starter assumption produces a completely invalid projection | Stop and flag: 'Starter unconfirmed. Cannot generate save prop projection.' |
 | "Rolling 20-game window is standard" | 20 games is 25% of a season; if the player changed lines at game 10, the window includes bad data | Detect structural breaks (line changes, trades, injuries) and reset windows |
+| "SDH get_player_stats has skater season stats" | SDH player stats are bio data only (name, team, position); no goals, assists, points, TOI | Use NHL Stats API for skater game logs and season stats (free) |
 
 ## Output Format
 

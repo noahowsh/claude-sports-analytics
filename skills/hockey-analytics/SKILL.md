@@ -9,7 +9,7 @@ metadata:
 # Hockey Analytics
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_team_stats` for team-level advanced metrics (1 credit), `get_player_stats` for skater metrics (1 credit), `get_goalie_stats` for goalie metrics (1 credit).
+> Use `get_team_stats` for team-level advanced metrics (5 credits), `get_player_stats` for player bio data (5 credits), `get_goalie_stats` for goalie metrics (5 credits).
 > For metric definitions and formulas without live data, no credits are consumed -- this skill answers from domain knowledge.
 
 You are an expert hockey analyst. Your goal is to teach users what advanced hockey metrics mean, show them how to read the numbers in context, and connect metrics to real team/player data when asked.
@@ -40,9 +40,9 @@ This is the ON-RAMP. Users land here to understand metrics before they build mod
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_team_stats` | Team-level stats including shot attempt rates, PDO components | 1 |
-| `get_player_stats` | Skater stats: points, TOI, shot metrics where available | 1 |
-| `get_goalie_stats` | Save percentage, GAA, GSAA for goalies | 1 |
+| `get_team_stats` | Team-level stats including shot attempt rates, PDO components | 5 |
+| `get_player_stats` | Player bio data (name, team, position); goalie stats for goalies | 5 |
+| `get_goalie_stats` | Save percentage, GAA, GSAA for goalies | 5 |
 
 ## Commands That Do NOT Exist
 

@@ -9,7 +9,7 @@ metadata:
 # Data Pipeline
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Pipeline automation calls the same MCP endpoints used interactively. Daily NHL data pull: `get_games` + `get_odds` = 11 credits per run. Full season backfill: ~1,230 credits for odds.
+> Pipeline automation calls the same MCP endpoints used interactively. Daily NHL data pull: `get_games` (5) + `get_odds` (10/game) = ~125 credits per run (avg 12 games). Full season backfill: ~12,300 credits for odds.
 > For building the prediction model that runs in the pipeline, see `model-building` first.
 
 You are an expert in sports analytics automation. Your goal is to bridge the gap between "I built a model" and "my model runs every morning and I check results over coffee." This is where a school project becomes a system.
@@ -147,7 +147,7 @@ def pull_games(target_date: str):
     """Pull today's NHL games from Sports Data HQ MCP."""
     api_key = os.environ["SPORTSDATAHQ_API_KEY"]
     
-    # Call get_games endpoint (1 credit)
+    # Call get_games endpoint (5 credits)
     response = requests.post(
         "https://api.sportsdatahq.com/mcp",
         json={
@@ -418,9 +418,9 @@ async def pull_all_data(target_date: str):
     """Pull from multiple sources in parallel. Fail gracefully on any source."""
     
     tasks = [
-        pull_games(target_date),          # 1 credit
+        pull_games(target_date),          # 5 credits
         pull_odds(target_date),            # 10 credits per game
-        pull_team_stats(target_date),      # 1 credit per team
+        pull_team_stats(target_date),      # 5 credits per team
     ]
     
     results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -440,12 +440,12 @@ async def pull_all_data(target_date: str):
 ```
 
 **Credit cost for a full daily NHL run:**
-- `get_games` (today's slate): 1 credit
+- `get_games` (today's slate): 5 credits
 - `get_odds` (per game, ~12 games/day average): 120 credits
-- `get_team_stats` (per team, 32 teams): 32 credits
-- **Total: ~153 credits per day | ~56,000 per full season**
+- `get_team_stats` (per team, 32 teams): 160 credits
+- **Total: ~285 credits per day | ~104,000 per full season**
 
-Consider caching team stats (update weekly, not daily) to cut this to ~11 credits/day for games + odds only.
+Consider caching team stats (update weekly, not daily) to cut this to ~125 credits/day for games + odds only.
 
 ## Anti-patterns
 
@@ -461,11 +461,11 @@ Consider caching team stats (update weekly, not daily) to cut this to ~11 credit
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| Daily games pull | 1 | One `get_games` call |
+| Daily games pull | 5 | One `get_games` call |
 | Daily odds (per game) | 10 | Average 12 NHL games/day = 120 credits |
-| Team stats (32 teams) | 32 | Cache weekly, not daily |
+| Team stats (32 teams) | 160 | 5 credits x 32 teams; cache weekly, not daily |
 | Line movement check | 25 | Per game; use sparingly |
-| Full season historical odds backfill | ~1,230 | 123 regular season games x 10 credits |
+| Full season historical odds backfill | ~12,300 | ~1,230 regular season games x 10 credits |
 
 ## What to Do Next
 

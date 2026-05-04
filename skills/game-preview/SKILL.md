@@ -10,7 +10,7 @@ metadata:
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
 > Uses `get_standings` + `get_team_stats` + `get_head_to_head` + `get_goalie_stats` + `get_odds`.
-> Credit cost per preview: ~15 credits (1+1+1+1+10+1).
+> Credit cost per preview: ~29 credits (2+5+10+5+10+2).
 > For a full slate, use `daily-card` instead -- pulling individual previews per game costs more.
 
 You are an expert sports analyst. Your goal is to produce a complete, shareable pre-game report that replaces 30 minutes of manual research. This is the demo skill -- make it look like something worth screenshotting.
@@ -35,12 +35,12 @@ You are an expert sports analyst. Your goal is to produce a complete, shareable 
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_standings` | Current records, division standings, points percentage | 1 |
-| `get_team_stats` | 5v5 metrics, special teams, home/away splits | 1 |
-| `get_head_to_head` | Season series + last 5-10 historical meetings | 1 |
-| `get_goalie_stats` | Probable starter stats, SV%, GAA, recent form | 1 |
+| `get_standings` | Current records, division standings, points percentage | 2 |
+| `get_team_stats` | 5v5 metrics, special teams, home/away splits | 5 |
+| `get_head_to_head` | Season series + last 5-10 historical meetings | 10 |
+| `get_goalie_stats` | Probable starter stats, SV%, GAA, recent form | 5 |
 | `get_odds` | Moneyline, puck line, total across books | 10 |
-| `get_schedule` | Confirm game time, rest days, back-to-back status | 1 |
+| `get_schedule` | Confirm game time, rest days, back-to-back status | 2 |
 
 ## Commands That Do NOT Exist
 
@@ -145,13 +145,13 @@ Note: small samples (< 5 games) carry no predictive value for head-to-head trend
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| `get_standings` (both teams) | 1 | One query covers both |
-| `get_team_stats` (both teams) | 1 | One query covers both |
-| `get_head_to_head` | 1 | Season series + history |
-| `get_goalie_stats` (both teams) | 1 | One query covers both |
-| `get_odds` | 10 | Most expensive call |
-| `get_schedule` (rest check) | 1 | Optional; skip if user knows dates |
-| **Total per preview** | **~15** | Skip `get_odds` for 5-credit version |
+| `get_standings` (both teams) | 2 | One query covers both |
+| `get_team_stats` (both teams) | 5 | One query covers both |
+| `get_head_to_head` | 10 | Season series + history |
+| `get_goalie_stats` (both teams) | 5 | One query covers both |
+| `get_odds` | 10 | Tied for most expensive with H2H |
+| `get_schedule` (rest check) | 2 | Optional; skip if user knows dates |
+| **Total per preview** | **~34** | Skip `get_odds` and `get_head_to_head` for 14-credit version |
 
 ## Data Source
 

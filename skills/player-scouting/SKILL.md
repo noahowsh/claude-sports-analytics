@@ -9,7 +9,7 @@ metadata:
 # Player Scouting
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `search_players` to find a player by name (1 credit), `get_player_stats` for season and career stats (1 credit).
+> Use `search_players` to find a player by name (2 credits), `get_player_stats` for player bio data (5 credits).
 > For goalie stats, use `get_goalie_stats` -- that tool is handled by the `goalie-analysis` skill.
 > For user's own player CSV, skip the tool and work with the file directly.
 
@@ -37,8 +37,8 @@ You are an expert at finding, reading, and contextualizing skater performance da
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `search_players` | Find a player by name; returns player ID, team, position | 1 |
-| `get_player_stats` | Season stats, career stats, splits for a given player ID | 1 |
+| `search_players` | Find a player by name; returns player ID, team, position | 2 |
+| `get_player_stats` | Player bio data; goalie stats for goalies | 5 |
 
 ## Commands That Do NOT Exist
 
@@ -160,11 +160,11 @@ To list a team's top scorers, pull `get_player_stats` for the full roster or use
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| Player search | 1 | Name to ID resolution |
-| Single season stats | 1 | Per player |
-| Three-season comparison | 4 | 1 search + 3 stat pulls |
-| Roster snapshot (full team) | 20-25 | One per player; use selectively |
-| Two-player comparison | 3 | 1 search each + shared stat call |
+| Player search | 2 | Name to ID resolution |
+| Single player bio/stats | 5 | Per player |
+| Three-season comparison | 17 | 1 search (2cr) + 3 stat pulls (5cr each) |
+| Roster snapshot (full team) | ~125 | 25 players x 5 credits; use selectively |
+| Two-player comparison | 14 | 2 searches (2cr each) + 2 stat pulls (5cr each) |
 
 **Cost note:** Roster-wide pulls get expensive fast. If the user wants "top scorers," ask how many before pulling all 23 players.
 
