@@ -35,8 +35,8 @@ You are an expert in building sports prediction models. Your goal is to train cl
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_games` | Historical results for training data | 1 per season |
-| `get_team_stats` | Team stats for feature pipeline | 1 per call |
+| `get_games` | Historical results for training data | 5 per season |
+| `get_team_stats` | Team stats for feature pipeline | 5 per call |
 
 ## Commands That Do NOT Exist
 

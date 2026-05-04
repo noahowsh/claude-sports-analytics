@@ -9,7 +9,7 @@ metadata:
 # Game Lookup
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
-> Use `get_games` for schedule and results (5 credits), `get_schedule` for a team's full calendar (2 credits), `get_game_detail` for full game info with odds and goalies (10 credits), `get_head_to_head` for matchup history (10 credits).
+> Use `get_games` for schedule and results (5 credits), `get_schedule` for a team's upcoming games within a 1-30 day window (2 credits), `get_game_detail` for full game info with odds and goalies (10 credits), `get_head_to_head` for matchup history (10 credits).
 > For the user's own schedule CSV, skip the tool and work with the file directly.
 
 You are an expert at finding and surfacing game data. Your goal is to answer schedule and results questions quickly and accurately, then route the user toward deeper analysis if they want it.
@@ -36,7 +36,7 @@ You are an expert at finding and surfacing game data. Your goal is to answer sch
 | Command | What It Does | Credits |
 |---------|-------------|---------|
 | `get_games` | Games by date range and/or team, returns scores and status | 5 |
-| `get_schedule` | Full season schedule for a team | 2 |
+| `get_schedule` | Upcoming games within a 1-30 day lookahead window (default 7 days) | 2 |
 | `get_game_detail` | Full game info with odds and goalie starts | 10 |
 | `get_head_to_head` | Historical matchup record between two teams | 10 |
 
@@ -77,7 +77,7 @@ If the question is "who plays tonight?" -- call `get_games` immediately. Do not 
 | Request type | Tool to use |
 |-------------|-------------|
 | Tonight / specific date | `get_games` with date |
-| Team's upcoming games | `get_schedule` |
+| Team's upcoming games (next 1-30 days) | `get_schedule` |
 | Game result with score | `get_games` with date + team filter |
 | Box score / period breakdown | `get_game_detail` |
 | Two teams' historical record | `get_head_to_head` |
@@ -115,7 +115,7 @@ Present results in the output format below. Offer routing to deeper skills only 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
 | Single date game lookup | 5 | Returns all games that day via `get_games` |
-| Team schedule | 2 | Full season calendar via `get_schedule` |
+| Team schedule (1-30 day lookahead) | 2 | Upcoming games via `get_schedule` |
 | Game detail (full info + odds + goalies) | 10 | One game via `get_game_detail` |
 | Head-to-head history | 10 | All historical matchups, two teams |
 | Full-week slate | 5 | One `get_games` call with date range |

@@ -137,32 +137,23 @@ jobs:
 
 ```python
 # scripts/pull_games.py
+#
+# Data pulls use the Sports Data HQ MCP server, NOT a REST API.
+# The MCP server must be connected to Claude via:
+#   claude mcp add sportsdatahq -- npx -y @anthropic-ai/sdk sportsdatahq
+# (or however the MCP server is configured in your project's .mcp.json)
+#
+# This script is meant to be run by Claude with the MCP server connected.
+# Claude calls the MCP tools (get_games, get_odds, etc.) directly.
+# The script below handles saving the results Claude returns.
+
 import argparse
 import json
 import os
-from datetime import date, timedelta
-import requests  # or your MCP client
+from datetime import date
 
-def pull_games(target_date: str):
-    """Pull today's NHL games from Sports Data HQ MCP."""
-    api_key = os.environ["SPORTSDATAHQ_API_KEY"]
-    
-    # Call get_games endpoint (5 credits)
-    response = requests.post(
-        "https://api.sportsdatahq.com/mcp",
-        json={
-            "tool": "get_games",
-            "params": {
-                "sport": "nhl",
-                "date": target_date
-            }
-        },
-        headers={"Authorization": f"Bearer {api_key}"}
-    )
-    
-    games = response.json()["games"]
-    
-    # Save raw data with timestamp
+def save_games(games: list, target_date: str):
+    """Save game data returned by Claude's get_games MCP tool call."""
     output_path = f"data/games/{target_date}.json"
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w") as f:
@@ -171,18 +162,29 @@ def pull_games(target_date: str):
             "pulled_at": date.today().isoformat(),
             "games": games
         }, f, indent=2)
-    
-    print(f"Pulled {len(games)} games for {target_date}")
-    return games
+    print(f"Saved {len(games)} games for {target_date}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--date", default="today")
     args = parser.parse_args()
-    
     target = date.today().isoformat() if args.date == "today" else args.date
-    pull_games(target)
+    # In practice, Claude calls get_games(date_from=target, date_to=target)
+    # via MCP and passes the result to save_games().
+    print(f"Run this via Claude with MCP connected:")
+    print(f"  1. Claude calls get_games(date_from='{target}', date_to='{target}')")
+    print(f"  2. Results are saved to data/games/{target}.json")
 ```
+
+**How the MCP data pull works:**
+
+There is no REST API endpoint. Sports Data HQ is an MCP server. To pull data:
+
+1. **Connect the MCP server** to Claude Code: ensure `.mcp.json` has the sportsdatahq server configured, or run `claude mcp add sportsdatahq` with the appropriate command.
+2. **Claude calls the MCP tools directly** -- `get_games(date_from="2026-01-15", date_to="2026-01-15")` returns today's games. No HTTP requests, no API keys in headers.
+3. **Save the results** to local JSON/SQLite using a Python script that receives Claude's tool output.
+
+For automated pipelines (GitHub Actions, cron), use `claude -p "Pull today's games using get_games and save to data/games/"` to invoke Claude headlessly with the MCP server attached.
 
 ```python
 # scripts/generate_predictions.py

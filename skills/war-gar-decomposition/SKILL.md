@@ -36,24 +36,24 @@ You are an expert in advanced hockey player evaluation. Your goal is to compute 
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_game_detail` | Shift-level data: who was on ice, goals/Corsi events per shift | 1 |
-| `get_games` | Game list for bulk shift data pulls | 1 |
-| `get_player_stats` | Player biographical data, salary reference | 1 |
-| `get_team_stats` | Team-level validation of RAPM outputs | 1 |
+| `get_game_detail` | Game metadata, team info, odds records, and goalie starts | 10 |
+| `get_games` | Game list for bulk shift data pulls | 5 |
+| `get_player_stats` | Player biographical data, salary reference | 5 |
+| `get_team_stats` | Team-level validation of RAPM outputs | 5 |
 
 ## Commands That Do NOT Exist
 
 | Not Available | Use Instead |
 |--------------|-------------|
-| `get_shift_data` | Use `get_game_detail` -- shift data is embedded in game detail |
+| `get_shift_data` | Use the NHL API or public sources (Natural Stat Trick, hockey-reference) for shift-level data |
 | `get_rapm` | No pre-computed RAPM. Run the ridge regression yourself |
 | `get_war` | No pre-computed WAR. Compute from GAR components |
 | `get_player_contract` | Pull AAV from CapFriendly or PuckPedia externally; not in Sports Data HQ |
-| `get_on_ice_stats` | Derived from shift-level game detail; no single-call endpoint |
+| `get_on_ice_stats` | Use the NHL API or public sources for on-ice data; not available in Sports Data HQ |
 
 ## Data Source
 
-**Sports Data HQ (default):** Pull `get_game_detail` for each game. Each game returns shift records: which players were on ice, in which strength state, and the goals/Corsi events that occurred during the shift.
+**Sports Data HQ:** `get_game_detail` returns game metadata, team info, odds records, and goalie starts -- NOT shift-level data. For the shift-level data required by RAPM, use the NHL API or public sources below.
 
 **Free alternatives (recommended for volume):**
 - Natural Stat Trick (`naturalstattrick.com`): exports on-ice data by player, season, strength state. No credits.
@@ -257,9 +257,9 @@ See `visualization` skill for full chart template.
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| `get_game_detail` per game | 1 | Shift-level data per game |
-| Full NHL regular season | ~1,312 | 1,312 games per 82-game season |
-| `get_player_stats` | 1 | Per player biographical lookup |
+| `get_game_detail` per game | 10 | Game metadata, odds, and goalie starts per game |
+| Full NHL regular season | ~13,120 | 1,312 games x 10 credits per game |
+| `get_player_stats` | 5 | Per player biographical lookup |
 | Free alternative (Natural Stat Trick) | 0 | Recommended for historical volume |
 
 **Practical recommendation:** Use the free NHL/Natural Stat Trick data sources for historical RAPM building. Reserve Sports Data HQ credits for game-level data (results, odds) not available freely.

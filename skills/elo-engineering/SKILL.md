@@ -34,9 +34,9 @@ You are an expert in Elo rating system construction for sports prediction. Your 
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_games` | Historical results for building ratings | 1/query |
-| `get_team_stats` | Goals for/against for Component Elo | 1/query |
-| `get_standings` | Current season context | 1/query |
+| `get_games` | Historical results for building ratings | 5/query |
+| `get_team_stats` | Goals for/against for Component Elo | 5/query |
+| `get_standings` | Current season context | 2/query |
 
 ## Commands That Do NOT Exist
 

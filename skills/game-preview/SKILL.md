@@ -10,7 +10,7 @@ metadata:
 
 > **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
 > Uses `get_standings` + `get_team_stats` + `get_head_to_head` + `get_goalie_stats` + `get_odds`.
-> Credit cost per preview: ~29 credits (2+5+10+5+10+2).
+> Credit cost per preview: ~34 credits (2+5+10+5+10+2).
 > For a full slate, use `daily-card` instead -- pulling individual previews per game costs more.
 
 You are an expert sports analyst. Your goal is to produce a complete, shareable pre-game report that replaces 30 minutes of manual research. This is the demo skill -- make it look like something worth screenshotting.
@@ -100,14 +100,14 @@ Call `get_team_stats` for both teams. Pull and compare:
 
 | Metric | Home Team | Away Team |
 |--------|-----------|-----------|
-| 5v5 Corsi% (CF%) | | |
-| 5v5 xGF% | | |
-| PP% (power play) | | |
-| PK% (penalty kill) | | |
+| Corsi% | | |
+| Fenwick% | | |
 | Goals For per game | | |
 | Goals Against per game | | |
-| Home/Away record split | | |
-| Shots For / Against per game | | |
+| Expected Goals For | | |
+| Expected Goals Against | | |
+| Goal Differential | | |
+| Points Percentage | | |
 
 Flag any metric where the gap between teams exceeds one standard deviation from league average.
 
@@ -158,7 +158,7 @@ Note: small samples (< 5 games) carry no predictive value for head-to-head trend
 **Sports Data HQ (default):** All six endpoints. Data is clean and joined.
 
 **Your own data:** If user provides team/goalie stats as CSV:
-1. Verify columns: team names, record fields (W, L, OTL), SV%, GAA, CF%, xGF%, PP%, PK%
+1. Verify columns: team names, record fields (W, L, OTL), SV%, GAA, corsiPct, fenwickPct, goalsForPerGame, goalsAgainstPerGame
 2. For odds: user must provide manually or use `get_odds`
 3. Credits only consumed for the API calls made; own-data sections are free
 
@@ -197,13 +197,13 @@ Note: Pregame starters unconfirmed -- check beat reporter sources.
 ### Key Stats Comparison
 | Metric        | [Away] | [Home] |
 |---------------|--------|--------|
-| CF% (5v5)     | XX.X%  | XX.X%  |
-| xGF% (5v5)    | XX.X%  | XX.X%  |
-| PP%           | XX.X%  | XX.X%  |
-| PK%           | XX.X%  | XX.X%  |
+| Corsi%        | XX.X%  | XX.X%  |
+| Fenwick%      | XX.X%  | XX.X%  |
 | GF/game       | X.XX   | X.XX   |
 | GA/game       | X.XX   | X.XX   |
-| Away/Home rec | X-X-X  | X-X-X  |
+| xGF           | X.XX   | X.XX   |
+| xGA           | X.XX   | X.XX   |
+| Goal Diff     | +/-N   | +/-N   |
 
 ---
 

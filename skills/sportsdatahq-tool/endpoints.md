@@ -124,9 +124,12 @@ Full details for one game: team info, all available odds, and goalie starts.
 | Field | Description |
 |-------|-------------|
 | `gameId` | Game ID |
-| `homeGoalie` | Home starting goalie name |
-| `awayGoalie` | Away starting goalie name |
-| (additional fields vary by data availability) |
+| `homeGoalieName` | Home starting goalie name |
+| `awayGoalieName` | Away starting goalie name |
+| `homeGoalieId` | Home starting goalie NHL player ID |
+| `awayGoalieId` | Away starting goalie NHL player ID |
+| `homeGoalieToi` | Home goalie time on ice |
+| `awayGoalieToi` | Away goalie time on ice |
 
 **Credit note:** Calling `get_game_detail` costs 10 credits (flat, regardless of whether odds data is present). This is the same cost as `get_odds` -- the difference is `get_game_detail` also returns team info and goalie starts in a single call.
 

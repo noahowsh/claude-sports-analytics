@@ -36,7 +36,7 @@ You are an expert at evaluating teams in context -- standings, performance metri
 
 | Command | What It Does | Credits |
 |---------|-------------|---------|
-| `get_standings` | Current standings by division and conference, includes points, record, ROW | 2 |
+| `get_standings` | Current standings by division and conference, includes points, record, pointPct, goalDiff, corsiPct, fenwickPct | 2 |
 | `get_team_stats` | Team-level offensive and defensive stats for a season | 5 |
 | `list_teams` | All teams with IDs, cities, names -- use to resolve team identity | 1 |
 
@@ -78,8 +78,8 @@ If the team name is ambiguous (e.g., "the Leafs" vs. "Toronto"), use `list_teams
 
 | User want | Tool | What to pull |
 |-----------|------|-------------|
-| Current standing / record | `get_standings` | Points, GP, W-L-OT, ROW, conference rank |
-| Offensive/defensive stats | `get_team_stats` | GF, GA, GF/G, GA/G, PP%, PK% |
+| Current standing / record | `get_standings` | Points, GP, W-L-OT, pointPct, goalDiff, conference rank |
+| Offensive/defensive stats | `get_team_stats` | GF/G, GA/G, goalDiff, corsiPct, fenwickPct, xGF, xGA |
 | Division or conference view | `get_standings` | All teams in division/conference |
 | Team comparison | `get_team_stats` for each | Side-by-side stat table |
 
@@ -89,11 +89,11 @@ NHL standings require specific interpretation. Always apply these rules:
 
 **Points (PTS):** Primary sort. 2 points for a win (including OT/SO), 1 point for an OT/SO loss.
 
-**ROW (Regulation + Overtime Wins):** Tiebreaker when points are equal. Shootout wins do NOT count toward ROW. A team with 90 pts and 38 ROW beats a team with 90 pts and 35 ROW for the division title.
+**Points percentage (pointPct):** GP-adjusted metric. Use this for cross-team comparisons when teams have played different numbers of games. `pointPct = PTS / (GP * 2)`.
 
-**Regulation wins (RW):** Some contexts use RW as a tiebreaker below ROW. This is the strictest measure of dominance -- no extra time.
+**Goal differential (goalDiff):** Goals for minus goals against. A quick proxy for team quality beyond record.
 
-**Points percentage (P%):** GP-adjusted metric. Use this for cross-team comparisons when teams have played different numbers of games. `P% = PTS / (GP * 2)`.
+**Note:** ROW (regulation + overtime wins) is used as a tiebreaker in official NHL standings but is not returned by the Sports Data HQ API. Use wins and pointPct for comparisons.
 
 **Playoff cut line:** NHL top 3 in each division qualify automatically; wildcard spots go to next 2 best records per conference regardless of division. A team can be 4th in their division but still make playoffs via wildcard.
 
@@ -106,7 +106,7 @@ If the user asks about schedule difficulty:
 
 ### Step 5: Identify trends
 
-For trend questions ("they've been hot lately"), pull `get_team_stats` for two windows -- full season and last N games -- and compare GF/G, GA/G, and special teams rates. Flag meaningful divergence.
+For trend questions ("they've been hot lately"), pull `get_team_stats` for two windows -- full season and last N games -- and compare goalsForPerGame, goalsAgainstPerGame, corsiPct, and fenwickPct. Flag meaningful divergence.
 
 ## Data Source
 
@@ -115,7 +115,7 @@ For trend questions ("they've been hot lately"), pull `get_team_stats` for two w
 **Your own data:** If user provides standings or stats CSV:
 1. Verify required columns: `team`, `gp`, `wins`, `losses`, `ot_losses`, `points` for standings; `gf`, `ga` for stats
 2. Compute derived metrics yourself: P% = PTS / (GP*2), GF/G = GF/GP
-3. Flag missing ROW column -- cannot compute tiebreakers without it
+3. Compute derived metrics: goalDiff = GF - GA, pointPct = PTS / (GP * 2)
 4. Credits are not consumed when working with user's own data
 
 ## Credit Usage
@@ -135,7 +135,7 @@ For trend questions ("they've been hot lately"), pull `get_team_stats` for two w
 | Rationalization | Why It's Wrong | Do This Instead |
 |----------------|---------------|-----------------|
 | "Points are enough to compare teams" | Teams may have played different numbers of games mid-season | Use P% (points percentage) for fair comparison |
-| "Wins = wins, ROW is a detail" | ROW is the primary tiebreaker in the NHL and directly affects playoff seeding | Always report ROW alongside points for standings questions |
+| "Wins = wins, goal diff is a detail" | Goal differential and points percentage reveal team quality beyond win-loss record | Always report goalDiff and pointPct alongside points for standings questions |
 | "I'll pull team stats and derive standings" | Stats don't include standings context (division rank, wildcard position) | Pull `get_standings` directly; don't reconstruct what the API provides |
 | "The team is 8th -- they missed the playoffs" | NHL has wildcard; 4th-in-division can still qualify | Always check conference-wide wildcard standings before calling a team eliminated |
 | "SOS is too complex, I'll skip it" | Schedule difficulty materially affects record interpretation | At minimum, note whether the team has played an above/below average schedule |
@@ -145,19 +145,19 @@ For trend questions ("they've been hot lately"), pull `get_team_stats` for two w
 ### Single team snapshot
 ```
 [Team] -- [Season]
-Record: [W-L-OT] | Points: [N] ([P%]) | ROW: [N]
+Record: [W-L-OT] | Points: [N] (pointPct: .XXX) | Goal Diff: [+/-N]
 Division rank: [N]th in [Division] | Conference rank: [N]th in [Conference]
 Playoff position: [In/Out/On bubble -- wildcard [N]]
 
-Offense: [GF/G] goals/game ([Rank]th in league)
-Defense: [GA/G] goals allowed/game ([Rank]th in league)
-Power play: [PP%] ([Rank]th) | Penalty kill: [PK%] ([Rank]th)
+Offense: [GF/G] goals/game ([Rank]th in league) | xGF: [N]
+Defense: [GA/G] goals allowed/game ([Rank]th in league) | xGA: [N]
+Corsi%: [N]% | Fenwick%: [N]%
 ```
 
 ### Division standings table
 ```
 [Division] Standings -- [Date]
-Rank | Team | GP | W | L | OT | PTS | P% | ROW
+Rank | Team | GP | W | L | OT | PTS | P% | Goal Diff
 1.   | ...
 ...
 -- Playoff line --
@@ -166,14 +166,16 @@ Rank | Team | GP | W | L | OT | PTS | P% | ROW
 
 ### Team comparison
 ```
-          [Team A]    [Team B]
-Record    W-L-OT      W-L-OT
-Points    N (P%)      N (P%)
-ROW       N           N
-GF/G      N           N
-GA/G      N           N
-PP%       N%          N%
-PK%       N%          N%
+            [Team A]    [Team B]
+Record      W-L-OT      W-L-OT
+Points      N (P%)      N (P%)
+Goal Diff   +/-N        +/-N
+GF/G        N           N
+GA/G        N           N
+Corsi%      N%          N%
+Fenwick%    N%          N%
+xGF         N           N
+xGA         N           N
 ```
 
 ## What to Do Next
