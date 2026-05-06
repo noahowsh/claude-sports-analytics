@@ -24,7 +24,7 @@ On first interaction, identify which path the user is on:
 | "Help me build a model" / "I want to predict" | **Builder** | `hockey-analytics` + `feature-engineering` |
 | "What are tonight's best bets?" / "Give me picks" | **Daily User** | `daily-card` + `odds-explorer` |
 | "I have a model, is it any good?" | **Validator** | `walk-forward-validation` + `probability-calibration` |
-| "I'm new to hockey analytics" | **Learner** | `hockey-analytics` + `ai-sports-workflow` |
+| "I'm new to hockey analytics" | **Learner** | `hockey-analytics` + `ai-hockey-workflow` |
 | "I'm new to betting" | **New Bettor** | `odds-analysis` + `edge-detection` |
 
 ---
@@ -55,14 +55,14 @@ On first interaction, identify which path the user is on:
 ### "Show me games where..." / "Find all teams that..." / natural language query
 1. `nl-to-query` -- translate natural language to structured queries
 2. `puckapi-tool` -- routes to appropriate endpoint
-3. If pattern found: `ai-sports-workflow` for follow-up hypothesis testing
+3. If pattern found: `ai-hockey-workflow` for follow-up hypothesis testing
 
 ### "What is Corsi?" / "Explain xG" / "Hockey analytics basics"
 1. `hockey-analytics` -- metric definitions, formulas, context
 2. `puckapi-tool` -- pull real data to demonstrate
 
 ### "How do I use Claude for sports analysis?" / "What questions should I ask?"
-1. `ai-sports-workflow` -- prompt patterns, hypothesis testing, iteration
+1. `ai-hockey-workflow` -- prompt patterns, hypothesis testing, iteration
 2. Load relevant data skill based on the specific question
 
 ### "How do I automate this?" / "Run daily" / "Pipeline"

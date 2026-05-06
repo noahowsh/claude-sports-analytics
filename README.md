@@ -89,7 +89,7 @@ Once installed, try these first prompts:
 ### Workflow (2 skills)
 | Skill | What It Does |
 |-------|-------------|
-| `ai-sports-workflow` | 4 workflow patterns for hypothesis testing with Claude. |
+| `ai-hockey-workflow` | 4 workflow patterns for hypothesis testing with Claude. |
 | `dispatch` | Routes requests to the right 2-3 skills automatically. |
 
 ### Infrastructure (1 skill)

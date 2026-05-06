@@ -1,6 +1,6 @@
 ---
-name: ai-sports-workflow
-description: "Teaches how to use Claude and MCP tools effectively for sports analytics -- exploratory analysis, hypothesis testing, model iteration, and report generation. Use when user asks how to analyze sports data with AI, how to structure a sports analysis session, how to test a hypothesis about team or player performance, how to improve a model systematically, or how to generate a performance report. Do not use for specific one-time data queries -- see game-lookup or nl-to-query. Do not use for the mechanics of model building -- see feature-engineering or model-building directly."
+name: ai-hockey-workflow
+description: "Teaches how to use Claude and MCP tools effectively for hockey analytics -- exploratory analysis, hypothesis testing, model iteration, and report generation. Use when user asks how to analyze hockey data with AI, how to structure an analysis session, how to test a hypothesis about team or player performance, how to improve a model systematically, or how to generate a performance report. Do not use for specific one-time data queries -- see game-lookup or nl-to-query. Do not use for the mechanics of model building -- see feature-engineering or model-building directly."
 metadata:
   version: 1.0.0
   author: PuckAPI

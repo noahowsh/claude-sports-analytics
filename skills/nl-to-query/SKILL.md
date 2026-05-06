@@ -185,4 +185,4 @@ Caveat: [Sample size warning if N < 30, or other data limitation]
 | Pattern worth modeling | Build features from the conditions found | `feature-engineering` |
 | Pattern worth testing as a bet | Backtest the condition as a betting filter | `backtesting` |
 | Goalie-specific condition found | Full goalie breakdown | `goalie-analysis` |
-| Want to test a hypothesis formally | Structure a falsifiable prediction | `ai-sports-workflow` |
+| Want to test a hypothesis formally | Structure a falsifiable prediction | `ai-hockey-workflow` |
