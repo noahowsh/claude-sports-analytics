@@ -3,12 +3,12 @@ name: walk-forward-validation
 description: "The correct evaluation methodology for time-series sports prediction models. Use when user asks about model validation, cross-validation, train/test split, accuracy evaluation, overfitting detection, or statistical significance of sports model results. Refuses to run k-fold cross-validation on time-series data -- always redirects to walk-forward. Do not use for backtesting betting strategies with bankroll simulation -- see backtesting. Do not use for building the model itself -- see model-building."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Walk-Forward Validation
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_games` for historical game results (5 credits per query).
 > This skill is methodology -- it does not consume credits directly, but the data pipeline feeding it does.
 
@@ -182,7 +182,7 @@ If accuracy varies wildly across folds (e.g., 65% in fold 1, 52% in fold 2), the
 
 ## Data Source
 
-**Sports Data HQ (default):** Pull historical game results via `get_games` per season. Specify sport, season, and result type. Pull all seasons needed for your fold count.
+**PuckAPI (default):** Pull historical game results via `get_games` per season. Specify sport, season, and result type. Pull all seasons needed for your fold count.
 
 **Your own data:** If user provides historical CSV:
 1. Verify columns: `game_date`, `season`, `home_team`, `away_team`, `home_win` (binary), all feature columns

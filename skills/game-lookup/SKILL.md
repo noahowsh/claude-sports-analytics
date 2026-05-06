@@ -3,12 +3,12 @@ name: game-lookup
 description: "Finds games by date, team, matchup, or season -- past results, tonight's slate, upcoming schedule, head-to-head history. Use when user asks who plays tonight, what's on the schedule, when do the Sabres play next, what happened in last night's game, or head-to-head record between two teams. Do not use for team performance evaluation -- see team-analysis. Do not use for odds or betting lines -- see odds-explorer. Do not use for player stats -- see player-scouting."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Game Lookup
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_games` for schedule and results (5 credits), `get_schedule` for a team's upcoming games within a 1-30 day window (2 credits), `get_game_detail` for full game info with odds and goalies (10 credits), `get_head_to_head` for matchup history (10 credits).
 > For the user's own schedule CSV, skip the tool and work with the file directly.
 
@@ -102,7 +102,7 @@ Present results in the output format below. Offer routing to deeper skills only 
 
 ## Data Source
 
-**Sports Data HQ (default):** Use `sportsdatahq-tool` endpoints above.
+**PuckAPI (default):** Use `puckapi-tool` endpoints above.
 
 **Your own data:** If user provides a CSV or JSON schedule:
 1. Verify required columns exist: `date`, `home_team`, `away_team`, `home_score`, `away_score` (or equivalent)

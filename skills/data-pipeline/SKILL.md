@@ -1,14 +1,14 @@
 ---
 name: data-pipeline
-description: "Builds automated sports analytics pipelines -- daily data pulls, scheduled prediction generation, model versioning, prediction tracking, and drift alerting. Use when user asks how to automate their model, how to run predictions every morning, how to set up a cron job for sports data, how to track model performance over time, or how to version their model. Do not use for one-time data pulls -- use game-lookup or sportsdatahq-tool directly. Do not use for building the model itself -- see model-building. Do not use for backtesting historical performance -- see backtesting."
+description: "Builds automated sports analytics pipelines -- daily data pulls, scheduled prediction generation, model versioning, prediction tracking, and drift alerting. Use when user asks how to automate their model, how to run predictions every morning, how to set up a cron job for sports data, how to track model performance over time, or how to version their model. Do not use for one-time data pulls -- use game-lookup or puckapi-tool directly. Do not use for building the model itself -- see model-building. Do not use for backtesting historical performance -- see backtesting."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Data Pipeline
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Pipeline automation calls the same MCP endpoints used interactively. Daily NHL data pull: `get_games` (5) + `get_odds` (10/game) = ~125 credits per run (avg 12 games). Full season backfill: ~12,300 credits for odds.
 > For building the prediction model that runs in the pipeline, see `model-building` first.
 
@@ -26,7 +26,7 @@ You are an expert in sports analytics automation. Your goal is to bridge the gap
 
 ## When NOT to Use
 
-- One-time data pulls -- use `sportsdatahq-tool` or `game-lookup` directly
+- One-time data pulls -- use `puckapi-tool` or `game-lookup` directly
 - Building the prediction model itself -- see `model-building`
 - Validating a model's historical performance -- see `backtesting`
 - Generating a one-time picks card -- see `daily-card`
@@ -49,7 +49,7 @@ This skill does not call data tools directly. It generates pipeline code and con
 |--------------|-------------|
 | `schedule_pipeline` | Use GitHub Actions cron or system cron via the YAML below |
 | `auto_retrain` | Implement retrain trigger logic manually (see Retrain Triggers section) |
-| `get_injuries` | Injury data not available via `sportsdatahq-tool`; integrate a separate source |
+| `get_injuries` | Injury data not available via `puckapi-tool`; integrate a separate source |
 | `stream_live_data` | MCP is pull-only; schedule frequent polls instead of streaming |
 
 ## Initial Assessment
@@ -70,7 +70,7 @@ The standard sports analytics pipeline has four stages:
 ```
 [Schedule] -> [Data Pull] -> [Prediction] -> [Storage + Alert]
       |              |              |                |
-   Cron job    sportsdatahq-   Your model      SQLite /
+   Cron job    puckapi-   Your model      SQLite /
    6 AM daily   tool API       .predict()      Sheets / API
 ```
 
@@ -105,12 +105,12 @@ jobs:
 
       - name: Pull today's games
         env:
-          SPORTSDATAHQ_API_KEY: ${{ secrets.SPORTSDATAHQ_API_KEY }}
+          PUCKAPI_API_KEY: ${{ secrets.PUCKAPI_API_KEY }}
         run: python scripts/pull_games.py --date today
 
       - name: Pull odds
         env:
-          SPORTSDATAHQ_API_KEY: ${{ secrets.SPORTSDATAHQ_API_KEY }}
+          PUCKAPI_API_KEY: ${{ secrets.PUCKAPI_API_KEY }}
         run: python scripts/pull_odds.py --date today
 
       - name: Generate predictions
@@ -138,9 +138,9 @@ jobs:
 ```python
 # scripts/pull_games.py
 #
-# Data pulls use the Sports Data HQ MCP server, NOT a REST API.
+# Data pulls use the PuckAPI MCP server, NOT a REST API.
 # The MCP server must be connected to Claude via:
-#   claude mcp add sportsdatahq -- npx -y @anthropic-ai/sdk sportsdatahq
+#   claude mcp add puckapi -- npx -y @anthropic-ai/sdk puckapi
 # (or however the MCP server is configured in your project's .mcp.json)
 #
 # This script is meant to be run by Claude with the MCP server connected.
@@ -178,9 +178,9 @@ if __name__ == "__main__":
 
 **How the MCP data pull works:**
 
-There is no REST API endpoint. Sports Data HQ is an MCP server. To pull data:
+There is no REST API endpoint. PuckAPI is an MCP server. To pull data:
 
-1. **Connect the MCP server** to Claude Code: ensure `.mcp.json` has the sportsdatahq server configured, or run `claude mcp add sportsdatahq` with the appropriate command.
+1. **Connect the MCP server** to Claude Code: ensure `.mcp.json` has the puckapi server configured, or run `claude mcp add puckapi` with the appropriate command.
 2. **Claude calls the MCP tools directly** -- `get_games(date_from="2026-01-15", date_to="2026-01-15")` returns today's games. No HTTP requests, no API keys in headers.
 3. **Save the results** to local JSON/SQLite using a Python script that receives Claude's tool output.
 

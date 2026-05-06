@@ -1,14 +1,14 @@
 ---
 name: playoff-simulation
-description: "Monte Carlo playoff and season simulator for NHL, NFL, and NBA. Use when user asks about playoff odds, championship probability, making the playoffs, division race odds, season simulation, bracket simulation, or how likely a team is to win the title. Cross-sport applicable. Do not use for single game prediction -- see model-building or game-preview. Do not use for team stats without simulation -- see team-analysis. Do not use for player-level analysis -- see player-scouting."
+description: "Monte Carlo playoff and season simulator for NHL. Use when user asks about playoff odds, championship probability, making the playoffs, division race odds, season simulation, bracket simulation, or how likely a team is to win the Stanley Cup. Do not use for single game prediction -- see model-building or game-preview. Do not use for team stats without simulation -- see team-analysis. Do not use for player-level analysis -- see player-scouting."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Playoff Simulation
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`) for current standings and remaining schedule.
+> **Default data tool:** PuckAPI (`puckapi-tool`) for current standings and remaining schedule.
 > Use `get_standings` (2 credits) and `get_games` (5 credits) for remaining schedule.
 > Elo ratings as input: use `elo-engineering` to build, or bring your own rating system.
 > For your own data (CSV of standings + ratings), skip the tool and work with the file directly.
@@ -57,7 +57,7 @@ Before simulating, establish:
 
 ## Data Source
 
-**Sports Data HQ (default):** Pull current standings with `get_standings`, remaining schedule with `get_games` filtered to future dates.
+**PuckAPI (default):** Pull current standings with `get_standings`, remaining schedule with `get_games` filtered to future dates.
 
 **Your own data:** Required inputs:
 1. Ratings table: `team`, `rating` (Elo or equivalent), `home_rating_boost` (optional)
@@ -75,14 +75,14 @@ If the user doesn't have ratings, recommend `elo-engineering` first. If they hav
 Win probability from Elo difference:
 ```python
 def win_prob(rating_a, rating_b, home_advantage=0):
-    # home_advantage in Elo points: NHL=35, NFL=48, NBA=100
+    # home_advantage in Elo points (NHL default: 35)
     return 1 / (1 + 10 ** ((rating_b - rating_a - home_advantage) / 400))
 ```
 
 For Pythagorean ratings (alternative to Elo):
 ```python
 def pythagorean_win_pct(goals_for, goals_against, exponent):
-    # Exponents: NHL=2.15, NFL=2.37, NBA=13.91, MLB=1.83
+    # Exponent: NHL=2.15 (see elo-engineering parameter-reference for other sports)
     return goals_for ** exponent / (goals_for ** exponent + goals_against ** exponent)
 ```
 
@@ -177,47 +177,15 @@ def simulate_series_nhl(team_a, team_b, ratings, home_team_a=True):
     return team_a if wins_a == 4 else team_b
 ```
 
-#### NFL: Single Elimination
-
-```python
-def simulate_nfl_bracket(seeds, ratings, home_adv=48):
-    # Wild card round: seeds 3-6 play; 1 and 2 get byes
-    # Home field to higher seed through conference championship
-    bracket = list(seeds)  # ordered by seed
-    rounds = ['wildcard', 'divisional', 'conference', 'superbowl']
-    for rnd in rounds:
-        if rnd == 'superbowl':
-            home_adv = 0  # neutral site
-        winners = []
-        for i in range(0, len(bracket), 2):
-            winner = simulate_game(bracket[i], bracket[i+1], ratings, home_adv)
-            winners.append(winner)
-        bracket = winners
-    return bracket[0]
-```
-
-#### NBA: Best-of-7 with Play-In
-
-For play-in tournament (seeds 7-10): simulate two one-game play-in games per conference to determine seeds 7 and 8 before the main bracket.
-
 ### Step 5: Determine Playoff Qualifiers
 
-Sport-specific tiebreakers matter when simulated points are tied:
+NHL tiebreakers matter when simulated points are tied:
 
-**NHL:** Sort by points, then ROW (regulation + OT wins, excludes shootout wins), then head-to-head record, then goal differential. Wild card format: top 3 from each division + 2 wild cards per conference.
-
-**NFL:** Division winners (highest win%) + wild cards. Tiebreaker: head-to-head, then division record, then conference record. Two conferences, 3 divisions each, 7 playoff spots per conference.
-
-**NBA:** Play-in tournament for seeds 7-10. Division winner does not guarantee top-4 seed (record determines seeding within conference).
+Sort by points, then ROW (regulation + OT wins, excludes shootout wins), then head-to-head record, then goal differential. Wild card format: top 3 from each division + 2 wild cards per conference.
 
 ```python
-def determine_playoffs(simulated_standings, sport):
-    if sport == 'NHL':
-        return nhl_playoff_format(simulated_standings)
-    elif sport == 'NFL':
-        return nfl_playoff_format(simulated_standings)
-    elif sport == 'NBA':
-        return nba_playoff_format(simulated_standings)
+def determine_playoffs(simulated_standings):
+    return nhl_playoff_format(simulated_standings)
 ```
 
 ### Step 6: Convergence Check
@@ -235,24 +203,21 @@ def check_convergence(results_1k, results_10k, threshold=0.01):
 
 10,000 iterations: stable for most probabilities. 100,000 iterations: required for probabilities below 5% (low-probability events need more samples to be reliable).
 
-## Sport-Specific Configs
+## NHL Config
 
-| Config | NHL | NFL | NBA |
-|--------|-----|-----|-----|
-| Season length | 82 games | 17 games | 82 games |
-| Playoff format | Best-of-7 | Single elimination | Best-of-7 |
-| Play-in tournament | No | No | Yes (seeds 7-10) |
-| Home advantage (Elo pts) | 35 | 48 | 100 |
-| Home field games | 2-2-1-1-1 | Higher seed | 2-2-1-1-1 |
-| Season carryover | 0.88 | 0.67 | 0.75 |
-| Pythagorean exponent | 2.15 | 2.37 | 13.91 |
-| Points system | 2/OTL gets 1 | Win% | Win% |
+| Config | Value |
+|--------|-------|
+| Season length | 82 games |
+| Playoff format | Best-of-7, 4 rounds |
+| Home advantage (Elo pts) | 35 |
+| Home field games | 2-2-1-1-1 |
+| Season carryover | 0.88 |
+| Pythagorean exponent | 2.15 |
+| Points system | 2 for win, 1 for OT loss |
 
 ## Season/Date Logic
 
 - NHL: October through April (regular season), April through June (playoffs)
-- NFL: September through January (regular season), January through February (playoffs)
-- NBA: October through April (regular season), April through June (playoffs)
 - "Remaining games" = all games on the schedule with `game_date > today`
 - If playoffs have already started, simulate only remaining rounds, not the regular season
 
@@ -262,8 +227,8 @@ def check_convergence(results_1k, results_10k, threshold=0.01):
 |----------------|---------------|-----------------|
 | "1,000 iterations is enough" | A team at 5% championship odds has high variance at 1,000 iterations; the estimate can swing 2-3% just from sampling noise | Run 10,000 minimum; 100,000 for low-probability events |
 | "Win probability is just current win%" | Win% doesn't account for strength of schedule or remaining schedule difficulty | Use Elo or Pythagorean ratings, not raw win% |
-| "Home advantage is the same for all sports" | NHL home advantage is ~35 Elo points; NFL is ~48; NBA is ~100. The difference is substantial. | Use sport-specific values from the config table above |
-| "Tiebreakers don't matter -- they're rare" | At the boundary of playoff spots, tiebreakers fire on 5-15% of simulated seasons | Implement ROW for NHL, head-to-head for NFL -- they affect the playoff probability bands meaningfully |
+| "Home advantage doesn't matter in playoffs" | NHL home advantage is ~35 Elo points. Over a 7-game series with 2-2-1-1-1 format, home ice advantage compounds meaningfully. | Use the 35-point HFA in all playoff games; give it to the higher seed. |
+| "Tiebreakers don't matter -- they're rare" | At the boundary of playoff spots, tiebreakers fire on 5-15% of simulated seasons | Implement ROW tiebreaker for NHL -- it affects the playoff probability bands meaningfully |
 | "More iterations is always better" | Beyond 100,000, runtime cost exceeds precision gain | 100,000 is ceiling; 10,000 is floor; match to stakes and compute budget |
 | "One rating system is sufficient" | A single Elo variant misses different signals (recent form vs cumulative quality) | Run simulations with 2-3 rating variants; report the range as uncertainty bounds |
 

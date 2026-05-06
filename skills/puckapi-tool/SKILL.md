@@ -1,13 +1,13 @@
 ---
-name: sportsdatahq-tool
-description: "Default data source for Sports Data HQ Skills. Routes all MCP tool calls for NHL games, schedules, team standings, player stats, goalie performance, and betting odds. Use when any other skill needs data. Do not invoke directly -- other skills call this. Not for data analysis, modeling, or bet recommendations -- see hockey-analytics, model-building, or edge-detection instead."
+name: puckapi-tool
+description: "Default data source for PuckAPI Skills. Routes all MCP tool calls for NHL games, schedules, team standings, player stats, goalie performance, and betting odds. Use when any other skill needs data. Do not invoke directly -- other skills call this. Not for data analysis, modeling, or bet recommendations -- see hockey-analytics, model-building, or edge-detection instead."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
   user-invocable: false
 ---
 
-# Sports Data HQ Tool
+# PuckAPI Tool
 
 Every other skill delegates data retrieval here. This skill owns the 12 MCP tools, routes requests to the right endpoint, tracks credit cost, and handles the fallback when users bring their own data.
 
@@ -121,13 +121,13 @@ Every skill that touches time-sensitive data must resolve season IDs before call
 
 ## BYOD (Bring Your Own Data)
 
-When a user provides their own CSV, JSON, or database instead of using Sports Data HQ:
+When a user provides their own CSV, JSON, or database instead of using PuckAPI:
 
 1. **Verify required columns exist** before proceeding (see `endpoints.md` for column schemas)
 2. **Check date format** -- ISO 8601 preferred (`YYYY-MM-DD`). Flag anything else.
 3. **Flag missing data explicitly** -- do not silently drop rows or impute without noting it
 4. **No credits consumed** when working with user-provided data
-5. **Column name mapping** -- if user data uses different column names, map them to the Sports Data HQ schema before passing to analytics skills
+5. **Column name mapping** -- if user data uses different column names, map them to the PuckAPI schema before passing to analytics skills
 
 **Common user-provided formats:**
 | Format | Required Minimum Columns | Notes |

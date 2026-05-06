@@ -3,12 +3,12 @@ name: prop-modeling
 description: "Builds player prop prediction models for NHL player stats -- points, shots on goal, saves, blocked shots, and power play points. Use when user asks about prop modeling, player prop predictions, anytime goal scorer odds, shots on goal props, save props, DFS player projections, or player stat projections. Do not use for team-level game prediction -- see model-building. Do not use for player comparison or scouting without modeling -- see player-scouting. Do not use for exploring current prop lines -- see odds-explorer."
 metadata:
   version: 1.1.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Prop Modeling
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 >
 > **Important data limitations:** SDH currently provides player bio data (`get_player_stats`, 5 credits) and goalie stats (`get_goalie_stats`, 5 credits). SDH does NOT have skater season stats (goals, assists, points, shots, TOI). For skater game logs, use the NHL Stats API (`api-web.nhle.com`) -- free, no credits.
 >
@@ -38,7 +38,7 @@ You are an expert in NHL player prop modeling. Your goal is to project individua
 
 ## Data Sources
 
-### Sports Data HQ
+### PuckAPI
 
 | Command | What It Does | Credits | Notes |
 |---------|-------------|---------|-------|

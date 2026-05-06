@@ -3,12 +3,12 @@ name: backtesting
 description: "Walk-forward historical testing of betting strategies to determine whether a model's edge is real. Use when user asks about backtesting, historical simulation, ROI over a season, whether a strategy works, bootstrap confidence intervals, edge compression, or model audit over time. Refuses in-sample testing -- walk-forward only. Do not use for live bet tracking -- see bet-tracker. Do not use for finding edges on today's slate -- see edge-detection. Do not use for model training -- see model-building."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Backtesting
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_odds` for historical odds (10 credits per game), `get_games` for results (5 credits per query).
 > **Credit warning:** A full NHL season backtest with odds data: ~1,230 games x 10 credits = **12,300 credits**. Plan accordingly. For initial testing, sample 1-2 months before running a full season.
 > For user's own historical data: skip the tool, no credits consumed.
@@ -52,7 +52,7 @@ You are an expert in walk-forward backtesting for sports betting strategies. You
 
 ## Data Source
 
-**Sports Data HQ (default):** Pull historical game results via `get_games` for the date range. For each game, pull historical odds via `get_odds`. Join on game_id. Sort ascending by game_date before any simulation.
+**PuckAPI (default):** Pull historical game results via `get_games` for the date range. For each game, pull historical odds via `get_odds`. Join on game_id. Sort ascending by game_date before any simulation.
 
 **Credit planning before starting:**
 ```

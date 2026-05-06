@@ -1,6 +1,6 @@
 # Betting & Odds Glossary
 
-Quick reference for betting terms used across Sports Data HQ Skills.
+Quick reference for betting terms used across PuckAPI Skills.
 
 ## Odds Formats
 

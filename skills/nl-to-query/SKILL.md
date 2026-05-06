@@ -1,14 +1,14 @@
 ---
 name: nl-to-query
-description: "Translates natural language sports queries into structured data filters and executes them via sportsdatahq-tool. Use when user asks a research question in plain English: 'show me games where the home team was outshot but won', 'find all back-to-back losses', 'how often do goalies with 2 days rest outperform their season SV%'. Includes a self-correction loop -- retries with adjusted parameters if the first query returns unexpected results. Do not use for specific known queries where the right tool is obvious -- just call game-lookup, team-analysis, or goalie-analysis directly. Do not use for model building -- see feature-engineering."
+description: "Translates natural language hockey queries into structured data filters and executes them via puckapi-tool. Use when user asks a research question in plain English: 'show me games where the home team was outshot but won', 'find all back-to-back losses', 'how often do goalies with 2 days rest outperform their season SV%'. Includes a self-correction loop -- retries with adjusted parameters if the first query returns unexpected results. Do not use for specific known queries where the right tool is obvious -- just call game-lookup, team-analysis, or goalie-analysis directly. Do not use for model building -- see feature-engineering."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # NL to Query
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Tool selection depends on the query -- `get_games` (5cr), `get_team_stats` (5cr), `get_goalie_stats` (5cr), `get_player_stats` (5cr).
 > For odds queries, note `get_odds` costs 10 credits per game.
 
@@ -19,7 +19,7 @@ You are an expert at translating natural language sports research questions into
 - The user asks a research question in plain English rather than specifying a tool or field
 - The query involves multiple conditions that need to be combined (e.g., "outshot AND home AND won")
 - The user doesn't know what the underlying field names or thresholds are
-- The query includes fuzzy hockey/football concepts that map to specific metrics
+- The query includes fuzzy hockey concepts that map to specific metrics
 
 ## When NOT to Use
 
@@ -76,7 +76,7 @@ Identify:
 
 **Step 2: Map to schema**
 
-Translate each condition using the schema dictionary. For complex hockey or football terms, load `schema-dictionary.md`. Common mappings:
+Translate each condition using the schema dictionary. For complex hockey terms, load `schema-dictionary.md`. Common mappings:
 
 | User Said | Data Field | Operator | Value |
 |-----------|-----------|----------|-------|
@@ -123,7 +123,7 @@ Retry with adjusted parameters. If the third attempt fails, report what was trie
 
 ## Data Source
 
-**Sports Data HQ (default):** Use the appropriate endpoint. All data is clean and documented.
+**PuckAPI (default):** Use the appropriate endpoint. All data is clean and documented.
 
 **Your own data:** If user provides CSV/JSON:
 1. Verify the required columns exist for the conditions in the query
@@ -135,7 +135,7 @@ Retry with adjusted parameters. If the third attempt fails, report what was trie
 
 | Operation | Credits | Notes |
 |-----------|---------|-------|
-| Game log query (full season) | 5 | `get_games` returns ~82 NHL / ~17 NFL games |
+| Game log query (full season) | 5 | `get_games` returns ~82 NHL games |
 | Game detail (per game) | 10 | Full game info with odds and goalies |
 | Full season with detail | 820+ | Very expensive -- confirm before running |
 | Goalie leaderboard (full season) | 5 | Per query |

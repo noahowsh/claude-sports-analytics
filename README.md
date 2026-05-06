@@ -1,33 +1,33 @@
-# Sports Data HQ Skills
+# PuckAPI Skills
 
-Sports analytics skills for Claude Code. 30 skills covering NHL analytics, NFL play-by-play, betting methodology, and model building.
+Hockey analytics skills for Claude Code. 28 skills covering NHL analytics, betting methodology, and model building.
 
-Free skills. Paid data via [Sports Data HQ](https://sportsdatahq.com) MCP server.
+Free skills. Paid data via [PuckAPI](https://puckapi.com) MCP server.
 
 ## Install
 
 Clone this repo:
 
 ```bash
-git clone https://github.com/noahowsh/claude-sports-analytics.git
+git clone https://github.com/sports-data-hq/hockey-skills.git
 ```
 
-Connect the Sports Data HQ MCP server for live data:
+Connect the PuckAPI MCP server for live data:
 
 ```bash
-claude mcp add sportsdatahq https://mcp.sportsdatahq.com/mcp --header "Authorization: Bearer YOUR_API_KEY"
+claude mcp add puckapi https://mcp.puckapi.com/mcp --header "Authorization: Bearer YOUR_API_KEY"
 ```
 
-Get your free API key at [sportsdatahq.com/signup](https://sportsdatahq.com/signup).
+Get your free API key at [puckapi.com/signup](https://puckapi.com/signup).
 
 Skills work without the MCP server using your own CSV/JSON files.
 
 ## How Skills Work
 
-Skills are markdown files that Claude reads as context -- they are not executable code. There is nothing to install, compile, or run. The skills teach Claude how to use the 12 Sports Data HQ tools effectively, providing domain knowledge, methodology, anti-patterns, and code templates.
+Skills are markdown files that Claude reads as context -- they are not executable code. There is nothing to install, compile, or run. The skills teach Claude how to use the 12 PuckAPI tools effectively, providing domain knowledge, methodology, anti-patterns, and code templates.
 
 1. **Clone the repo** (above). That gives you the skill files on disk.
-2. **Add the MCP server** with `claude mcp add` (above). This connects Claude to the Sports Data HQ data endpoints.
+2. **Add the MCP server** with `claude mcp add` (above). This connects Claude to the PuckAPI data endpoints.
 3. **Reference a skill by name.** Ask Claude to "load the dispatch skill" or mention any skill (e.g., "use the team-analysis skill"). Claude reads the skill file and gains the domain expertise it contains.
 4. **The dispatch skill routes automatically.** If you describe what you want without naming a skill, dispatch picks the right 2-3 skills for your request.
 
@@ -84,13 +84,7 @@ Once installed, try these first prompts:
 | `totals-modeling` | Over/under prediction. Pace metrics, Poisson, under bias. |
 | `prop-modeling` | Player prop projections. TOI-first architecture, SGP correlation. |
 | `war-gar-decomposition` | RAPM ridge regression, component GAR, contract surplus. |
-| `playoff-simulation` | Monte Carlo season/bracket simulation. Cross-sport configs. |
-
-### NFL Analytics (2 skills)
-| Skill | What It Does |
-|-------|-------------|
-| `epa-situational-query` | nflfastR play-by-play queries. 372 columns, free data. |
-| `fourth-down-decision` | EV framework with conversion and field goal tables. |
+| `playoff-simulation` | Monte Carlo season/bracket simulation. |
 
 ### Workflow (2 skills)
 | Skill | What It Does |
@@ -101,13 +95,11 @@ Once installed, try these first prompts:
 ### Infrastructure (1 skill)
 | Skill | What It Does |
 |-------|-------------|
-| `sportsdatahq-tool` | MCP tool router. 12 endpoints, credit tracking, BYOD support. |
+| `puckapi-tool` | MCP tool router. 12 endpoints, credit tracking, BYOD support. |
 
 ## Data Sources
 
-**Sports Data HQ MCP** (default): 22,000+ NHL games (2008-present), 107,000+ odds records (2020-2026 NHL seasons), 3,000+ players, 34 franchises (32 active + 2 historical). Pay-as-you-go credits.
-
-**nflfastR** (NFL): Free Python package. 372 pre-computed columns including EPA, CPOE, win probability. Back to 1999.
+**PuckAPI MCP** (default): 22,000+ NHL games (2008-present), 107,000+ odds records (2020-2026 NHL seasons), 3,000+ players, 34 franchises (32 active + 2 historical). Pay-as-you-go credits.
 
 **Your own data**: Every skill accepts CSV/JSON. No credits consumed.
 
@@ -128,7 +120,7 @@ A full game preview costs ~34 credits. A full season backtest with odds can cost
 - `docs/hockey-glossary.md` -- Corsi, Fenwick, xG, PDO, RAPM definitions
 - `docs/betting-glossary.md` -- Odds formats, vig, devigging, Kelly, CLV
 - `docs/tool-routing.md` -- Decision tree for picking data sources
-- `docs/season-logic.md` -- NHL/NFL season resolution rules, game ID format
+- `docs/season-logic.md` -- NHL season resolution rules, game ID format
 
 ## How Skills Work
 
@@ -146,8 +138,7 @@ Skills never make bets for you. They help you build, validate, and track your ow
 
 - Claude Code with plugin support
 - Python 3.10+ (for code templates)
-- Sports Data HQ API key (for MCP data access)
-- `nfl_data_py` package (for NFL skills only)
+- PuckAPI API key (for MCP data access)
 
 ## License
 

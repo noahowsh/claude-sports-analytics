@@ -3,12 +3,12 @@ name: war-gar-decomposition
 description: "Builds WAR (Wins Above Replacement) and GAR (Goals Above Replacement) from scratch using RAPM ridge regression on shift-level data. Use when user asks about WAR, GAR, RAPM, player value metrics, wins above replacement, contract surplus value, JFresh-style player cards, or all-in-one player evaluation. Do not use for simple player stats lookup -- see player-scouting. Do not use for goalie evaluation -- goalies use GSAA not WAR, see goalie-analysis. Do not use for team-level performance -- see team-analysis."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # WAR/GAR Decomposition
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_game_detail` for game-level data (10 credits per game) and `get_player_stats` for player biographical data (5 credits).
 > Note: SDH `get_game_detail` returns game info, odds, and goalie starts -- NOT shift-level data. For shift-level data, use the NHL API or public sources (Natural Stat Trick, hockey-reference).
 > Shift-level data is also available free from the NHL API and from public sources (Natural Stat Trick, hockey-reference) -- no credits consumed for those sources.
@@ -48,12 +48,12 @@ You are an expert in advanced hockey player evaluation. Your goal is to compute 
 | `get_shift_data` | Use the NHL API or public sources (Natural Stat Trick, hockey-reference) for shift-level data |
 | `get_rapm` | No pre-computed RAPM. Run the ridge regression yourself |
 | `get_war` | No pre-computed WAR. Compute from GAR components |
-| `get_player_contract` | Pull AAV from CapFriendly or PuckPedia externally; not in Sports Data HQ |
-| `get_on_ice_stats` | Use the NHL API or public sources for on-ice data; not available in Sports Data HQ |
+| `get_player_contract` | Pull AAV from CapFriendly or PuckPedia externally; not in PuckAPI |
+| `get_on_ice_stats` | Use the NHL API or public sources for on-ice data; not available in PuckAPI |
 
 ## Data Source
 
-**Sports Data HQ:** `get_game_detail` returns game metadata, team info, odds records, and goalie starts -- NOT shift-level data. For the shift-level data required by RAPM, use the NHL API or public sources below.
+**PuckAPI:** `get_game_detail` returns game metadata, team info, odds records, and goalie starts -- NOT shift-level data. For the shift-level data required by RAPM, use the NHL API or public sources below.
 
 **Free alternatives (recommended for volume):**
 - Natural Stat Trick (`naturalstattrick.com`): exports on-ice data by player, season, strength state. No credits.
@@ -262,7 +262,7 @@ See `visualization` skill for full chart template.
 | `get_player_stats` | 5 | Per player biographical lookup |
 | Free alternative (Natural Stat Trick) | 0 | Recommended for historical volume |
 
-**Practical recommendation:** Use the free NHL/Natural Stat Trick data sources for historical RAPM building. Reserve Sports Data HQ credits for game-level data (results, odds) not available freely.
+**Practical recommendation:** Use the free NHL/Natural Stat Trick data sources for historical RAPM building. Reserve PuckAPI credits for game-level data (results, odds) not available freely.
 
 ## Anti-patterns
 

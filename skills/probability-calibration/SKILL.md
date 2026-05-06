@@ -3,12 +3,12 @@ name: probability-calibration
 description: "Verifies and corrects model probability outputs so predicted win percentages match actual win rates. Use when user asks about calibration, reliability diagrams, Brier score, Platt scaling, isotonic regression, probability quality, or whether model probabilities are accurate. Also use when user has a trained model and wants to know if outputs can be trusted for betting. Do not use for odds math or devigging -- see odds-analysis instead. Do not use for model training -- see model-building instead."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Probability Calibration
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_games` (5 credits) to retrieve historical results for calibration analysis.
 > Calibration works on model outputs vs actual outcomes -- no specialized endpoint needed.
 > Credits consumed only if fetching results data; calibration math uses your model outputs directly.
@@ -59,7 +59,7 @@ Before calibrating, establish:
 - `predicted_prob`: model's output probability for home team win (0 to 1)
 - `actual_outcome`: 1 if home team won, 0 if away team won
 
-**Sports Data HQ:** Use `get_games` to retrieve actual outcomes, then join to your model's prediction log on game ID and date.
+**PuckAPI:** Use `get_games` to retrieve actual outcomes, then join to your model's prediction log on game ID and date.
 
 **Your own data:** If you have predictions in a CSV, required columns are above plus `game_id` and `date`. Flag any rows with missing outcomes -- do not silently drop them.
 

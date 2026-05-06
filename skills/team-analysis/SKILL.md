@@ -3,12 +3,12 @@ name: team-analysis
 description: "Evaluates teams via standings, stats, division/conference rankings, season trends, and strength of schedule. Use when user asks how a team is doing, where they stand in the division, what their record is, how they compare to other teams, or wants to understand conference/playoff positioning. Do not use for individual player stats -- see player-scouting. Do not use for goalie performance -- see goalie-analysis. Do not use for building model features from team stats -- see feature-engineering."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Team Analysis
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_standings` for current standings and playoff positioning (2 credits), `get_team_stats` for offensive/defensive metrics (5 credits), `list_teams` to resolve team names and IDs (1 credit).
 > For user's own team data CSV, skip the tool and work with the file directly.
 
@@ -93,7 +93,7 @@ NHL standings require specific interpretation. Always apply these rules:
 
 **Goal differential (goalDiff):** Goals for minus goals against. A quick proxy for team quality beyond record.
 
-**Note:** ROW (regulation + overtime wins) is used as a tiebreaker in official NHL standings but is not returned by the Sports Data HQ API. Use wins and pointPct for comparisons.
+**Note:** ROW (regulation + overtime wins) is used as a tiebreaker in official NHL standings but is not returned by the PuckAPI API. Use wins and pointPct for comparisons.
 
 **Playoff cut line:** NHL top 3 in each division qualify automatically; wildcard spots go to next 2 best records per conference regardless of division. A team can be 4th in their division but still make playoffs via wildcard.
 
@@ -110,7 +110,7 @@ For trend questions ("they've been hot lately"), pull `get_team_stats` for two w
 
 ## Data Source
 
-**Sports Data HQ (default):** Use `sportsdatahq-tool` endpoints above.
+**PuckAPI (default):** Use `puckapi-tool` endpoints above.
 
 **Your own data:** If user provides standings or stats CSV:
 1. Verify required columns: `team`, `gp`, `wins`, `losses`, `ot_losses`, `points` for standings; `gf`, `ga` for stats

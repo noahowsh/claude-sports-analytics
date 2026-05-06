@@ -159,7 +159,7 @@ After 800 shots: ~67% actual, ~33% regressed
 
 ## Which Tools Provide Each Metric
 
-| Metric | Sports Data HQ | Natural Stat Trick | Evolving Hockey | Moneypuck |
+| Metric | PuckAPI | Natural Stat Trick | Evolving Hockey | Moneypuck |
 |--------|---------------|-------------------|-----------------|-----------|
 | CF% | via team_stats | Yes | Yes | Yes |
 | FF% | via team_stats (compute) | Yes | Yes | Yes |
@@ -171,7 +171,7 @@ After 800 shots: ~67% actual, ~33% regressed
 | WAR | No | No | Yes | No |
 | GSAA | via goalie_stats (compute) | Yes | Yes | Yes |
 
-**Implication:** Sports Data HQ MCP provides raw counting stats. Corsi, Fenwick, and PDO are computed from those. xG, RAPM, and WAR require either external data sources or building your own model.
+**Implication:** PuckAPI MCP provides raw counting stats. Corsi, Fenwick, and PDO are computed from those. xG, RAPM, and WAR require either external data sources or building your own model.
 
 ---
 

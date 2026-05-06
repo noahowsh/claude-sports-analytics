@@ -3,12 +3,12 @@ name: daily-card
 description: "Full slate analysis for tonight's games with edge rankings, odds across books, and recommended stakes. Use when user asks about tonight's slate, best bets tonight, daily card, full slate, tonight's games, which games are worth betting, or wants all games ranked by edge. Do not use for a single game breakdown -- see game-preview. Do not use for historical backtesting -- see backtesting. Do not use for tracking bets placed -- see bet-tracker."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Daily Card
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Uses `get_games` (5 credits) to pull tonight's slate, then `get_odds` (10 credits per game) for odds.
 > Credit cost: ~15 credits per game. A 7-game NHL night = ~75 credits. A 15-game night = ~155 credits.
 > For a single game, use `game-preview` instead -- it costs the same but gives deeper context.
@@ -55,7 +55,6 @@ You are an expert sports analyst running a daily edge-finding operation. Your go
 - January through September: previous calendar year is the season start (2025-26 season)
 - "Tonight" = current date in the user's timezone; default to ET for North American sports
 - NHL regular season: October to April. Playoffs: April to June.
-- NFL regular season: September to January. Playoffs: January to February.
 
 ## Initial Assessment
 
@@ -141,7 +140,7 @@ Total edges found, total recommended exposure, highest single exposure, key unce
 
 ## Data Source
 
-**Sports Data HQ (default):** All endpoints. Clean, joined data.
+**PuckAPI (default):** All endpoints. Clean, joined data.
 
 **Your own model output:** If user provides model probabilities as CSV/JSON:
 1. Verify columns: `game_id` (or team names), `model_prob_home`, `model_prob_away`
@@ -201,7 +200,7 @@ Flags:
 
 ---
 
-Built with Sports Data HQ Skills
+Built with PuckAPI Skills
 ```
 
 ## What to Do Next

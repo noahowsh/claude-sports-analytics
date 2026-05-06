@@ -20,22 +20,7 @@ Deterministic rules for resolving time-sensitive references across all skills.
 
 **"This week":** Monday through Sunday of the current week.
 
-## NFL Season Resolution
-
-| Current Month | "This season" | "Last season" |
-|---------------|--------------|---------------|
-| September - December | Current year (e.g., Sep 2026 = 2026) | Previous year (2025) |
-| January - February | Previous year (e.g., Jan 2027 = 2026 season) | Two years back (2025) |
-| March - August | Most recently completed (e.g., Jul 2027 = 2026 season) | Two years back (2025) |
-
-**Key dates:**
-- Regular season: early September to early January (18 weeks, 17 games)
-- Playoffs: mid-January to mid-February (Wild Card through Super Bowl)
-- Draft: late April
-- Free agency: mid-March
-- Training camp: late July
-
-## Game ID Format (Sports Data HQ)
+## Game ID Format (PuckAPI)
 
 NHL game IDs follow the format: `SSSSTTNNNN`
 - `SSSS` = season start year (e.g., 2024 for the 2024-25 season)
@@ -44,7 +29,7 @@ NHL game IDs follow the format: `SSSSTTNNNN`
 
 Example: `2024020001` = first regular season game of 2024-25 season.
 
-## Data Coverage (Sports Data HQ)
+## Data Coverage (PuckAPI)
 
 | Data Type | Coverage |
 |-----------|---------|

@@ -3,12 +3,12 @@ name: model-building
 description: "Trains and validates prediction models for sports game outcomes. Use when user asks about building a prediction model, training a classifier, choosing between logistic regression or XGBoost, model selection, hyperparameter tuning, feature importance, or ensemble methods. Always uses walk-forward methodology -- refuses k-fold. Do not use for feature construction -- see feature-engineering. Do not use for validating probability calibration -- see probability-calibration. Do not use for xG models specifically -- see xg-model-building."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Model Building
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_games` for historical game results (5 credits per query).
 > Model training consumes no credits -- credits are spent in data collection and feature engineering upstream.
 
@@ -200,7 +200,7 @@ Always version models. When you retrain, increment the version. Keep old models 
 
 ## Data Source
 
-**Sports Data HQ (default):** Historical game results via `get_games`. Features already computed upstream via `feature-engineering`. Credits consumed upstream, not here.
+**PuckAPI (default):** Historical game results via `get_games`. Features already computed upstream via `feature-engineering`. Credits consumed upstream, not here.
 
 **Your own data:** If user provides feature matrix CSV:
 1. Verify columns: `game_id`, `game_date`, `season`, all feature columns, `home_win` target

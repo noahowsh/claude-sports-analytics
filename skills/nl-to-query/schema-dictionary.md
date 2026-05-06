@@ -2,7 +2,7 @@
 
 > Level 3 reference. Loaded on demand by `nl-to-query` when translating complex or ambiguous terms.
 
-Full mapping of natural language sports terms to data fields, operators, and values.
+Full mapping of natural language hockey terms to data fields, operators, and values.
 
 ---
 
@@ -80,53 +80,6 @@ Full mapping of natural language sports terms to data fields, operators, and val
 
 ---
 
-## Football (NFL) Terms
-
-### Game Conditions
-
-| User Said | Field | Operator | Value | Notes |
-|-----------|-------|----------|-------|-------|
-| "home team" | venue_type | = | "home" | — |
-| "road game" | venue_type | = | "away" | — |
-| "blowout" | abs(score_differential) | >= | 14 | 2-TD margin |
-| "close game" | abs(score_differential) | <= | 7 | One-score game |
-| "overtime" | result | contains | "OT" | — |
-| "division game" | same_division | = | true | — |
-| "primetime" | game_time_et | >= | 20:00 | SNF/MNF/TNF |
-| "cold weather" | temperature_f | <= | 32 | Freezing or below |
-| "dome game" | is_dome | = | true | Indoor stadium |
-| "short week" | days_rest | <= | 5 | TNF situation |
-| "bye week benefit" | days_rest | >= | 14 | Post-bye |
-| "back half of season" | week | >= | 10 | Week 10+ |
-| "early season" | week | <= | 4 | — |
-
-### Team Metrics
-
-| User Said | Field | Operator | Value | Notes |
-|-----------|-------|----------|-------|-------|
-| "high-scoring offense" | pts_per_game | >= | 27 | Season average |
-| "run-heavy" | rush_att_pct | >= | 0.45 | Run/total play ratio |
-| "pass-heavy" | pass_att_pct | >= | 0.60 | — |
-| "strong defense" | pts_allowed_avg | <= | 18 | — |
-| "porous defense" | pts_allowed_avg | >= | 27 | — |
-| "turnover prone" | turnovers_per_game | >= | 2.0 | — |
-| "good red zone" | red_zone_td_pct | >= | 0.60 | — |
-
-### Play-Level Conditions (EPA)
-
-| User Said | EPA Field | Notes |
-|-----------|-----------|-------|
-| "big play" | epa | > | 5.0 | High-value single play |
-| "disaster play" | epa | < | -5.0 | — |
-| "efficient offense" | epa_per_play | > | 0.1 | Season or game avg |
-| "run on first down" | down = 1 AND play_type = "run" | — |
-| "third and long" | down = 3 AND ydstogo >= 7 | — |
-| "red zone" | yardline_100 <= 20 | — |
-| "two-minute drill" | half_seconds_remaining <= 120 | — |
-| "garbage time" | wp < 0.10 OR wp > 0.90 | Score blowout |
-
----
-
 ## Ambiguous Terms (Require Clarification)
 
 These terms mean different things in different contexts. Ask before mapping:
@@ -137,7 +90,7 @@ These terms mean different things in different contexts. Ask before mapping:
 | "shot attempts" | Shots on goal vs. Corsi (all attempts) | "Shots on goal, or all shot attempts?" |
 | "recent" | Last 5 / 10 / 30 games | "Last 10 games, or last 30?" |
 | "struggling" | Record, goal differential, or advanced metrics | "By wins, or by shot metrics?" |
-| "pressure situation" | NHL: late-game tie / NFL: inside 5 minutes | Clarify sport context |
+| "pressure situation" | Late-game tie, trailing in 3rd period | "Do you mean tied late, or trailing?" |
 | "big game" | Rivalry, playoff, primetime, or point differential | "Do you mean a high-stakes game or just a high-scoring one?" |
 
 ---
@@ -155,15 +108,6 @@ Standard thresholds used when user says "good," "bad," "strong," etc. Adjust bas
 | Team SF% (shots) | < .470 | .490 | .510 | > .530 |
 | PP% | < .150 | .185 | .220 | > .270 |
 | PK% | < .770 | .800 | .825 | > .850 |
-
-### NFL Thresholds
-
-| Metric | Poor | Average | Good | Elite |
-|--------|------|---------|------|-------|
-| EPA/play (offense) | < -0.10 | 0.00 | 0.10 | > 0.20 |
-| EPA/play (defense) | > 0.10 | 0.00 | -0.10 | < -0.20 |
-| DVOA (offense) | < -15% | 0% | +15% | > +30% |
-| Completion % | < 58% | 63% | 67% | > 72% |
 
 ---
 
@@ -184,8 +128,5 @@ Pre-built filter chains for recurring research questions:
 - previous_opponent_quality = "high" AND current_opponent_quality = "low" AND venue_type = "away"
 - Note: opponent_quality must be derived -- use standings rank proxy
 
-**"Home dog covers" (NFL)**
-- venue_type = "home" AND opening_spread > 0 AND score_differential >= opening_spread
-
-**"Total goes over in cold weather" (NFL)**
-- temperature_f <= 32 AND (home_score + away_score) > total_line
+**"Home dog covers puck line"**
+- venue_type = "home" AND opening_spread > 0 AND goal_differential >= opening_spread

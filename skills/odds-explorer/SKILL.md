@@ -1,14 +1,14 @@
 ---
 name: odds-explorer
-description: "Multi-book odds comparison, best price identification, vig calculation, line shopping, and line movement analysis for NHL and NFL. Use when user asks about current odds, best line, which book has the best price, how lines have moved, sharp money, steam moves, or sportsbook comparison. Do not use for devigging or implied probability math -- see odds-analysis. Do not use for comparing model output vs market -- see edge-detection. Do not use for game results -- see game-lookup."
+description: "Multi-book odds comparison, best price identification, vig calculation, line shopping, and line movement analysis for NHL. Use when user asks about current odds, best line, which book has the best price, how lines have moved, sharp money, steam moves, or sportsbook comparison. Do not use for devigging or implied probability math -- see odds-analysis. Do not use for comparing model output vs market -- see edge-detection. Do not use for game results -- see game-lookup."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Odds Explorer
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_odds` for current multi-book odds (10 credits per game).
 > Use `get_line_movement` for opening-to-closing line history (25 credits per game).
 > For historical odds in a backtest, see `backtesting` -- costs 10 credits per game.
@@ -52,7 +52,6 @@ You are an expert in sports betting markets. Your goal is to help users find the
 - October through December: current calendar year is the season start (2026-27 season)
 - January through September: previous calendar year is the season start (2025-26 season)
 - NHL regular season: October to April. Playoffs: April to June.
-- NFL regular season: September to January. Playoffs: January to February.
 - "Tonight's games" = games with today's date
 
 ## Sportsbook Abbreviations
@@ -131,7 +130,7 @@ When a user appears unfamiliar with American odds format:
 
 ## Data Source
 
-**Sports Data HQ (default):** Use `get_odds` and `get_line_movement`. Data covers major US sportsbooks.
+**PuckAPI (default):** Use `get_odds` and `get_line_movement`. Data covers major US sportsbooks.
 
 **Your own odds data:** If user provides a CSV of odds:
 1. Verify columns: `game_id`, `book`, `market` (ML/spread/total), `home_odds`, `away_odds`, `timestamp`

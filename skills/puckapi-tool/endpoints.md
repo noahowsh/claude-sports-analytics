@@ -1,4 +1,4 @@
-# Sports Data HQ -- Full Endpoint Reference
+# PuckAPI -- Full Endpoint Reference
 
 > Level 3 reference. Load this file when you need exact parameter names, accepted values, or return field details. Do not load for every request -- SKILL.md covers the common cases.
 

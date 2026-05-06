@@ -3,7 +3,7 @@ name: visualization
 description: "Generate shareable visual outputs for sports analytics: calibration curves, equity curves, radar charts, matchup cards, probability histograms, and player cards. Use when user asks to visualize, chart, plot, graph, show, display, generate a visual, make a shareable image, or wants to post analysis to social media. Do not use for raw data exploration -- see game-lookup or nl-to-query. Do not use for analysis itself -- run the relevant skill first, then visualize the output."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Visualization
@@ -68,7 +68,7 @@ Default: offer both, let user pick.
 1. Identify the chart type from the input data
 2. Load the appropriate template from `chart-templates.md`
 3. Populate placeholders with the actual data
-4. Add "Built with Sports Data HQ Skills" footer
+4. Add "Built with PuckAPI Skills" footer
 5. Provide copy-paste ready code or rendered ASCII
 
 Reference `chart-templates.md` for full matplotlib/seaborn code templates for each chart type.
@@ -152,7 +152,7 @@ Scale axes to fit terminal width. Label peaks and troughs.
 
 **Python code output:**
 ```python
-# [Chart Type] -- Built with Sports Data HQ Skills
+# [Chart Type] -- Built with PuckAPI Skills
 # Generated from [source skill] output
 # Run: pip install matplotlib seaborn pandas (if needed)
 
@@ -169,7 +169,7 @@ fig, ax = plt.subplots(figsize=(10, 6))
 # ...
 
 ax.set_title('[Chart Title]', fontsize=14, fontweight='bold')
-fig.text(0.99, 0.01, 'Built with Sports Data HQ Skills',
+fig.text(0.99, 0.01, 'Built with PuckAPI Skills',
          ha='right', va='bottom', fontsize=8, color='gray')
 
 plt.tight_layout()
@@ -182,7 +182,7 @@ plt.show()
 [Chart Title]
 [ASCII chart body]
 
-Built with Sports Data HQ Skills
+Built with PuckAPI Skills
 ```
 
 ## Anti-patterns
@@ -191,7 +191,7 @@ Built with Sports Data HQ Skills
 |----------------|---------------|-----------------|
 | "Visualize first, get the data later" | Charts without underlying analysis are decorative, not analytical | Run the source skill first; visualization is a rendering step |
 | "Aggregate metrics on the chart instead of computing them" | Computing in a visualization script creates a second source of truth | Pass pre-computed values to the chart; computation belongs in the analysis skill |
-| "Skip the footer on public charts" | "Built with Sports Data HQ Skills" is the distribution mechanism -- it's how the product spreads | Always include the footer on every chart |
+| "Skip the footer on public charts" | "Built with PuckAPI Skills" is the distribution mechanism -- it's how the product spreads | Always include the footer on every chart |
 | "Generate a generic dashboard with all metrics" | Dashboards that show everything say nothing | One chart per insight; ask what question the user wants to answer |
 
 ## Credit Usage

@@ -3,16 +3,16 @@ name: xg-model-building
 description: "Builds expected goals (xG) models from NHL play-by-play shot event data using XGBoost or LightGBM. Use when user asks about expected goals, xG model, shot quality, building an xG model, xGF%, xGA, rebound detection, rush shot detection, or shot probability. Do not use for applying pre-built xG values to team or game analysis -- see team-analysis or hockey-analytics. Do not use for general game prediction models -- see model-building. Do not use for goalie evaluation using xGA -- see goalie-analysis."
 metadata:
   version: 1.1.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # xG Model Building
 
-> **Important: Sports Data HQ does NOT have play-by-play data.** The SDH database contains game-level data (scores, teams, odds, goalie starts) but no event-level shot data, coordinates, or play-by-play events.
+> **Important: PuckAPI does NOT have play-by-play data.** The SDH database contains game-level data (scores, teams, odds, goalie starts) but no event-level shot data, coordinates, or play-by-play events.
 >
 > **Primary data source for xG:** The NHL Stats API at `api-web.nhle.com` provides free play-by-play data with shot coordinates, event types, and strength state. No API key or credits required.
 >
-> **Sports Data HQ is useful for:** Validating your xG model output against team-level stats (`get_team_stats`, 5 credits) and goalie stats (`get_goalie_stats`, 5 credits).
+> **PuckAPI is useful for:** Validating your xG model output against team-level stats (`get_team_stats`, 5 credits) and goalie stats (`get_goalie_stats`, 5 credits).
 >
 > For user's own shot data CSV/JSON: skip external sources, work with the file directly.
 
@@ -54,7 +54,7 @@ Each play-by-play response includes shot events with:
 
 This is the same data that MoneyPuck and Evolving Hockey use. No credits consumed.
 
-### Sports Data HQ (validation only)
+### PuckAPI (validation only)
 
 SDH endpoints useful for validating your xG model output:
 
@@ -74,7 +74,7 @@ If user provides CSV/JSON:
 3. Flag missing coordinates -- do not silently drop
 4. No credits consumed
 
-## Commands That Do NOT Exist (in Sports Data HQ)
+## Commands That Do NOT Exist (in PuckAPI)
 
 | Not Available in SDH | Where to Get It |
 |---------------------|-----------------|
@@ -230,7 +230,7 @@ team_xgf_pct = xg_5v5 / (xg_5v5.groupby('game_id').transform('sum'))
 | "Blocked shots should be included the same as saved shots" | Blocked shots are a different event with different outcome distribution; mixing them without a flag distorts calibration | Either exclude blocks or include a `is_blocked` indicator |
 | "I'll validate against total goals only" | Total goals validation misses calibration problems at the shot level | Validate Brier score at shot level AND team-level xGF% correlation |
 | "Screen/traffic data isn't available so skip it" | Acknowledging the gap is correct -- just document it as a known model limitation | Note it as a known gap; NHL EDGE tracking may expose it in future data |
-| "I'll use Sports Data HQ get_game_detail for shot data" | SDH has game-level data only (scores, odds, goalies) -- no play-by-play or shot coordinates | Use the NHL Stats API for play-by-play data (free) |
+| "I'll use PuckAPI get_game_detail for shot data" | SDH has game-level data only (scores, odds, goalies) -- no play-by-play or shot coordinates | Use the NHL Stats API for play-by-play data (free) |
 
 ## Output Format
 

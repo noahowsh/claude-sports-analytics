@@ -3,12 +3,12 @@ name: odds-analysis
 description: "Converts betting odds between formats and removes bookmaker margin to find true implied probabilities. Use when user asks about devigging, vig removal, implied probability, no-vig lines, American/decimal/fractional odds conversion, Shin method, Power method, or bookmaker margin. Prerequisite for edge detection. Do not use for viewing current odds -- see odds-explorer instead. Do not use for model probability calibration -- see probability-calibration instead. Do not use for finding edges -- see edge-detection instead."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Odds Analysis
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_odds` (10 credits) for current odds data.
 > Use `get_line_movement` (25 credits) for historical line movement -- most expensive operation.
 > For your own odds CSV, skip the tool and work with the file directly.

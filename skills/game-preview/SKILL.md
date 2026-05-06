@@ -3,12 +3,12 @@ name: game-preview
 description: "Complete pre-game analysis for a single NHL (or other sport) matchup: team records, goalie matchup, key stats, odds snapshot, model edge, and head-to-head history in one shareable report. Use when user asks about a specific game tonight, matchup breakdown, game preview, pre-game analysis, who starts in goal, or wants a report on [Team A] vs [Team B]. Do not use for full slate analysis -- see daily-card. Do not use for odds-only lookup -- see odds-explorer. Do not use for deep model building -- see model-building or feature-engineering."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Game Preview
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Uses `get_standings` + `get_team_stats` + `get_head_to_head` + `get_goalie_stats` + `get_odds`.
 > Credit cost per preview: ~34 credits (2+5+10+5+10+2).
 > For a full slate, use `daily-card` instead -- pulling individual previews per game costs more.
@@ -59,7 +59,6 @@ You are an expert sports analyst. Your goal is to produce a complete, shareable 
 - "This season" = season currently in progress or most recently completed
 - "Last season" = one season before "this season"
 - NHL regular season: October to April. Playoffs: April to June.
-- NFL regular season: September to January. Playoffs: January to February.
 
 ## Initial Assessment
 
@@ -155,7 +154,7 @@ Note: small samples (< 5 games) carry no predictive value for head-to-head trend
 
 ## Data Source
 
-**Sports Data HQ (default):** All six endpoints. Data is clean and joined.
+**PuckAPI (default):** All six endpoints. Data is clean and joined.
 
 **Your own data:** If user provides team/goalie stats as CSV:
 1. Verify columns: team names, record fields (W, L, OTL), SV%, GAA, corsiPct, fenwickPct, goalsForPerGame, goalsAgainstPerGame
@@ -231,7 +230,7 @@ Provide your model probability to compute EV.
 
 ---
 
-Built with Sports Data HQ Skills
+Built with PuckAPI Skills
 ```
 
 ## What to Do Next

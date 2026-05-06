@@ -3,12 +3,12 @@ name: feature-engineering
 description: "Transforms raw game, player, and goalie data into model-ready features with built-in leakage detection. Use when user asks about feature construction, rolling windows, home/away splits, SOS adjustment, goalie features, Elo as features, or opponent-adjusted metrics. Strictly enforces .shift(1) before any rolling calculation. Do not use for raw data exploration -- see game-lookup or team-analysis. Do not use for understanding hockey metrics -- see hockey-analytics. Do not use for xG feature construction -- see xg-model-building."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Feature Engineering
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_games` for game results (5 credits), `get_team_stats` for team-level stats (5 credits), `get_goalie_stats` for goalie data (5 credits).
 > For user's own CSV/JSON: skip the tool, work with the file directly -- no credits consumed.
 
@@ -51,7 +51,7 @@ You are an expert in sports feature engineering. Your goal is to construct model
 
 ## Data Source
 
-**Sports Data HQ (default):** Pull historical game log via `get_games` for the team and date range needed. Sort ascending by date before any calculation.
+**PuckAPI (default):** Pull historical game log via `get_games` for the team and date range needed. Sort ascending by date before any calculation.
 
 **Your own data:** If user provides CSV/JSON:
 1. Verify required columns: `game_date`, `home_team`, `away_team`, result columns, and stat columns

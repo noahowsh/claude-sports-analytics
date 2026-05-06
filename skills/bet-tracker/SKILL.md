@@ -3,12 +3,12 @@ name: bet-tracker
 description: "Track predictions vs actuals in production: log bets, compute CLV, monitor ROI, detect edge decay, and run significance tests. Use when user asks about tracking bets, bet logging, closing line value, CLV, ROI tracking, win rate, drawdown monitoring, or whether their model has an edge right now. Do not use for finding today's bets -- see daily-card or edge-detection. Do not use for historical backtesting before live betting -- see backtesting. Do not use for model training or retraining -- see model-building."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Bet Tracker
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_games` (5 credits) to pull outcomes. Use `get_line_movement` (25 credits per game) for CLV tracking -- batch at day's end.
 > For logging and metrics: local CSV or SQLite -- no credits consumed.
 
@@ -67,7 +67,7 @@ date,game_id,sport,bet_type,selection,model_prob,market_odds,closing_odds,stake_
 **Field definitions:**
 - `date` -- ISO 8601 (YYYY-MM-DD)
 - `game_id` -- from `get_games` output; links to outcome resolution
-- `sport` -- NHL, NFL, NBA, etc.
+- `sport` -- NHL (or other sport if applicable)
 - `bet_type` -- ML, spread, total, prop
 - `selection` -- Home ML, Away ML, Over 6.0, etc.
 - `model_prob` -- decimal (0.0-1.0)

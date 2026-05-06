@@ -3,12 +3,12 @@ name: totals-modeling
 description: "Builds over/under prediction models for NHL game totals using pace, special teams, goalie matchup, and contextual features. Use when user asks about totals modeling, over/under prediction, predicting total goals, goal scoring rates, or NHL scoring trends. Do not use for moneyline or spread prediction -- see model-building. Do not use for player-level goal props -- see prop-modeling. Do not use for exploring current odds lines -- see odds-explorer."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Totals Modeling
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_team_stats` for pace and special teams rates (5 credits), `get_goalie_stats` for starter quality (5 credits), `get_games` for historical game totals (5 credits), `get_odds` for market line context (10 credits).
 > For user's own CSV/JSON: skip the tool, work with the file directly.
 
@@ -54,7 +54,7 @@ You are an expert in hockey over/under prediction. Your goal is to build a calib
 
 ## Data Source
 
-**Sports Data HQ (default):** Pull `get_games` for historical game log with total goals. Pull `get_team_stats` for pace and special teams. Pull `get_goalie_stats` for both starting goalies.
+**PuckAPI (default):** Pull `get_games` for historical game log with total goals. Pull `get_team_stats` for pace and special teams. Pull `get_goalie_stats` for both starting goalies.
 
 **Your own data:** If user provides CSV/JSON:
 1. Verify required columns: `game_date`, `home_team`, `away_team`, `home_goals`, `away_goals` (to compute total), `home_starter_sv_pct`, `away_starter_sv_pct`, `home_shots_per_60`, `away_shots_per_60`, `home_pp_pct`, `away_pp_pct`, `home_pk_pct`, `away_pk_pct`

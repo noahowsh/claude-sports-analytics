@@ -1,14 +1,14 @@
 {
-  "name": "sports-data-hq-skills",
-  "description": "30 Claude Code skills for sports analytics with Sports Data HQ. NHL data exploration, hockey analytics, betting models, and AI-powered research workflows.",
+  "name": "hockey-skills",
+  "description": "28 Claude Code skills for hockey analytics with PuckAPI. NHL data exploration, hockey analytics, betting models, and research workflows.",
   "version": "1.0.0",
   "author": {
-    "name": "Sports Data HQ"
+    "name": "PuckAPI"
   },
-  "homepage": "https://sportsdatahq.com",
+  "homepage": "https://puckapi.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/noahowsh/claude-sports-analytics.git"
+    "url": "https://github.com/sports-data-hq/hockey-skills.git"
   },
   "license": "MIT"
 }

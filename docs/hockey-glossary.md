@@ -1,6 +1,6 @@
 # Hockey Analytics Glossary
 
-Quick reference for hockey analytics terms used across Sports Data HQ Skills.
+Quick reference for hockey analytics terms used across PuckAPI Skills.
 
 ## Possession & Shot Metrics
 

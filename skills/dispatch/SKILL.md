@@ -1,16 +1,16 @@
 ---
 name: dispatch
-description: "Routes sports analytics requests to the right 2-3 skills. Load this FIRST when a sports data or analytics request comes in and you are unsure which skills to activate. Prevents loading all 30 skills when only 2-3 are needed. Also handles first-use persona detection."
+description: "Routes hockey analytics requests to the right 2-3 skills. Load this FIRST when a hockey data or analytics request comes in and you are unsure which skills to activate. Prevents loading all 28 skills when only 2-3 are needed. Also handles first-use persona detection."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Skill Dispatch Guide
 
-When a sports analytics request comes in, match it to a pattern below. Load those skills. Don't load everything.
+When a hockey analytics request comes in, match it to a pattern below. Load those skills. Don't load everything.
 
-**Default data tool:** `sportsdatahq-tool` -- covers most data needs. Load it alongside the relevant strategy skill unless the request specifically needs a different tool.
+**Default data tool:** `puckapi-tool` -- covers most data needs. Load it alongside the relevant strategy skill unless the request specifically needs a different tool.
 
 ---
 
@@ -20,12 +20,12 @@ On first interaction, identify which path the user is on:
 
 | Signal | Persona | Start With |
 |--------|---------|-----------|
-| "What games are tonight?" / exploring data | **Explorer** | `game-lookup` + `sportsdatahq-tool` |
+| "What games are tonight?" / exploring data | **Explorer** | `game-lookup` + `puckapi-tool` |
 | "Help me build a model" / "I want to predict" | **Builder** | `hockey-analytics` + `feature-engineering` |
 | "What are tonight's best bets?" / "Give me picks" | **Daily User** | `daily-card` + `odds-explorer` |
 | "I have a model, is it any good?" | **Validator** | `walk-forward-validation` + `probability-calibration` |
 | "I'm new to hockey analytics" | **Learner** | `hockey-analytics` + `ai-sports-workflow` |
-| "NFL analysis" / "EPA" / "fourth down" | **NFL Analyst** | `epa-situational-query` + `fourth-down-decision` |
+| "I'm new to betting" | **New Bettor** | `odds-analysis` + `edge-detection` |
 
 ---
 
@@ -33,33 +33,33 @@ On first interaction, identify which path the user is on:
 
 ### "Who plays tonight?" / "What's the schedule?" / "Game results"
 1. `game-lookup` -- find games by date, team, season
-2. `sportsdatahq-tool` -- `get_games`, `get_schedule` endpoints
+2. `puckapi-tool` -- `get_games`, `get_schedule` endpoints
 
 ### "How are the Sabres doing?" / "Standings" / "Team stats"
 1. `team-analysis` -- standings, stats, rankings, SOS
-2. `sportsdatahq-tool` -- `get_standings`, `get_team_stats`
+2. `puckapi-tool` -- `get_standings`, `get_team_stats`
 
 ### "Tell me about Connor McDavid" / "Player stats" / "Compare players"
 1. `player-scouting` -- search, stats, comparison, NHLe
-2. `sportsdatahq-tool` -- `search_players`, `get_player_stats`
+2. `puckapi-tool` -- `search_players`, `get_player_stats`
 
 ### "Who's starting in goal?" / "Goalie matchup" / "Save percentage"
 1. `goalie-analysis` -- leaderboard, workload, xG-adjusted metrics
-2. `sportsdatahq-tool` -- `get_goalie_stats`
+2. `puckapi-tool` -- `get_goalie_stats`
 
 ### "What are the odds?" / "Line shopping" / "Best price"
 1. `odds-explorer` -- multi-book comparison, line movement
-2. `sportsdatahq-tool` -- `get_odds`, `get_line_movement`
+2. `puckapi-tool` -- `get_odds`, `get_line_movement`
 3. For odds math/devigging: also load `odds-analysis`
 
 ### "Show me games where..." / "Find all teams that..." / natural language query
 1. `nl-to-query` -- translate natural language to structured queries
-2. `sportsdatahq-tool` -- routes to appropriate endpoint
+2. `puckapi-tool` -- routes to appropriate endpoint
 3. If pattern found: `ai-sports-workflow` for follow-up hypothesis testing
 
 ### "What is Corsi?" / "Explain xG" / "Hockey analytics basics"
 1. `hockey-analytics` -- metric definitions, formulas, context
-2. `sportsdatahq-tool` -- pull real data to demonstrate
+2. `puckapi-tool` -- pull real data to demonstrate
 
 ### "How do I use Claude for sports analysis?" / "What questions should I ask?"
 1. `ai-sports-workflow` -- prompt patterns, hypothesis testing, iteration
@@ -67,11 +67,11 @@ On first interaction, identify which path the user is on:
 
 ### "How do I automate this?" / "Run daily" / "Pipeline"
 1. `data-pipeline` -- GitHub Actions, scheduling, model versioning
-2. Reference `sportsdatahq-tool` for endpoint costs in automation budget
+2. Reference `puckapi-tool` for endpoint costs in automation budget
 
 ### "Help me build features" / "Feature engineering" / "What features should I use?"
 1. `feature-engineering` -- rolling windows, leakage detection, shift(1)
-2. `sportsdatahq-tool` -- historical data endpoints
+2. `puckapi-tool` -- historical data endpoints
 3. If user is new to metrics: also load `hockey-analytics`
 
 ### "How do I validate my model?" / "Is k-fold okay?" / "Cross-validation"
@@ -85,7 +85,7 @@ On first interaction, identify which path the user is on:
 
 ### "Build an Elo rating system" / "Rating system" / "Team ratings"
 1. `elo-engineering` -- 5 variants, tuning, carryover
-2. `sportsdatahq-tool` -- `get_games` for historical results
+2. `puckapi-tool` -- `get_games` for historical results
 
 ### "Are my probabilities calibrated?" / "Platt scaling" / "Brier score"
 1. `probability-calibration` -- reliability diagrams, scaling methods
@@ -94,7 +94,7 @@ On first interaction, identify which path the user is on:
 
 ### "How do I devig odds?" / "Implied probability" / "Shin method"
 1. `odds-analysis` -- conversion, devigging, no-vig lines
-2. `sportsdatahq-tool` -- `get_odds` for real numbers to work with
+2. `puckapi-tool` -- `get_odds` for real numbers to work with
 
 ### "Should I bet this game?" / "Where's the edge?" / "Expected value"
 1. `edge-detection` -- EV calculation, Kelly sizing, CLV
@@ -104,7 +104,7 @@ On first interaction, identify which path the user is on:
 
 ### "Backtest my model" / "Historical performance" / "Is my edge real?"
 1. `backtesting` -- walk-forward backtest, strategy simulation
-2. `sportsdatahq-tool` -- historical odds (heavy credits)
+2. `puckapi-tool` -- historical odds (heavy credits)
 3. If model health check: backtesting includes model audit
 
 ### "Build an xG model" / "Expected goals from scratch" / "Shot quality model"
@@ -113,33 +113,25 @@ On first interaction, identify which path the user is on:
 
 ### "Over/under prediction" / "Totals model" / "Will this game go over?"
 1. `totals-modeling` -- pace, goalie matchup quality, under bias
-2. `sportsdatahq-tool` -- `get_odds` for totals lines
+2. `puckapi-tool` -- `get_odds` for totals lines
 
 ### "Player props" / "Will McDavid score?" / "SOG prop" / "DFS"
 1. `prop-modeling` -- TOI projection, per-60 rates, matchup adjustment
 2. `player-scouting` -- player data
-3. `sportsdatahq-tool` -- `get_player_stats`
+3. `puckapi-tool` -- `get_player_stats`
 
 ### "Build WAR" / "Player value" / "Contract analysis" / "RAPM"
 1. `war-gar-decomposition` -- RAPM ridge regression, component GAR
 2. `player-scouting` -- player data for context
 
-### "EPA analysis" / "NFL play-by-play" / "QB evaluation"
-1. `epa-situational-query` -- nflfastR queries, situational filters
-2. Data source: `nfl_data_py` (free, external Python package), NOT Sports Data HQ. NFL data comes from free public sources, not SDH.
-
-### "Should they go for it?" / "Fourth down" / "Was that the right call?"
-1. `fourth-down-decision` -- EV framework, conversion tables
-2. `epa-situational-query` -- if deeper NFL PBP analysis needed
-
 ### "Playoff odds" / "Will they make the playoffs?" / "Season simulation"
 1. `playoff-simulation` -- Monte Carlo, bracket simulation
 2. `elo-engineering` -- if rating system needed as input
-3. `sportsdatahq-tool` -- remaining schedule
+3. `puckapi-tool` -- remaining schedule
 
 ### "Preview tonight's game" / "Sabres vs Leafs preview"
 1. `game-preview` -- compound skill, loads data internally
-2. `sportsdatahq-tool` -- multiple endpoints (~34 credits)
+2. `puckapi-tool` -- multiple endpoints (~34 credits)
 
 ### "Tonight's card" / "Full slate" / "All games tonight"
 1. `daily-card` -- slate analysis, edge rankings

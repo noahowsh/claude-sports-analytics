@@ -9,7 +9,7 @@
 ## How to Read This Catalog
 
 - **Window**: The rolling N-game window used. "Season" = cumulative season-to-date.
-- **Raw endpoint**: The `sportsdatahq-tool` call that provides the source data.
+- **Raw endpoint**: The `puckapi-tool` call that provides the source data.
 - **Leakage risk**: LOW = safe with shift(1). MEDIUM = careful construction required. HIGH = do not use without explicit audit.
 - **Predictive value**: Based on PuckCast feature importance and published literature.
 

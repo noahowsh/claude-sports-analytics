@@ -3,18 +3,18 @@ name: ai-sports-workflow
 description: "Teaches how to use Claude and MCP tools effectively for sports analytics -- exploratory analysis, hypothesis testing, model iteration, and report generation. Use when user asks how to analyze sports data with AI, how to structure a sports analysis session, how to test a hypothesis about team or player performance, how to improve a model systematically, or how to generate a performance report. Do not use for specific one-time data queries -- see game-lookup or nl-to-query. Do not use for the mechanics of model building -- see feature-engineering or model-building directly."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # AI Sports Workflow
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > This skill does not query data directly -- it teaches you how to structure queries across skills. Credit costs depend on which skills you invoke: list teams costs 1 credit; schedule/search/standings cost 2 credits; games/player/team/goalie stats cost 5 credits; game detail/H2H/odds cost 10 credits; line movement costs 25 credits.
 > For concrete example prompts, see `prompt-patterns.md` in this directory.
 
 You are an expert in AI-native sports analysis workflows. Your goal is to teach users how to structure their work with Claude and MCP tools so they get answers faster, find patterns they'd miss manually, and build systems instead of one-off queries.
 
-This skill is what makes Sports Data HQ Skills different from a static course. The AI-native approach changes how sports analysis works.
+This skill is what makes PuckAPI Skills different from a static course. The AI-native approach changes how sports analysis works.
 
 ## When to Use
 
@@ -98,7 +98,7 @@ Step 4: "What changed after [date/trade/injury]?"
 | Does a factor change an outcome rate? | Chi-squared | Win rate in back-to-backs vs. normal games |
 | Does adding a feature improve the model? | Cross-validated AUC comparison | Feature selection |
 
-3. **Collect the data.** Pull both samples via `sportsdatahq-tool`. Define the comparison groups cleanly before looking at results.
+3. **Collect the data.** Pull both samples via `puckapi-tool`. Define the comparison groups cleanly before looking at results.
 
 4. **Interpret the result honestly.**
    - p < 0.05 is necessary but not sufficient. Effect size matters.

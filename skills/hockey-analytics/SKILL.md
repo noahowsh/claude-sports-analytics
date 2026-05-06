@@ -1,14 +1,14 @@
 ---
 name: hockey-analytics
-description: "Teaches hockey analytics metrics -- Corsi, Fenwick, PDO, xG, zone entries, high-danger chances, RAPM, WAR -- with real data context. Use when user asks what Corsi means, how to interpret PDO, what xG tells you, why Fenwick matters, or asks to explain advanced stats for a team or player. Do not use for NFL/NBA analytics -- this is hockey only. Do not use for betting concepts or odds interpretation -- see odds-analysis. Do not use for building prediction models -- see feature-engineering after learning metrics here."
+description: "Teaches hockey analytics metrics -- Corsi, Fenwick, PDO, xG, zone entries, high-danger chances, RAPM, WAR -- with real data context. Use when user asks what Corsi means, how to interpret PDO, what xG tells you, why Fenwick matters, or asks to explain advanced stats for a team or player. Do not use for betting concepts or odds interpretation -- see odds-analysis. Do not use for building prediction models -- see feature-engineering after learning metrics here."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Hockey Analytics
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_team_stats` for team-level advanced metrics (5 credits), `get_player_stats` for player bio data (5 credits), `get_goalie_stats` for goalie metrics (5 credits).
 > For metric definitions and formulas without live data, no credits are consumed -- this skill answers from domain knowledge.
 
@@ -30,7 +30,6 @@ This is the ON-RAMP. Users land here to understand metrics before they build mod
 
 ## When NOT to Use
 
-- NFL, NBA, or MLB analytics -- this skill is hockey-only
 - Odds, line movement, vig, or betting concepts -- see `odds-analysis`
 - Building an xG model from scratch -- see `xg-model-building`
 - Feature engineering for a prediction model -- see `feature-engineering`
@@ -129,7 +128,7 @@ This is the ON-RAMP. Users land here to understand metrics before they build mod
 
 **What it tells you:** Carry-in rate correlates with xG generation. Dump-in heavy teams are often outpossessed. Zone exit rate identifies defensive breakdowns.
 
-**Data note:** Zone entry/exit data comes from tracking providers (Coatney, Natural Stat Trick), not MCP. Not available via `sportsdatahq-tool`.
+**Data note:** Zone entry/exit data comes from tracking providers (Coatney, Natural Stat Trick), not MCP. Not available via `puckapi-tool`.
 
 ---
 

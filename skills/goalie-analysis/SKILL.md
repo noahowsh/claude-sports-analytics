@@ -3,12 +3,12 @@ name: goalie-analysis
 description: "Goalie-specific analysis for NHL: leaderboard rankings, workload tracking, starter identification, tandem splits, and matchup history. Includes xG-adjusted metrics -- GSAA, xSV%, HDSA% -- that predict future performance. Use when user asks about goalie stats, save percentage, GAA, quality starts, goalie fatigue, back-to-back starts, or which goalie is starting tonight. Do not use for skater stats -- see player-scouting. Do not use for team-level shot metrics -- see team-analysis. Do not use for building goalie model features -- see feature-engineering."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Goalie Analysis
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_goalie_stats` for all goalie data (5 credits per query).
 > For shot quality and xG context, combine with `get_team_stats` (5 credits).
 
@@ -99,7 +99,7 @@ Present findings with both raw and adjusted metrics. Highlight divergence: a goa
 
 ## Data Source
 
-**Sports Data HQ (default):** Use `get_goalie_stats`. Data includes GP, GS, W, L, OTL, SV%, GAA, SO, and game-level logs.
+**PuckAPI (default):** Use `get_goalie_stats`. Data includes GP, GS, W, L, OTL, SV%, GAA, SO, and game-level logs.
 
 **Your own data:** If user provides CSV/JSON:
 1. Verify required columns: `goalie_id`, `date`, `shots_against`, `goals_against`, `saves`

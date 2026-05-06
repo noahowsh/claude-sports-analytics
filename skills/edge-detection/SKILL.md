@@ -3,12 +3,12 @@ name: edge-detection
 description: "Compares model probabilities against market odds to find positive expected value bets. Use when user asks about EV calculation, edge magnitude, Kelly criterion, bankroll sizing, CLV tracking, closing line value, fractional Kelly, simultaneous bets, or which bets are worth placing. Do not use for odds exploration without a model -- see odds-explorer. Do not use for validating model accuracy -- see backtesting. Do not use for converting odds formats or computing implied probability -- see odds-analysis."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Edge Detection
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_odds` for current odds across books (10 credits per game), `get_line_movement` for CLV tracking (25 credits per game).
 > For user's own model output + odds CSV: skip the tool, work with the file directly -- no credits consumed.
 
@@ -52,7 +52,7 @@ You are an expert in sports betting edge detection and bankroll management. Your
 
 ## Data Source
 
-**Sports Data HQ (default):** Use `get_odds` for current market lines. Use `get_line_movement` only when tracking CLV (expensive -- 25 credits per game; batch at end of day, not before bet).
+**PuckAPI (default):** Use `get_odds` for current market lines. Use `get_line_movement` only when tracking CLV (expensive -- 25 credits per game; batch at end of day, not before bet).
 
 **Your own data:** If user provides model output + odds as CSV/JSON:
 1. Verify required columns: `game_id`, `model_prob`, `book_odds` (American or decimal), `book_name`

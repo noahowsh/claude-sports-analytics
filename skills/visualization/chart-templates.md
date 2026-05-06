@@ -1,4 +1,4 @@
-# Chart Templates -- Sports Data HQ Skills
+# Chart Templates -- PuckAPI Skills
 
 > Level 3 reference. Zero context cost until loaded.
 > These are copy-paste matplotlib/seaborn templates. Replace the DATA SECTION placeholders with actual values from the relevant skill output.
@@ -11,7 +11,7 @@ Source skill: `probability-calibration`
 Input: bin midpoints, actual win rates, bin sample sizes
 
 ```python
-# Calibration Curve -- Built with Sports Data HQ Skills
+# Calibration Curve -- Built with PuckAPI Skills
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
@@ -53,7 +53,7 @@ ax.set_ylim(0, 1)
 ax.legend(loc='upper left', fontsize=10)
 ax.grid(True, alpha=0.3)
 
-fig.text(0.99, 0.01, 'Built with Sports Data HQ Skills',
+fig.text(0.99, 0.01, 'Built with PuckAPI Skills',
          ha='right', va='bottom', fontsize=8, color='gray')
 
 plt.tight_layout()
@@ -69,7 +69,7 @@ Source skill: `backtesting` or `bet-tracker`
 Input: sequential P&L in units (one value per bet)
 
 ```python
-# Equity Curve -- Built with Sports Data HQ Skills
+# Equity Curve -- Built with PuckAPI Skills
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
 import numpy as np
@@ -116,7 +116,7 @@ ax1.text(0.02, 0.95, f'Total: {total_return:+.2f}u | Max DD: {max_dd:.2f}u',
          transform=ax1.transAxes, fontsize=10, va='top',
          bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
 
-fig.text(0.99, 0.01, 'Built with Sports Data HQ Skills',
+fig.text(0.99, 0.01, 'Built with PuckAPI Skills',
          ha='right', va='bottom', fontsize=8, color='gray')
 
 plt.savefig('equity-curve.png', dpi=150, bbox_inches='tight')
@@ -131,7 +131,7 @@ Source skill: `team-analysis` or `game-preview`
 Input: two teams, 6-8 metrics each, league averages
 
 ```python
-# Team Comparison Radar -- Built with Sports Data HQ Skills
+# Team Comparison Radar -- Built with PuckAPI Skills
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -174,7 +174,7 @@ ax.set_title(f'{team_a_name} vs {team_b_name}', fontsize=13,
              fontweight='bold', pad=20)
 ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1), fontsize=10)
 
-fig.text(0.99, 0.01, 'Built with Sports Data HQ Skills',
+fig.text(0.99, 0.01, 'Built with PuckAPI Skills',
          ha='right', va='bottom', fontsize=8, color='gray')
 
 plt.tight_layout()
@@ -190,7 +190,7 @@ Source skill: `game-preview`
 Input: team names, key stats, goalie names/stats, odds
 
 ```python
-# Matchup Card -- Built with Sports Data HQ Skills
+# Matchup Card -- Built with PuckAPI Skills
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
@@ -269,7 +269,7 @@ draw_team_panel(axes[1], home_team, home_abbr, home_goalie, home_sv, home_gaa,
 fig.suptitle(f'{away_abbr} @ {home_abbr}  |  {game_date}  |  {game_time}  |  O/U {total}',
              fontsize=13, fontweight='bold', y=0.02, color='#374151')
 
-fig.text(0.99, 0.01, 'Built with Sports Data HQ Skills',
+fig.text(0.99, 0.01, 'Built with PuckAPI Skills',
          ha='right', va='bottom', fontsize=8, color='gray')
 
 plt.tight_layout(rect=[0, 0.05, 1, 1])
@@ -285,7 +285,7 @@ Source skill: `model-building`
 Input: list of model probabilities (one per prediction)
 
 ```python
-# Prediction Confidence Histogram -- Built with Sports Data HQ Skills
+# Prediction Confidence Histogram -- Built with PuckAPI Skills
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -323,7 +323,7 @@ ax.text(0.02, 0.95, f'Favors Away: {below_50} ({below_50/len(probabilities):.0%}
 ax.text(0.98, 0.95, f'Favors Home: {above_50} ({above_50/len(probabilities):.0%})',
         transform=ax.transAxes, fontsize=10, va='top', ha='right', color='#16A34A')
 
-fig.text(0.99, 0.01, 'Built with Sports Data HQ Skills',
+fig.text(0.99, 0.01, 'Built with PuckAPI Skills',
          ha='right', va='bottom', fontsize=8, color='gray')
 
 plt.tight_layout()
@@ -339,7 +339,7 @@ Source skill: `bet-tracker` or `backtesting`
 Input: dates, rolling metric values (accuracy, ROI, CLV)
 
 ```python
-# Season Performance Timeline -- Built with Sports Data HQ Skills
+# Season Performance Timeline -- Built with PuckAPI Skills
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -375,7 +375,7 @@ ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f'{y:.1%}'))
 ax.legend(fontsize=10)
 ax.grid(True, alpha=0.3)
 
-fig.text(0.99, 0.01, 'Built with Sports Data HQ Skills',
+fig.text(0.99, 0.01, 'Built with PuckAPI Skills',
          ha='right', va='bottom', fontsize=8, color='gray')
 
 plt.tight_layout()
@@ -391,7 +391,7 @@ Source skill: `war-gar-decomposition`
 Input: player name, team, component values, comparison baseline
 
 ```python
-# Player Card -- Built with Sports Data HQ Skills
+# Player Card -- Built with PuckAPI Skills
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -444,7 +444,7 @@ ax.set_title(f'{player_name} — {player_team}\n{position} | {season} | WAR: {to
              fontsize=12, fontweight='bold', pad=20)
 ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1), fontsize=9)
 
-fig.text(0.99, 0.01, 'Built with Sports Data HQ Skills',
+fig.text(0.99, 0.01, 'Built with PuckAPI Skills',
          ha='right', va='bottom', fontsize=8, color='gray')
 
 plt.tight_layout()

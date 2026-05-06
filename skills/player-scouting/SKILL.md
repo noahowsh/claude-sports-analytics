@@ -3,12 +3,12 @@ name: player-scouting
 description: "Searches players and surfaces season stats, per-game rates, multi-season comparisons, roster snapshots, and prospect NHLe translations. Use when user asks how a player is performing, wants to compare two skaters, needs a team's top scorers, is evaluating a prospect from another league, or needs stats for fantasy or DFS. Do not use for goalie stats -- see goalie-analysis. Do not use for team-level analysis -- see team-analysis. Do not use for building WAR or GAR -- see war-gar-decomposition."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Player Scouting
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `search_players` to find a player by name (2 credits), `get_player_stats` for player bio data (5 credits).
 > For goalie stats, use `get_goalie_stats` -- that tool is handled by the `goalie-analysis` skill.
 > For user's own player CSV, skip the tool and work with the file directly.
@@ -148,7 +148,7 @@ To list a team's top scorers, pull `get_player_stats` for the full roster or use
 
 ## Data Source
 
-**Sports Data HQ (default):** Use `sportsdatahq-tool` endpoints above.
+**PuckAPI (default):** Use `puckapi-tool` endpoints above.
 
 **Your own data:** If user provides a player stats CSV:
 1. Verify required columns: `player_name`, `team`, `gp`, `goals`, `assists`, `points`, `season`

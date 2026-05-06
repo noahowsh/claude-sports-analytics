@@ -3,12 +3,12 @@ name: elo-engineering
 description: "Builds multi-variant Elo rating systems for sports prediction. Use when user asks about Elo ratings, rating systems, team strength, K-factor, home field advantage, season carryover, margin-of-victory adjustments, or mentions 'Fading Elo', 'Form Elo', 'Component Elo'. Do not use for general feature construction -- see feature-engineering instead. Do not use for team stats without ratings -- see team-analysis instead."
 metadata:
   version: 1.0.0
-  author: Sports Data HQ
+  author: PuckAPI
 ---
 
 # Elo Engineering
 
-> **Default data tool:** Sports Data HQ (`sportsdatahq-tool`).
+> **Default data tool:** PuckAPI (`puckapi-tool`).
 > Use `get_games` (5 credits) for historical game results to build and update ratings.
 > Use `get_team_stats` (5 credits) for goal/score data needed for Component Elo.
 > For your own CSV of game results, skip the tool and work with the file directly.
@@ -55,7 +55,7 @@ Before building, establish:
 
 ## Data Source
 
-**Sports Data HQ (default):** Use `get_games` with season and league filters. Returns home team, away team, final score, game date.
+**PuckAPI (default):** Use `get_games` with season and league filters. Returns home team, away team, final score, game date.
 
 **Your own data:** Required columns: `game_id`, `date`, `home_team`, `away_team`, `home_score`, `away_score`. Sort ascending by date before processing. Flag games with missing scores -- do not silently drop.
 
@@ -72,7 +72,7 @@ new_away_elo = away_elo + K * MOV_multiplier * ((1 - actual) - (1 - expected_hom
 ```
 
 - `actual` = 1 (home win), 0 (away win), 0.5 (tie/OT loss handled by sport)
-- `HFA` = home field advantage in Elo points (NHL: 35, NFL: 48, NBA: 100)
+- `HFA` = home field advantage in Elo points (NHL default: 35)
 - Initialize all teams at 1500
 
 ### 2. Fading Elo
@@ -169,10 +169,7 @@ new_season_elo = carryover * end_elo + (1 - carryover) * 1500
 ```
 
 - NHL carryover: 0.88 (12% regression)
-- NFL carryover: 0.67 (33% regression)
-- NBA carryover: 0.75 (25% regression)
-- MLB carryover: 0.50 (50% regression)
-- Higher regression for sports with more offseason change (trades, free agency)
+- Higher regression for sports with more offseason change (see `parameter-reference.md` for other sports)
 
 **Expansion teams:** Initialize at 1380-1400 (below mean) to reflect unknown quality.
 
@@ -188,10 +185,10 @@ new_season_elo = carryover * end_elo + (1 - carryover) * 1500
 | Rationalization | Why It's Wrong | Do This Instead |
 |----------------|---------------|-----------------|
 | "Initialize all teams at 1000 for simplicity" | Scale doesn't matter, but 1500 is conventional and matches published benchmarks you'll want to compare against | Use 1500. Deviation gains nothing. |
-| "Use the same K for all sports" | NHL teams play 82 games, NFL teams play 17. K must reflect game frequency and score variance. | Use sport-specific defaults in parameter-reference.md. Tune from there. |
+| "Use the same K for all sports" | NHL teams play 82 games; other sports have very different schedules. K must reflect game frequency and score variance. | Use sport-specific defaults in parameter-reference.md. Tune from there. |
 | "Skip MOV adjustment to keep it simple" | Without MOV, a 6-1 blowout and a 2-1 win shift ratings identically. Signal is lost. | Implement the logarithmic MOV multiplier. It's 3 lines of code. |
 | "One Elo variant is enough" | PuckCast's feature importance shows each variant captures different signal. Standard and Form are often the top two features. | Build all 5. Use feature selection to prune later if needed. |
-| "Don't regress ratings between seasons" | A team that went 60-22 in 2023 is not the same team in 2024. Over-confident carry-forward pollutes predictions. | Apply carryover. NFL uses 0.67 -- 33% regression. That's substantial for a reason. |
+| "Don't regress ratings between seasons" | A team that went 60-22 in 2023 is not the same team in 2024. Over-confident carry-forward pollutes predictions. | Apply carryover. NHL uses 0.88 -- 12% regression. Other sports regress even more. |
 | "Use end-of-season ratings for next season's opening day" | Without regression, teams that had lucky seasons (high PDO) stay overrated. | Apply carryover formula on day 1 of the new season. |
 
 ## Output Format
