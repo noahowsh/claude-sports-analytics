@@ -27,7 +27,7 @@ This is a public, open-source repository. Every commit, file, and message is vis
 ## Repo Structure
 
 ```
-hockey-skills/
+claude-sports-analytics/
 ├── .claude-plugin/plugin.json   # Plugin manifest
 ├── skills/                      # 28 skill directories
 │   ├── puckapi-tool/            # MCP tool reference (endpoints + fields)
@@ -41,7 +41,7 @@ hockey-skills/
 
 - 28 skills, all NHL/hockey focused
 - MCP server at mcp.puckapi.com/mcp
-- Data starts from 2010-11 season
+- Data starts from 2008-09 season (16+ seasons)
 - 32 active NHL teams (includes Utah Hockey Club, not Arizona Coyotes)
-- 4 bookmakers in odds data (DraftKings, FanDuel, BetMGM, ESPN BET)
+- 15+ sportsbooks in odds data (DraftKings, FanDuel, BetMGM, ESPN BET, and more)
 - 12 MCP tools with credit costs defined in puckapi-tool/endpoints.md

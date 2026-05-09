@@ -9,16 +9,28 @@ Free skills. Paid data via [PuckAPI](https://puckapi.com) MCP server.
 Clone this repo:
 
 ```bash
-git clone https://github.com/sports-data-hq/hockey-skills.git
+git clone https://github.com/PuckAPI/claude-sports-analytics.git
 ```
 
 Connect the PuckAPI MCP server for live data:
 
 ```bash
-claude mcp add puckapi https://mcp.puckapi.com/mcp --header "Authorization: Bearer YOUR_API_KEY"
+claude mcp add puckapi --transport streamable-http "https://mcp.puckapi.com/mcp?key=YOUR_API_KEY"
 ```
 
-Get your free API key at [puckapi.com/signup](https://puckapi.com/signup).
+Or add to Claude Desktop's `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "puckapi": {
+      "url": "https://mcp.puckapi.com/mcp?key=YOUR_API_KEY"
+    }
+  }
+}
+```
+
+Get your free API key at [puckapi.com](https://puckapi.com) (500 free credits, no credit card).
 
 Skills work without the MCP server using your own CSV/JSON files.
 
