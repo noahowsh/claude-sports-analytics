@@ -1,25 +1,36 @@
-# PuckAPI Skills
+<div align="center">
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-10b981.svg)](LICENSE)
-[![Skills](https://img.shields.io/badge/skills-28-10b981)](skills/)
-[![MCP Tools](https://img.shields.io/badge/MCP_tools-12-10b981)](https://github.com/PuckAPI/mcp)
+<img src="assets/banner.svg" alt="PuckAPI Skills" width="100%">
 
-**Turn Claude into a hockey analyst.** 28 skills that give Claude deep knowledge of NHL analytics, betting methodology, and predictive modeling. Ask a question in plain English, get analysis backed by real methodology.
+<br>
+<br>
+
+**Turn Claude into a hockey analyst.** 28 free skills covering NHL analytics,<br>betting methodology, and predictive modeling. No code to install.
+
+<br>
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-10b981.svg?style=flat-square)](LICENSE)
+[![Skills](https://img.shields.io/badge/skills-28-10b981?style=flat-square)](skills/)
+[![MCP Tools](https://img.shields.io/badge/MCP_tools-12-10b981?style=flat-square)](https://github.com/PuckAPI/mcp)
+
+[Quick Start](#quick-start) · [All Skills](#skills) · [How It Works](#how-it-works) · [Data](#data) · [Docs](#reference-docs)
+
+</div>
+
+<br>
 
 ```
 You:    "Build me an expected goals model from shot data"
-Claude: [loads xg-model-building skill, walks you through feature selection,
+Claude: [loads xg-model-building skill → walks you through feature selection,
          spatial coordinates, shot type encoding, logistic regression baseline,
          gradient boosting upgrade, calibration, and evaluation]
 ```
 
 ```
 You:    "What's the edge on tonight's Sabres game?"
-Claude: [loads odds-explorer + edge-detection, pulls live odds from 15+ books,
-         compares to your model's probabilities, calculates EV, recommends sizing]
+Claude: [loads odds-explorer + edge-detection → pulls live odds from 15+ books,
+         compares to your model's probabilities, calculates EV, sizes the bet]
 ```
-
-No code to install. No dependencies. Clone the repo, and Claude gains the expertise.
 
 ## Quick Start
 
@@ -29,27 +40,34 @@ No code to install. No dependencies. Clone the repo, and Claude gains the expert
 git clone https://github.com/PuckAPI/claude-sports-analytics.git
 ```
 
-**2. Connect live NHL data** (optional, 500 free credits):
+**2. Connect live NHL data** (optional — 500 free credits):
 
 ```bash
 claude mcp add puckapi --transport streamable-http "https://mcp.puckapi.com/mcp?key=YOUR_API_KEY"
 ```
 
-Get your free key at [puckapi.com](https://puckapi.com). Skills also work with your own CSV/JSON files.
+<sub>Get your free key at <a href="https://puckapi.com">puckapi.com</a>. Skills also work with your own CSV/JSON files — no API key needed.</sub>
 
 **3. Ask Claude anything:**
 
-- "Analyze the Maple Leafs' season -- record, Corsi, xG, special teams"
-- "Help me build a game prediction model using the model-building skill"
-- "Show me tonight's odds and flag any line movement"
-- "Compare McDavid and MacKinnon across every stat"
-- "Backtest my betting strategy over the last 3 seasons"
+```
+"Analyze the Maple Leafs' season — record, Corsi, xG, special teams"
+"Help me build a game prediction model"
+"Show me tonight's odds and flag any line movement"
+"Compare McDavid and MacKinnon across every stat"
+"Backtest my betting strategy over the last 3 seasons"
+```
 
-The `dispatch` skill routes your request to the right 2-3 skills automatically. You don't need to memorize skill names.
+The `dispatch` skill routes your request to the right 2-3 skills automatically.
+
+---
 
 ## Skills
 
-### Data Exploration
+<details open>
+<summary><strong>Data Exploration</strong> — 7 skills</summary>
+
+<br>
 
 | Skill | What It Does |
 |-------|-------------|
@@ -61,26 +79,41 @@ The `dispatch` skill routes your request to the right 2-3 skills automatically. 
 | `nl-to-query` | Translates natural language questions into structured data queries. |
 | `game-preview` | Full pre-game breakdown: matchup, goalies, trends, odds, prediction. |
 
-### Hockey Analytics
+</details>
+
+<details>
+<summary><strong>Hockey Analytics</strong> — 2 skills</summary>
+
+<br>
 
 | Skill | What It Does |
 |-------|-------------|
-| `hockey-analytics` | Corsi, Fenwick, xG, PDO, RAPM, WAR -- definitions, context, and proper usage. |
+| `hockey-analytics` | Corsi, Fenwick, xG, PDO, RAPM, WAR — definitions, context, proper usage. |
 | `xg-model-building` | Build an expected goals model from scratch. Feature engineering through calibration. |
 
-### Modeling Methodology
+</details>
+
+<details>
+<summary><strong>Modeling Methodology</strong> — 7 skills</summary>
+
+<br>
 
 | Skill | What It Does |
 |-------|-------------|
 | `feature-engineering` | Rolling windows, lag features, leakage detection, feature catalogs. |
 | `walk-forward-validation` | Temporal cross-validation. Refuses k-fold on time-series data. |
-| `model-building` | LR to RF to XGBoost ladder. Hard-vote ensemble. Knows when to stop. |
+| `model-building` | LR → RF → XGBoost ladder. Hard-vote ensemble. Knows when to stop. |
 | `elo-engineering` | 5 Elo variants (standard, margin, venue, recency, surface) with tuning. |
 | `probability-calibration` | Platt scaling, isotonic regression, reliability diagrams, Brier decomposition. |
 | `odds-analysis` | 4 devigging methods: power, multiplicative, Shin, worst-case. |
 | `data-pipeline` | GitHub Actions automation, SQLite schema design, credit budgeting. |
 
-### Betting
+</details>
+
+<details>
+<summary><strong>Betting</strong> — 5 skills</summary>
+
+<br>
 
 | Skill | What It Does |
 |-------|-------------|
@@ -90,7 +123,12 @@ The `dispatch` skill routes your request to the right 2-3 skills automatically. 
 | `bet-tracker` | Log predictions, track P&L, CLV, and test for statistical significance. |
 | `visualization` | Calibration plots, edge distributions, player cards, correlation matrices. |
 
-### Advanced Models
+</details>
+
+<details>
+<summary><strong>Advanced Models</strong> — 4 skills</summary>
+
+<br>
 
 | Skill | What It Does |
 |-------|-------------|
@@ -99,7 +137,12 @@ The `dispatch` skill routes your request to the right 2-3 skills automatically. 
 | `war-gar-decomposition` | RAPM ridge regression, component GAR, contract surplus valuation. |
 | `playoff-simulation` | Monte Carlo bracket simulation. Series pricing, path probabilities. |
 
-### Workflow
+</details>
+
+<details>
+<summary><strong>Workflow + Infrastructure</strong> — 3 skills</summary>
+
+<br>
 
 | Skill | What It Does |
 |-------|-------------|
@@ -107,24 +150,51 @@ The `dispatch` skill routes your request to the right 2-3 skills automatically. 
 | `ai-hockey-workflow` | 4 patterns for hypothesis testing: explore, model, validate, deploy. |
 | `puckapi-tool` | MCP tool router. 12 endpoints, credit tracking, BYOD data support. |
 
+</details>
+
+---
+
 ## How It Works
 
-Skills are markdown files, not code. Each one teaches Claude a specific domain -- methodology, anti-patterns, code templates, and decision trees. When you mention a topic, Claude reads the relevant skill and gains that expertise for the conversation.
+Skills are **markdown files, not code**. Each one teaches Claude a specific domain. When you mention a topic, Claude reads the relevant skill and gains that expertise for the conversation.
 
-Every skill includes:
+<table>
+<tr>
+<td width="50%">
 
-- **When to use / when NOT to use** -- prevents wrong-tool activation
-- **Step-by-step methodology** -- the actual analytics workflow, not a summary
-- **Code templates** -- Python/pandas, ready to run
-- **Anti-patterns** -- mistakes the skill actively prevents (e.g., k-fold on time series)
-- **Chaining** -- each skill knows which skill to hand off to next
+**What each skill includes:**
+
+- When to use / when NOT to use
+- Step-by-step methodology
+- Python/pandas code templates
+- Anti-patterns it actively prevents
+- Chaining to the next logical skill
+
+</td>
+<td width="50%">
+
+**What skills prevent:**
+
+- k-fold on time-series data
+- Future data leakage in features
+- Overfitting to small samples
+- Wrong devigging methods
+- Misinterpreting advanced stats
+
+</td>
+</tr>
+</table>
+
+---
 
 ## Data
 
 | Source | Coverage |
 |--------|----------|
-| **PuckAPI MCP** | 22,000+ games, 107,000+ odds records, 3,000+ players, 16 seasons (2008-present) |
+| **[PuckAPI MCP](https://github.com/PuckAPI/mcp)** | 22,000+ games · 107,000+ odds records · 3,000+ players · 16 seasons (2008-present) |
 | **Your own files** | Every skill accepts CSV/JSON. Bring your own data, no credits needed. |
+
+---
 
 ## Reference Docs
 
@@ -135,12 +205,20 @@ Every skill includes:
 | [`tool-routing.md`](docs/tool-routing.md) | Decision tree for picking the right data source |
 | [`season-logic.md`](docs/season-logic.md) | NHL season IDs, game ID format, lockout handling |
 
-## Related
+---
 
-- **[PuckAPI MCP Server](https://github.com/PuckAPI/mcp)** -- connect Claude to live NHL data
-- **[puckapi.com](https://puckapi.com)** -- API keys, docs, dashboard
-- **[puckapi.com/docs](https://puckapi.com/docs)** -- REST API documentation
+## Contributing
 
-## License
+Found an issue with a skill? Have a methodology improvement? PRs welcome.
 
-[MIT](LICENSE)
+Skills are markdown files in `skills/[name]/SKILL.md`. Each skill has a consistent structure — follow the existing patterns.
+
+---
+
+<div align="center">
+
+**[PuckAPI MCP Server](https://github.com/PuckAPI/mcp)** · **[puckapi.com](https://puckapi.com)** · **[API Docs](https://puckapi.com/docs)**
+
+<sub>MIT License</sub>
+
+</div>
