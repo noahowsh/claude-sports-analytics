@@ -43,7 +43,9 @@ git clone https://github.com/PuckAPI/claude-sports-analytics.git
 **2. Connect live NHL data** (optional — 500 free credits):
 
 ```bash
-claude mcp add puckapi --transport streamable-http "https://mcp.puckapi.com/mcp?key=YOUR_API_KEY"
+claude mcp add puckapi \
+  --transport streamable-http \
+  "https://mcp.puckapi.com/mcp?key=YOUR_API_KEY"
 ```
 
 <sub>Get your free key at <a href="https://puckapi.com">puckapi.com</a>. Skills also work with your own CSV/JSON files — no API key needed.</sub>
