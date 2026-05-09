@@ -11,7 +11,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981.svg?style=flat-square)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-28-10b981?style=flat-square)](skills/)
-[![MCP Tools](https://img.shields.io/badge/MCP_tools-12-10b981?style=flat-square)](https://github.com/PuckAPI/mcp)
+[![MCP Tools](https://img.shields.io/badge/MCP_tools-13-10b981?style=flat-square)](https://github.com/PuckAPI/mcp)
 
 [Quick Start](#quick-start) · [All Skills](#skills) · [How It Works](#how-it-works) · [Data](#data) · [Docs](#reference-docs)
 
@@ -150,7 +150,7 @@ The `dispatch` skill routes your request to the right 2-3 skills automatically.
 |-------|-------------|
 | `dispatch` | Routes your request to the right skills automatically. Start here. |
 | `ai-hockey-workflow` | 4 patterns for hypothesis testing: explore, model, validate, deploy. |
-| `puckapi-tool` | MCP tool router. 12 endpoints, credit tracking, BYOD data support. |
+| `puckapi-tool` | MCP tool router. 13 endpoints, credit tracking, BYOD data support. |
 
 </details>
 
