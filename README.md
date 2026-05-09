@@ -1,157 +1,146 @@
 # PuckAPI Skills
 
-Hockey analytics skills for Claude Code. 28 skills covering NHL analytics, betting methodology, and model building.
+[![License: MIT](https://img.shields.io/badge/License-MIT-10b981.svg)](LICENSE)
+[![Skills](https://img.shields.io/badge/skills-28-10b981)](skills/)
+[![MCP Tools](https://img.shields.io/badge/MCP_tools-12-10b981)](https://github.com/PuckAPI/mcp)
 
-Free skills. Paid data via [PuckAPI](https://puckapi.com) MCP server.
+**Turn Claude into a hockey analyst.** 28 skills that give Claude deep knowledge of NHL analytics, betting methodology, and predictive modeling. Ask a question in plain English, get analysis backed by real methodology.
 
-## Install
+```
+You:    "Build me an expected goals model from shot data"
+Claude: [loads xg-model-building skill, walks you through feature selection,
+         spatial coordinates, shot type encoding, logistic regression baseline,
+         gradient boosting upgrade, calibration, and evaluation]
+```
 
-Clone this repo:
+```
+You:    "What's the edge on tonight's Sabres game?"
+Claude: [loads odds-explorer + edge-detection, pulls live odds from 15+ books,
+         compares to your model's probabilities, calculates EV, recommends sizing]
+```
+
+No code to install. No dependencies. Clone the repo, and Claude gains the expertise.
+
+## Quick Start
+
+**1. Clone the skills:**
 
 ```bash
 git clone https://github.com/PuckAPI/claude-sports-analytics.git
 ```
 
-Connect the PuckAPI MCP server for live data:
+**2. Connect live NHL data** (optional, 500 free credits):
 
 ```bash
 claude mcp add puckapi --transport streamable-http "https://mcp.puckapi.com/mcp?key=YOUR_API_KEY"
 ```
 
-Or add to Claude Desktop's `claude_desktop_config.json`:
+Get your free key at [puckapi.com](https://puckapi.com). Skills also work with your own CSV/JSON files.
 
-```json
-{
-  "mcpServers": {
-    "puckapi": {
-      "url": "https://mcp.puckapi.com/mcp?key=YOUR_API_KEY"
-    }
-  }
-}
-```
+**3. Ask Claude anything:**
 
-Get your free API key at [puckapi.com](https://puckapi.com) (500 free credits, no credit card).
+- "Analyze the Maple Leafs' season -- record, Corsi, xG, special teams"
+- "Help me build a game prediction model using the model-building skill"
+- "Show me tonight's odds and flag any line movement"
+- "Compare McDavid and MacKinnon across every stat"
+- "Backtest my betting strategy over the last 3 seasons"
 
-Skills work without the MCP server using your own CSV/JSON files.
+The `dispatch` skill routes your request to the right 2-3 skills automatically. You don't need to memorize skill names.
 
-## How Skills Work
+## Skills
 
-Skills are markdown files that Claude reads as context -- they are not executable code. There is nothing to install, compile, or run. The skills teach Claude how to use the 12 PuckAPI tools effectively, providing domain knowledge, methodology, anti-patterns, and code templates.
+### Data Exploration
 
-1. **Clone the repo** (above). That gives you the skill files on disk.
-2. **Add the MCP server** with `claude mcp add` (above). This connects Claude to the PuckAPI data endpoints.
-3. **Reference a skill by name.** Ask Claude to "load the dispatch skill" or mention any skill (e.g., "use the team-analysis skill"). Claude reads the skill file and gains the domain expertise it contains.
-4. **The dispatch skill routes automatically.** If you describe what you want without naming a skill, dispatch picks the right 2-3 skills for your request.
-
-## Quick Start
-
-Once installed, try these first prompts:
-
-- "Load the dispatch skill and show me tonight's NHL games with odds"
-- "Help me build an expected goals model using the xg-model-building skill"
-- "Analyze the Maple Leafs' season using the team-analysis skill"
-
-## What's In Here
-
-### Data Exploration (7 skills)
 | Skill | What It Does |
 |-------|-------------|
-| `game-lookup` | Find games by date, team, season. Scores and schedule. |
-| `team-analysis` | Standings, stats, strength of schedule, rankings. |
-| `player-scouting` | Player search, stats, comparison, NHLe translation. |
-| `goalie-analysis` | GSAA, xSV%, high-danger save%, workload tracking. |
-| `odds-explorer` | Multi-book odds comparison, line movement detection. |
-| `nl-to-query` | Natural language to structured data queries. |
-| `game-preview` | Full game preview: matchup, goalie, trends, odds. ~15 credits. |
+| `game-lookup` | Find games by date, team, season. Scores, schedule, results. |
+| `team-analysis` | Standings, advanced stats, strength of schedule, power rankings. |
+| `player-scouting` | Player search, comparison, NHLe translation, career trajectory. |
+| `goalie-analysis` | GSAA, xSV%, high-danger save rate, workload tracking. |
+| `odds-explorer` | Multi-book odds comparison, best price, line movement detection. |
+| `nl-to-query` | Translates natural language questions into structured data queries. |
+| `game-preview` | Full pre-game breakdown: matchup, goalies, trends, odds, prediction. |
 
-### Hockey Analytics (2 skills)
+### Hockey Analytics
+
 | Skill | What It Does |
 |-------|-------------|
-| `hockey-analytics` | Corsi, Fenwick, xG, PDO, RAPM, WAR definitions and context. |
-| `xg-model-building` | Build an expected goals model from play-by-play shot data. |
+| `hockey-analytics` | Corsi, Fenwick, xG, PDO, RAPM, WAR -- definitions, context, and proper usage. |
+| `xg-model-building` | Build an expected goals model from scratch. Feature engineering through calibration. |
 
-### Methodology (7 skills)
+### Modeling Methodology
+
 | Skill | What It Does |
 |-------|-------------|
-| `feature-engineering` | Rolling windows, shift(1) leakage detection, feature catalogs. |
-| `walk-forward-validation` | Temporal cross-validation. Refuses k-fold on time series. |
-| `model-building` | LR to RF to XGBoost ladder. Hard-vote ensemble. |
-| `elo-engineering` | 5 Elo variants with per-sport tuning configs. |
-| `probability-calibration` | Platt scaling, isotonic regression, Brier score decomposition. |
-| `odds-analysis` | 4 devigging methods (power, multiplicative, Shin, worst-case). |
-| `data-pipeline` | GitHub Actions automation, SQLite schema, credit budgeting. |
+| `feature-engineering` | Rolling windows, lag features, leakage detection, feature catalogs. |
+| `walk-forward-validation` | Temporal cross-validation. Refuses k-fold on time-series data. |
+| `model-building` | LR to RF to XGBoost ladder. Hard-vote ensemble. Knows when to stop. |
+| `elo-engineering` | 5 Elo variants (standard, margin, venue, recency, surface) with tuning. |
+| `probability-calibration` | Platt scaling, isotonic regression, reliability diagrams, Brier decomposition. |
+| `odds-analysis` | 4 devigging methods: power, multiplicative, Shin, worst-case. |
+| `data-pipeline` | GitHub Actions automation, SQLite schema design, credit budgeting. |
 
-### Betting (5 skills)
+### Betting
+
 | Skill | What It Does |
 |-------|-------------|
-| `edge-detection` | EV calculation, Kelly criterion sizing, CLV tracking. |
-| `backtesting` | Walk-forward historical strategy simulation. |
-| `daily-card` | Full slate analysis with edge rankings. Requires your model. |
-| `bet-tracker` | Log predictions, track CLV, test statistical significance. |
-| `visualization` | Calibration plots, edge charts, player cards, correlation matrices. |
+| `edge-detection` | Expected value, Kelly criterion sizing, closing line value tracking. |
+| `backtesting` | Walk-forward historical strategy simulation with realistic constraints. |
+| `daily-card` | Full slate analysis with edge rankings. Requires your model's probabilities. |
+| `bet-tracker` | Log predictions, track P&L, CLV, and test for statistical significance. |
+| `visualization` | Calibration plots, edge distributions, player cards, correlation matrices. |
 
-### Sport-Specific Models (4 skills)
+### Advanced Models
+
 | Skill | What It Does |
 |-------|-------------|
-| `totals-modeling` | Over/under prediction. Pace metrics, Poisson, under bias. |
-| `prop-modeling` | Player prop projections. TOI-first architecture, SGP correlation. |
-| `war-gar-decomposition` | RAPM ridge regression, component GAR, contract surplus. |
-| `playoff-simulation` | Monte Carlo season/bracket simulation. |
+| `totals-modeling` | Over/under prediction. Pace metrics, Poisson distribution, under bias. |
+| `prop-modeling` | Player prop projections. TOI-first architecture, same-game parlay correlation. |
+| `war-gar-decomposition` | RAPM ridge regression, component GAR, contract surplus valuation. |
+| `playoff-simulation` | Monte Carlo bracket simulation. Series pricing, path probabilities. |
 
-### Workflow (2 skills)
+### Workflow
+
 | Skill | What It Does |
 |-------|-------------|
-| `ai-hockey-workflow` | 4 workflow patterns for hypothesis testing with Claude. |
-| `dispatch` | Routes requests to the right 2-3 skills automatically. |
+| `dispatch` | Routes your request to the right skills automatically. Start here. |
+| `ai-hockey-workflow` | 4 patterns for hypothesis testing: explore, model, validate, deploy. |
+| `puckapi-tool` | MCP tool router. 12 endpoints, credit tracking, BYOD data support. |
 
-### Infrastructure (1 skill)
-| Skill | What It Does |
-|-------|-------------|
-| `puckapi-tool` | MCP tool router. 12 endpoints, credit tracking, BYOD support. |
+## How It Works
 
-## Data Sources
+Skills are markdown files, not code. Each one teaches Claude a specific domain -- methodology, anti-patterns, code templates, and decision trees. When you mention a topic, Claude reads the relevant skill and gains that expertise for the conversation.
 
-**PuckAPI MCP** (default): 22,000+ NHL games (2008-present), 107,000+ odds records (2020-2026 NHL seasons), 3,000+ players, 34 franchises (32 active + 2 historical). Pay-as-you-go credits.
+Every skill includes:
 
-**Your own data**: Every skill accepts CSV/JSON. No credits consumed.
+- **When to use / when NOT to use** -- prevents wrong-tool activation
+- **Step-by-step methodology** -- the actual analytics workflow, not a summary
+- **Code templates** -- Python/pandas, ready to run
+- **Anti-patterns** -- mistakes the skill actively prevents (e.g., k-fold on time series)
+- **Chaining** -- each skill knows which skill to hand off to next
 
-## Credit Costs
+## Data
 
-| Endpoint | Credits |
-|----------|---------|
-| List teams | 1 |
-| Schedule, search players, standings | 2 |
-| Games, player stats, goalie stats, team stats | 5 |
-| Game detail, head-to-head, odds snapshot | 10 |
-| Line movement | 25 |
+| Source | Coverage |
+|--------|----------|
+| **PuckAPI MCP** | 22,000+ games, 107,000+ odds records, 3,000+ players, 16 seasons (2008-present) |
+| **Your own files** | Every skill accepts CSV/JSON. Bring your own data, no credits needed. |
 
-A full game preview costs ~34 credits. A full season backtest with odds can cost 12,000+. Skills warn you before expensive operations.
+## Reference Docs
 
-## Docs
+| Doc | Contents |
+|-----|----------|
+| [`hockey-glossary.md`](docs/hockey-glossary.md) | Corsi, Fenwick, xG, PDO, RAPM, WAR |
+| [`betting-glossary.md`](docs/betting-glossary.md) | Odds formats, vig, devigging, Kelly, CLV |
+| [`tool-routing.md`](docs/tool-routing.md) | Decision tree for picking the right data source |
+| [`season-logic.md`](docs/season-logic.md) | NHL season IDs, game ID format, lockout handling |
 
-- `docs/hockey-glossary.md` -- Corsi, Fenwick, xG, PDO, RAPM definitions
-- `docs/betting-glossary.md` -- Odds formats, vig, devigging, Kelly, CLV
-- `docs/tool-routing.md` -- Decision tree for picking data sources
-- `docs/season-logic.md` -- NHL season resolution rules, game ID format
+## Related
 
-## How Skills Work
-
-Skills are markdown files that teach Claude domain knowledge. When you ask a question, the `dispatch` skill routes to the right 2-3 skills based on your request. Each skill includes:
-
-- **When to Use / When NOT to Use** -- prevents wrong-skill activation
-- **Step-by-step methodology** -- the actual analytics workflow
-- **Code templates** -- Python/pandas ready to run
-- **Anti-patterns** -- common mistakes and how to avoid them
-- **What to Do Next** -- chains to the logical next skill
-
-Skills never make bets for you. They help you build, validate, and track your own models.
-
-## Requirements
-
-- Claude Code with plugin support
-- Python 3.10+ (for code templates)
-- PuckAPI API key (for MCP data access)
+- **[PuckAPI MCP Server](https://github.com/PuckAPI/mcp)** -- connect Claude to live NHL data
+- **[puckapi.com](https://puckapi.com)** -- API keys, docs, dashboard
+- **[puckapi.com/docs](https://puckapi.com/docs)** -- REST API documentation
 
 ## License
 
-MIT
+[MIT](LICENSE)
