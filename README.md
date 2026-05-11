@@ -11,7 +11,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981.svg?style=flat-square)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-28-10b981?style=flat-square)](skills/)
-[![MCP Tools](https://img.shields.io/badge/MCP_tools-13-10b981?style=flat-square)](https://github.com/PuckAPI/mcp)
+[![MCP Tools](https://img.shields.io/badge/MCP_tools-12-10b981?style=flat-square)](https://github.com/PuckAPI/mcp)
 
 [Quick Start](#quick-start) · [All Skills](#skills) · [How It Works](#how-it-works) · [Data](#data) · [Docs](#reference-docs)
 
@@ -27,9 +27,8 @@ Claude: [loads xg-model-building skill → walks you through feature selection,
 ```
 
 ```
-You:    "What's the edge on tonight's Sabres game?"
-Claude: [loads odds-explorer + edge-detection → pulls live odds from 15+ books,
-         compares to your model's probabilities, calculates EV, sizes the bet]
+You:    "Using PuckAPI, list supported hockey teams, then show today's schedule"
+Claude: [uses the MCP server → calls list_teams and get_schedule]
 ```
 
 ## Quick Start
@@ -40,7 +39,7 @@ Claude: [loads odds-explorer + edge-detection → pulls live odds from 15+ books
 git clone https://github.com/PuckAPI/claude-sports-analytics.git
 ```
 
-**2. Connect live NHL data** (optional — 500 free credits):
+**2. Connect live hockey data** (optional — 500 free credits):
 
 ```bash
 claude mcp add puckapi \
@@ -55,7 +54,7 @@ claude mcp add puckapi \
 ```
 "Analyze the Maple Leafs' season — record, Corsi, xG, special teams"
 "Help me build a game prediction model"
-"Show me tonight's odds and flag any line movement"
+"Using PuckAPI, list the supported hockey teams, then show today's schedule if games are available"
 "Compare McDavid and MacKinnon across every stat"
 "Backtest my betting strategy over the last 3 seasons"
 ```
@@ -150,7 +149,7 @@ The `dispatch` skill routes your request to the right 2-3 skills automatically.
 |-------|-------------|
 | `dispatch` | Routes your request to the right skills automatically. Start here. |
 | `ai-hockey-workflow` | 4 patterns for hypothesis testing: explore, model, validate, deploy. |
-| `puckapi-tool` | MCP tool router. 13 endpoints, credit tracking, BYOD data support. |
+| `puckapi-tool` | MCP tool router. 12 endpoints, credit tracking, BYOD data support. |
 
 </details>
 
@@ -193,7 +192,7 @@ Skills are **markdown files, not code**. Each one teaches Claude a specific doma
 
 | Source | Coverage |
 |--------|----------|
-| **[PuckAPI MCP](https://github.com/PuckAPI/mcp)** | 22,000+ games · 107,000+ odds records · 3,000+ players · 16 seasons (2008-present) |
+| **[PuckAPI MCP](https://github.com/PuckAPI/mcp)** | 22,000+ games · 107,000+ odds records · 3,000+ players · 16 seasons (2010-11 through current) |
 | **Your own files** | Every skill accepts CSV/JSON. Bring your own data, no credits needed. |
 
 ---
