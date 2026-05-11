@@ -11,7 +11,7 @@ metadata:
 
 Every other skill delegates data retrieval here. This skill owns the 12 MCP tools, routes requests to the right endpoint, tracks credit cost, and handles the fallback when users bring their own data.
 
-**Database coverage:** 22,037 games (16 seasons, 2008-2024) | 106,958 odds records (2020-2026 NHL seasons) | 3,021 players | 1,509 goalie-season records | 494 standings records | 34 franchises (32 active + 2 historical)
+**Database coverage:** 22,037 games (16 seasons, 2010-11 through 2025-26) | 106,958 odds records (2019-20 through 2025-26 seasons) | 3,021 players | 1,509 goalie-season records | 494 standings records | 34 franchises (32 active + 2 historical)
 
 **Full parameter schemas:** See `endpoints.md` in this directory (Level 3 -- load on demand).
 
@@ -26,7 +26,7 @@ Every other skill delegates data retrieval here. This skill owns the 12 MCP tool
 | Find a player by name | `search_players` | 2 |
 | League or conference standings | `get_standings` | 2 |
 | Games by date, team, or season | `get_games` | 5 |
-| Player bio + stats by NHL player ID | `get_player_stats` | 5 |
+| Player bio + team context by player ID; goalie stats for goalies | `get_player_stats` | 5 |
 | Single team stats + advanced metrics | `get_team_stats` | 5 |
 | Goalie leaderboard | `get_goalie_stats` | 5 |
 | Full game detail with odds + goalies | `get_game_detail` | 10 |
@@ -73,7 +73,7 @@ Use this table when a request could match multiple tools.
 | Full season game details | ~12,300 | 10 credits x ~1,230 games |
 | Playoff odds (full bracket) | ~150-250 | Depends on rounds reached |
 
-**Odds coverage caveat:** Odds data covers 2020-2026 NHL seasons. Calls to `get_odds` or `get_line_movement` for games before the 2019-20 season return empty odds arrays, not an error.
+**Odds coverage caveat:** Odds data covers the 2019-20 through 2025-26 seasons. Calls to `get_odds` or `get_line_movement` for games before the 2019-20 season return empty odds arrays, not an error.
 
 ---
 
@@ -110,7 +110,7 @@ Every skill that touches time-sensitive data must resolve season IDs before call
 - Regular season: early October to mid-April
 - Playoffs: mid-April to mid-June
 - Offseason: July to September
-- Data coverage starts at `20082009` (2008-09 season)
+- Data coverage starts at `20102011` (2010-11 season)
 
 **How to resolve when user says "current season":**
 1. Call `get_standings` with no `season` parameter -- the server resolves automatically

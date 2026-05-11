@@ -382,7 +382,7 @@ Betting odds for a specific game across available bookmakers.
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `game_id` | string | Yes | NHL game ID |
-| `bookmaker` | string | No | Bookmaker key, lowercase (e.g. `draftkings` `fanduel` `betmgm` `pointsbet` `caesars`) |
+| `bookmaker` | string | No | Bookmaker key, lowercase (e.g. `draftkings` `fanduel` `betmgm` `espnbet`) |
 | `snapshot_type` | enum | No | `opening` `current` `closing`. Default: all types returned |
 
 **Return structure:**
@@ -409,9 +409,9 @@ Betting odds for a specific game across available bookmakers.
 **Coverage:**
 - Data: 2019-20 season through 2025-26 season (106,958 records total)
 - Pre-2019 games return `odds: []` -- not an error
-- Bookmaker keys vary by season; not all books present in every season
+- Bookmaker keys vary by season; not every game, book, or market has odds coverage
 
-**Common bookmaker keys:** `draftkings` `fanduel` `betmgm` `pointsbet` `caesars` `bet365` `barstool` `pinnacle`
+**Documented bookmaker keys:** `draftkings` `fanduel` `betmgm` `espnbet`
 
 ---
 
@@ -526,7 +526,7 @@ All 32 active teams with standard abbreviations:
 
 | Dataset | Coverage | Records |
 |---------|----------|---------|
-| Games | 2008-09 through 2024-25 (16 seasons) | 22,037 |
+| Games | 2010-11 through 2025-26 (16 seasons) | 22,037 |
 | Odds | 2019-20 through 2025-26 | 106,958 |
 | Players | Active + historical (16 seasons) | 3,021 |
 | Goalie stats | Season snapshots | 1,509 |

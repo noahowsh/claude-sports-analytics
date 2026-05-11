@@ -33,7 +33,7 @@ Example: `2024020001` = first regular season game of 2024-25 season.
 
 | Data Type | Coverage |
 |-----------|---------|
-| Games | 2008-09 to present (16+ seasons, 22,037+ games) |
+| Games | 2010-11 to present (16 seasons, 22,037+ games) |
 | Odds | 2019-20 to present (106,958+ records) |
 | Players | Current + historical (3,021+ players) |
 | Goalies | Current + historical (1,509+ goalie-seasons) |
